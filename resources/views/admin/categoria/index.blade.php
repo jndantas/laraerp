@@ -6,30 +6,27 @@ Lista de Categorias
 
 @section('content')
 
-<!-- Content Header (Page header) -->
-<div class="content-header">
+<section class="content-header">
     <div class="container-fluid">
         <div class="row mb-2">
             <div class="col-sm-6">
-                <h1 class="m-0 text-dark">Categorias</h1>
+                <h1>Categorias</h1>
             </div>
-            <!-- /.col -->
             <div class="col-sm-6">
                 <ol class="breadcrumb float-sm-right">
                     <li class="breadcrumb-item"><a href="{{ route('home') }}">Home</a></li>
                     <li class="breadcrumb-item active">Categorias</li>
                 </ol>
             </div>
-            <!-- /.col -->
         </div>
-        <!-- /.row -->
     </div>
-    <!-- /.container-fluid -->
-</div>
-<!-- /.content-header -->
+</section>
+
+
 
 <section class="content">
     <div class="container-fluid">
+        <div class="card">
         <div class="card-header">
             <h3 class="card-title">Categorias</h3>
             <div class="card-tools">
@@ -38,21 +35,14 @@ Lista de Categorias
                 </span>
             </div>
         </div>
-        <div class="card-body p-0">
-            <table class="table table-striped categorias" id="table">
+        <div class="card-body">
+            <table class="table table-bordered table-striped" id="table">
                 <thead>
                     <tr>
-                        <th style="width: 10%">
-                            #
-                        </th>
-                        <th style="width: 40%">
-                            Nome
-                        </th>
-                        <th style="width: 10%">
-                            N° de EPI's
-                        </th>
-                        <th style="width: 20%">
-                        </th>
+                        <th style="width: 10%">#</th>
+                        <th style="width: 40%">Nome</th>
+                        <th style="width: 10%">N° de EPI's</th>
+                        <th style="width: 20%"></th>
                     </tr>
                 </thead>
                 <tbody>
@@ -82,13 +72,10 @@ Lista de Categorias
         </div>
         <!-- /.card-body -->
     </div>
+</div>
 </section>
 @include('admin/categoria/create')
 
 @endsection
 
-@section('js')
 
-<script type="text/javascript" src="{{ asset('js/tables.js') }}"></script>
-
-@stop
