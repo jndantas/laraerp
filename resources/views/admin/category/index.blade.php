@@ -1,6 +1,6 @@
 @extends('layouts.master')
 
-@section('titulo')
+@section('title')
 Lista de Categorias
 @stop
 
@@ -21,8 +21,6 @@ Lista de Categorias
         </div>
     </div>
 </section>
-
-
 
 <section class="content">
     <div class="container-fluid">
@@ -46,23 +44,23 @@ Lista de Categorias
                     </tr>
                 </thead>
                 <tbody>
-                    @if(isset($categorias) && count($categorias) > 0 )
-		            @foreach($categorias as $categoria)
+                    @if(isset($categories) && count($categories) > 0 )
+		            @foreach($categories as $category)
                     <tr>
-                        <td>{{ $categoria->id }}</td>
-                        <td>{{ $categoria->nome }}</td>
+                        <td>{{ $category->id }}</td>
+                        <td>{{ $category->name }}</td>
                         <td>1</td>
                         <td class="project-actions text-right">
-                            <a class="btn btn-info btn-sm" href="{{ route('categorias.edit', $categoria->id) }}">
-                                <i class="fas fa-pencil-alt">
-                                </i>
+                            <a class="btn btn-info btn-sm" href="{{ route('categories.edit', $category->id) }}">
+                                <i class="fas fa-pencil-alt"></i>
                                 Editar
                             </a>
-                                <a class="btn btn-danger btn-sm" href="#">
-                                <i class="fas fa-trash">
-                                </i>
-                                Apagar
-                            </a>
+                                <a class="btn btn-danger btn-sm"
+                                onclick="event.preventDefault();if(confirm('Deseja excluir este item?')){document.getElementById('form-delete').submit();}"><i class="fas fa-trash"></i>Excluir</a>
+                            <form id="form-delete"style="display: none" action="{{ route('categories.destroy',['category' => $category->id]) }}" method="post">
+                                {{csrf_field()}}
+                                {{method_field('DELETE')}}
+                            </form>
                         </td>
                     </tr>
                     @endforeach
@@ -74,8 +72,12 @@ Lista de Categorias
     </div>
 </div>
 </section>
-@include('admin/categoria/create')
+
+@include('admin/category/create')
 
 @endsection
 
 
+@section('js')
+<script type="text/javascript" src="{{ asset('js/ajax.js') }}"></script>
+@endsection

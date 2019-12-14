@@ -20,5 +20,5 @@ Auth::routes();
 Route::get('/admin/home', 'HomeController@index')->name('home');
 
 Route::group(['prefix' => 'admin', 'namespace'=>'Admin'], function () {
-    Route::resource('categorias', 'CategoriaController');
+    Route::resource('categories', 'CategoryController');
 });
