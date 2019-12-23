@@ -16,9 +16,9 @@ class CreateAccidentEmployeeTable extends Migration
         Schema::create('accident_employee', function (Blueprint $table) {
             $table->bigIncrements('id');
 
-            $table->integer('accident_id')->unsigned();
+            $table->bigInteger('accident_id')->unsigned();
             $table->foreign('accident_id')->references('id')->on('accidents');
-            $table->integer('employee_id')->unsigned();
+            $table->bigInteger('employee_id')->unsigned();
             $table->foreign('employee_id')->references('id')->on('employees');
 
             $table->timestamps();

@@ -17,9 +17,9 @@ class CreatePositionExamTable extends Migration
             $table->bigIncrements('id');
             $table->timestamp('date');
 
-            $table->integer('position_id')->unsigned();
+            $table->bigInteger('position_id')->unsigned();
             $table->foreign('position_id')->references('id')->on('positions');
-            $table->integer('exam_id')->unsigned();
+            $table->bigInteger('exam_id')->unsigned();
             $table->foreign('exam_id')->references('id')->on('exams');
 
             $table->timestamps();

@@ -17,9 +17,9 @@ class CreateExamEmployeeTable extends Migration
             $table->bigIncrements('id');
             $table->timestamp('date');
 
-            $table->integer('employee_id')->unsigned();
+            $table->bigInteger('employee_id')->unsigned();
             $table->foreign('employee_id')->references('id')->on('employees');
-            $table->integer('exam_id')->unsigned();
+            $table->bigInteger('exam_id')->unsigned();
             $table->foreign('exam_id')->references('id')->on('exams');
 
             $table->timestamps();

@@ -17,7 +17,7 @@ class CreateRemindersTable extends Migration
             $table->bigIncrements('id');
             $table->integer('min');
 
-            $table->integer('product_id')->unsigned();
+            $table->bigInteger('product_id')->unsigned();
             $table->foreign('product_id')->references('id')->on('products');
 
             $table->softDeletes();

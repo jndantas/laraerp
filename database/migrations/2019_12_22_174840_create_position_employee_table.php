@@ -17,9 +17,9 @@ class CreatePositionEmployeeTable extends Migration
             $table->bigIncrements('id');
             $table->timestamp('date');
 
-            $table->integer('position_id')->unsigned();
+            $table->bigInteger('position_id')->unsigned();
             $table->foreign('position_id')->references('id')->on('positions');
-            $table->integer('employee_id')->unsigned();
+            $table->bigInteger('employee_id')->unsigned();
             $table->foreign('employee_id')->references('id')->on('employees');
             $table->timestamps();
         });

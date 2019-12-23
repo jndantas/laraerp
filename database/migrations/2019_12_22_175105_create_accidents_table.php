@@ -19,7 +19,7 @@ class CreateAccidentsTable extends Migration
             $table->string('procedure');
             $table->boolean('initial_culprit');
             $table->integer('final_culprit');
-            $table->integer('type_accident_id')->unsigned();
+            $table->bigInteger('type_accident_id')->unsigned();
             $table->foreign('type_accident_id')->references('id')->on('type_accidents');
             $table->timestamps();
         });

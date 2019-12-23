@@ -19,7 +19,7 @@ class CreateProductsTable extends Migration
             $table->string('measure');
             $table->integer('ca');
 
-            $table->integer('category_id')->unsigned();
+            $table->bigInteger('category_id')->unsigned();
             $table->foreign('category_id')->references('id')->on('categories');
 
             $table->softDeletes();

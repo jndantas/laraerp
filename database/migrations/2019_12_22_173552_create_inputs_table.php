@@ -18,7 +18,7 @@ class CreateInputsTable extends Migration
             $table->timestamp('date');
             $table->integer('qntd');
 
-            $table->integer('product_id')->unsigned();
+            $table->bigInteger('product_id')->unsigned();
             $table->foreign('product_id')->references('id')->on('products');
 
             $table->timestamps();

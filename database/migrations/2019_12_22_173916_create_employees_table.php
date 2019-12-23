@@ -17,7 +17,7 @@ class CreateEmployeesTable extends Migration
             $table->bigIncrements('id');
             $table->string('name');
             $table->string('document_number')->unique();
-            $table->integer('enterprise_id')->unsigned();
+            $table->bigInteger('enterprise_id')->unsigned();
             $table->foreign('enterprise_id')->references('id')->on('enterprises');
             $table->softDeletes();
             $table->timestamps();

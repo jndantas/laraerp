@@ -17,9 +17,9 @@ class CreateTrainingEmployeeTable extends Migration
             $table->bigIncrements('id');
             $table->timestamp('date');
 
-            $table->integer('training_id')->unsigned();
+            $table->bigInteger('training_id')->unsigned();
             $table->foreign('training_id')->references('id')->on('trainings');
-            $table->integer('employee_id')->unsigned();
+            $table->bigInteger('employee_id')->unsigned();
             $table->foreign('employee_id')->references('id')->on('employees');
 
             $table->timestamps();
