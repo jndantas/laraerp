@@ -4,16 +4,14 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
-class Enterprise extends Model
+class Position extends Model
 {
     protected $fillable = [
         'name',
-        'title',
-        'document_number'
+        'description'
     ];
-
     public function employees()
     {
-    	return $this->hasMany(Employee::class);
+        return $this->belongsToMany(Employee::class);
     }
 }

@@ -40,10 +40,9 @@ class CategoryController extends Controller
     {
         {
             try {
-                $input = $request->all();
-                $category = new Category;
-                $category->name = $input['name'];
-                $category->save();
+                $data = $request->only(array_keys($request->rules()));
+                Category::create($data);
+
                 return response()->json(
                     ['code' => 200, 'msg' => 'Sucesso']
                 );
@@ -91,20 +90,18 @@ class CategoryController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(CategoryRequest $request, $id)
+    public function update(CategoryRequest $request, Category $category)
     {
         try {
-            $input = $request->all();
-            $category = Category::findOrFail($id);
-            $category->name = $input['name'];
+
+            $data = $request->only(array_keys($request->rules()));
+            $category->fill($data);
             $category->save();
 
             return redirect()->route('categories.index');
 
         } catch (Exception $e) {
-            return redirect()->back()
-            ->with('error', $e->getMessage())
-            ;
+            return redirect()->back()->with('error', $e->getMessage());
         }
     }
 
@@ -115,11 +112,10 @@ class CategoryController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function destroy(Category $category)
-
-        {
-            $category->delete();
-            return redirect()->route('categories.index')
-            ->with('message','Categoria excluída com sucesso');
-        }
+    {
+        $category->delete();
+        return redirect()->route('categories.index')
+        ->with('message','Categoria excluída com sucesso');
+    }
 
 }
