@@ -19,6 +19,8 @@ Auth::routes();
 
 Route::get('/admin/home', 'HomeController@index')->name('home');
 
+Route::get('{path}', 'HomeController@index')->where( 'path' , '([A-z\d\-\/_.]+)?' );
+
 Route::group(['prefix' => 'admin', 'namespace'=>'Admin'], function () {
     Route::resource('categories', 'CategoryController');
     Route::resource('empresas', 'EnterpriseController');

@@ -5,33 +5,50 @@
                                 with font-awesome or any other icon font library -->
 
                             <li class="nav-item">
-                                <a href="{{ route('home') }}" class="nav-link">
+                                <router-link to="/dashboard" tag="a" class="nav-link" active-class="active" exact>
                                     <i class="nav-icon fas fa-tachometer-alt blue"></i>
                                     <p>
                                         Dashboard
                                     </p>
-                                </a>
+                                </router-link>
                             </li>
                             <li class="nav-item has-treeview">
-                                <a href="#" class="nav-link active">
+                                <a href="#" class="nav-link">
                                     <i class="nav-icon fas fa-tachometer-alt"></i>
                                     <p>
-                                        Starter Pages
+                                        Segurança do Trabalho
                                         <i class="right fas fa-angle-left"></i>
                                     </p>
                                 </a>
                                 <ul class="nav nav-treeview">
                                     <li class="nav-item">
-                                        <a href="#" class="nav-link active">
+                                        <router-link to="/category" tag="a" class="nav-link" active-class="active" exact>
                                             <i class="fas fa-circle nav-icon"></i>
-                                            <p>Active Page</p>
-                                        </a>
+                                            <p>Categorias</p>
+                                        </router-link>
                                     </li>
                                     <li class="nav-item">
                                         <a href="#" class="nav-link">
                                             <i class="fas fa-circle nav-icon"></i>
                                             <p>Inactive Page</p>
                                         </a>
+                                    </li>
+                                </ul>
+                            </li>
+                            <li class="nav-item has-treeview">
+                                <a href="#" class="nav-link">
+                                    <i class="nav-icon fas fa-cogs"></i>
+                                    <p>
+                                        Configurações
+                                        <i class="right fas fa-angle-left"></i>
+                                    </p>
+                                </a>
+                                <ul class="nav nav-treeview">
+                                    <li class="nav-item">
+                                        <router-link to="/users" tag="a" class="nav-link" active-class="active" exact>
+                                            <i class="fas fa-users nav-icon"></i>
+                                            <p>Usuários</p>
+                                        </router-link>
                                     </li>
                                 </ul>
                             </li>

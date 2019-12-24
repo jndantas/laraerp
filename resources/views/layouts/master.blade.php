@@ -17,7 +17,7 @@
 </head>
 
 <body class="hold-transition sidebar-mini">
-    <div class="wrapper">
+    <div class="wrapper" id="app">
 
         <!-- Navbar -->
         <nav class="main-header navbar navbar-expand navbar-white navbar-light">
@@ -59,7 +59,7 @@
                         <img src="{{ asset('img/garoto.png')}}" class="img-circle elevation-2" alt="User Image">
                     </div>
                     <div class="info">
-                        <a href="#" class="d-block">Alexander Pierce</a>
+                        <a href="#" class="d-block">{{ Auth::user()->name }}</a>
                     </div>
                 </div>
 
@@ -73,7 +73,7 @@
 
             <!-- Main content -->
 
-            @yield('content')
+            <router-view></router-view>
 
             <!-- /.content -->
         </div>
