@@ -111,7 +111,7 @@ import Swal from 'sweetalert2';
         created() {
             this.loadCategories();
             Fire.$on('AfterCreate', () => {
-                this.loadUsers();
+                this.loadCategories();
             });
         }
     }
