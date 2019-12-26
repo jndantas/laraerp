@@ -51,6 +51,14 @@
                                         </router-link>
                                     </li>
                                 </ul>
+                                <ul class="nav nav-treeview">
+                                    <li class="nav-item">
+                                        <router-link to="/developer" tag="a" class="nav-link" active-class="active" exact>
+                                            <i class="fas fa-cogs nav-icon"></i>
+                                            <p>Desenvolvedor</p>
+                                        </router-link>
+                                    </li>
+                                </ul>
                             </li>
                             <li class="nav-item">
                                 <a class="nav-link" href="{{ route('logout') }}" onclick="event.preventDefault();

@@ -15,7 +15,7 @@
                 </div>
             </div>
         </div>
-    <div class="container">
+    <div class="container-fluid">
         <div class="row pt-3">
             <div class="col-12">
                 <div class="card">
