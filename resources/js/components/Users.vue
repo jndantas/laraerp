@@ -25,9 +25,9 @@
                             <tbody>
                                 <tr v-for="user in users" :key="user.id">
                                     <td>{{ user.id }}</td>
-                                    <td>{{ user.name }}</td>
+                                    <td>{{ user.name | upText }}</td>
                                     <td>{{ user.email }}</td>
-                                    <td>{{ user.created_at }}</td>
+                                    <td>{{ user.created_at |myDate }}</td>
                                     <td>
                                         <a href="#">
                                             <i class="fa fa-edit blue"></i>
@@ -93,6 +93,7 @@
 </template>
 
 <script>
+import Swal from 'sweetalert2';
     export default {
         data() {
             return {
@@ -109,11 +110,32 @@
                 axios.get("api/user").then(({ data }) => (this.users = data.data));
             },
             createUser(){
+                this.$Progress.start();
                 this.form.post('/api/user')
+                .then(() =>{
+                    Fire.$emit('AfterCreate');
+                    $('#addNew').modal('hide')
+
+                    Toast.fire({
+                        type: 'success',
+                        title: 'Usuário Criado com sucesso !!'
+                    })
+                    this.$Progress.finish();
+
+                })
+                .catch(()=>{
+
+                })
+
+
             }
         },
         created() {
             this.loadUsers();
+            Fire.$on('AfterCreate', () => {
+                this.loadUsers();
+            });
+            //setInterval(() => this.loadUsers(), 3000);
         }
     }
 </script>

@@ -27,7 +27,10 @@
         "@fortawesome/fontawesome-free": "^5.11.2",
         "admin-lte": "^3.0.1",
         "datatables.net-bs4": "^1.10.20",
+        "moment": "^2.24.0",
+        "sweetalert2": "^9.5.3",
         "vform": "^1.0.1",
+        "vue-progressbar": "^0.7.5",
         "vue-router": "^3.1.3"
     }
 }

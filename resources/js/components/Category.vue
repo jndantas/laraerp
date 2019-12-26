@@ -24,7 +24,7 @@
                             <tbody>
                                 <tr v-for="category in categories" :key="category.id">
                                 <td>{{category.id}}</td>
-                                <td>{{category.name}}</td>
+                                <td>{{category.name | upText }}</td>
                                 <td>1</td>
                                 <td>
                                     <a href="#">
@@ -77,6 +77,7 @@
 </template>
 
 <script>
+import Swal from 'sweetalert2';
     export default {
         data() {
             return {
@@ -91,11 +92,27 @@
                 axios.get("api/category").then(({ data }) => (this.categories = data.data));
             },
             createCategory(){
-                this.form.post('api/category');
+                this.$Progress.start();
+                this.form.post('api/category')
+                .then(() => {
+                    Fire.$emit('AfterCreate');
+                    $('#addNew').modal('hide')
+                    Toast.fire({
+                        type: 'success',
+                        title: 'Categoria Criada com sucesso !!'
+                    })
+                    this.$Progress.finish();
+                })
+                .catch(()=>{
+
+                })
             }
         },
         created() {
             this.loadCategories();
+            Fire.$on('AfterCreate', () => {
+                this.loadUsers();
+            });
         }
     }
 </script>
