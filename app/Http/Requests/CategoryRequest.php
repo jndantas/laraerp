@@ -39,7 +39,6 @@ class CategoryRequest extends FormRequest
             case 'PUT':
                 return [
                     'name' => 'required|min:3',
-                    'id' => 'required|numeric|exists:categories'
                 ];
                 break;
             case 'PATCH':

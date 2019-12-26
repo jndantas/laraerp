@@ -40,7 +40,9 @@ class UserRequest extends FormRequest
             }
             case 'PUT':
                 return [
-                    'name' => 'required|min:3',
+                    'name'=> 'required|string|min:3|max:191',
+                    'email' => 'required|string|email|max:255|unique:users,email,' . $this->id,
+                    'password' => 'sometimes|min:6'
                 ];
                 break;
             case 'PATCH':

@@ -23,7 +23,7 @@
                                 <ul class="nav nav-treeview">
                                     <li class="nav-item">
                                         <router-link to="/category" tag="a" class="nav-link" active-class="active" exact>
-                                            <i class="fas fa-circle nav-icon"></i>
+                                            <i class="fas fa-boxes nav-icon"></i>
                                             <p>Categorias</p>
                                         </router-link>
                                     </li>

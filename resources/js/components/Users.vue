@@ -1,13 +1,29 @@
 <template>
-    <div class="container">
-        <div class="row pt-5">
+    <div class="container-fluid">
+        <div class="content-header">
+            <div class="container-fluid">
+                <div class="row mb-2">
+                    <div class="col-sm-6">
+                        <h1>Usuários</h1>
+                    </div>
+                    <div class="col-sm-6">
+                        <ol class="breadcrumb float-sm-right">
+                            <li class="breadcrumb-item"><router-link to="/dashboard" tag="a">Dashboard</router-link></li>
+                            <li class="breadcrumb-item active">Usuários</li>
+                        </ol>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="container">
+        <div class="row pt-3">
             <div class="col-12">
                 <div class="card">
                     <div class="card-header">
                         <h3 class="card-title">Usuários</h3>
 
                         <div class="card-tools">
-                            <button class="btn btn-success" data-toggle="modal" data-target="#addNew">Novo  <i class="fas fa-user-plus"></i> </button>
+                            <button class="btn btn-success" @click="newModal">Novo<i class="fas fa-user-plus pl-2"></i> </button>
                         </div>
                     </div>
                     <!-- /.card-header -->
@@ -29,11 +45,11 @@
                                     <td>{{ user.email }}</td>
                                     <td>{{ user.created_at |myDate }}</td>
                                     <td>
-                                        <a href="#">
+                                        <a href="#" @click="editModal(user)">
                                             <i class="fa fa-edit blue"></i>
                                         </a>
                                         /
-                                        <a href="#">
+                                        <a href="#" @click="deleteUser(user.id)">
                                             <i class="fa fa-trash red"></i>
                                         </a>
                                     </td>
@@ -52,12 +68,12 @@
             <div class="modal-dialog modal-dialog-centered" role="document">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <h5 class="modal-title" id="addNewLabel">Novo</h5>
+                        <h5 class="modal-title" id="addNewLabel">{{ editmode ? 'Editar Usuário' : 'Novo Usuário' }}</h5>
                         <button type="button" class="close" data-dismiss="modal" aria-label="Fechar">
                         <span aria-hidden="true">&times;</span>
                         </button>
                     </div>
-                    <form @submit.prevent="createUser">
+                    <form @submit.prevent="editmode ? updateUser() : createUser()">
                     <div class="modal-body">
                         <div class="form-group">
                             <input v-model="form.name" type="text" name="name"
@@ -82,13 +98,13 @@
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-danger" data-dismiss="modal">Fechar</button>
-                        <button type="submit" class="btn btn-primary">Criar</button>
+                        <button type="submit" class="btn btn-primary">{{ editmode ? 'Salvar' : 'Criar' }}</button>
                     </div>
                     </form>
                 </div>
             </div>
         </div>
-
+</div>
     </div>
 </template>
 
@@ -97,8 +113,10 @@ import Swal from 'sweetalert2';
     export default {
         data() {
             return {
+                editmode: false,
                 users: {},
                 form: new Form({
+                    id: '',
                     name : '',
                     email: '',
                     password: ''
@@ -106,6 +124,61 @@ import Swal from 'sweetalert2';
             }
         },
         methods: {
+            updateUser(id) {
+                this.$Progress.start();
+                this.form.put('api/user/'+this.form.id)
+                .then(() => {
+                    $('#addNew').modal('hide');
+                    Swal.fire(
+                        'Atualizado',
+                        'Informações Atualizadas',
+                        'success'
+                        )
+                        this.$Progress.finish();
+                        Fire.$emit('AfterCreate');
+                })
+                .catch(() => {
+                    this.$Progress.fail();
+                });
+            },
+            editModal(user){
+                this.editmode = true;
+                this.form.reset();
+                $('#addNew').modal('show');
+                this.form.fill(user);
+            },
+            newModal(){
+                this.editmode = false;
+                this.form.reset();
+                $('#addNew').modal('show');
+            },
+            deleteUser(id){
+                Swal.fire({
+                    title: 'Você tem certeza?',
+                    text: "Você não poderá reverter isso.",
+                    type: 'warning',
+                    showCancelButton: true,
+                    confirmButtonColor: '#3085d6',
+                    cancelButtonColor: '#d33',
+                    confirmButtonText: 'Sim, apague!'
+                }).then((result) => {
+
+                    //enviar requisição para o servidor
+                    if (result.value) {
+                        this.form.delete('api/user/' + id).then(()=>{
+                                Swal.fire(
+                                    'Apagado',
+                                    'Usuário foi apagado',
+                                    'success'
+                                    )
+                                    Fire.$emit('AfterCreate');
+
+                            }).catch(()=> {
+                                Swal.fire("Falhou!", "Houve algum erro.", "warning");
+                            });
+                        }
+                    })
+            },
             loadUsers(){
                 axios.get("api/user").then(({ data }) => (this.users = data.data));
             },
@@ -126,8 +199,6 @@ import Swal from 'sweetalert2';
                 .catch(()=>{
 
                 })
-
-
             }
         },
         created() {

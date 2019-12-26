@@ -50,9 +50,11 @@ class CategoryController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(CategoryRequest $request, $id)
     {
-        //
+        $category = Category::findOrFail($id);
+        $category->update($request->all());
+        return ['message' => 'Atualizado'];
     }
 
     /**
@@ -63,6 +65,9 @@ class CategoryController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $category = Category::findOrFail($id);
+        $category->delete();
+        return ['message' => 'Categoria Apagada'];
     }
+
 }

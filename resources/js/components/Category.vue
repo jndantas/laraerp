@@ -1,13 +1,29 @@
 <template>
+    <div class="container-fluid">
+        <div class="content-header">
+            <div class="container-fluid">
+                <div class="row mb-2">
+                    <div class="col-sm-6">
+                        <h1>Categorias</h1>
+                    </div>
+                    <div class="col-sm-6">
+                        <ol class="breadcrumb float-sm-right">
+                            <li class="breadcrumb-item"><router-link to="/dashboard" tag="a">Dashboard</router-link></li>
+                            <li class="breadcrumb-item active">Categorias</li>
+                        </ol>
+                    </div>
+                </div>
+            </div>
+        </div>
     <div class="container">
-        <div class="row pt-5">
+        <div class="row pt-3">
             <div class="col-12">
                 <div class="card">
                     <div class="card-header">
                         <h3 class="card-title">Categoria de EPI's</h3>
 
                         <div class="card-tools">
-                            <button class="btn btn-success" data-toggle="modal" data-target="#addNew">Novo  <i class="fas fa-user-plus"></i> </button>
+                            <button class="btn btn-success" @click="newModal">Novo<i class="fas fa-plus pl-2"></i> </button>
                         </div>
                     </div>
                     <!-- /.card-header -->
@@ -28,10 +44,10 @@
                                 <td>1</td>
                                 <td>
                                     <a href="#">
-                                        <i class="fa fa-edit blue"></i>
+                                        <i class="fa fa-edit blue" @click="editModal(category)"></i>
                                     </a>
                                     /
-                                    <a href="#">
+                                    <a href="#" @click="deleteCategory(category.id)">
                                         <i class="fa fa-trash red"></i>
                                     </a>
                                 </td>
@@ -50,12 +66,12 @@
             <div class="modal-dialog modal-dialog-centered" role="document">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <h5 class="modal-title" id="addNewLabel">Novo</h5>
+                        <h5 class="modal-title" id="addNewLabel">{{ editmode ? 'Editar Categoria' : 'Nova Categoria' }}</h5>
                         <button type="button" class="close" data-dismiss="modal" aria-label="Fechar">
                         <span aria-hidden="true">&times;</span>
                         </button>
                     </div>
-                    <form @submit.prevent="createCategory">
+                    <form @submit.prevent="editmode ? updateCategory() : createCategory()">
                     <div class="modal-body">
                         <div class="form-group">
                             <input v-model="form.name" type="text" name="name"
@@ -66,7 +82,7 @@
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-danger" data-dismiss="modal">Fechar</button>
-                        <button type="submit" class="btn btn-primary">Criar</button>
+                        <button type="submit" class="btn btn-primary">{{ editmode ? 'Salvar' : 'Criar' }}</button>
                     </div>
                     </form>
                 </div>
@@ -74,6 +90,8 @@
         </div>
 
     </div>
+    </div>
+
 </template>
 
 <script>
@@ -81,13 +99,70 @@ import Swal from 'sweetalert2';
     export default {
         data() {
             return {
+                editmode: false,
                 categories: {},
                 form: new Form({
+                    id: '',
                     name : ''
                 })
             }
         },
         methods: {
+            updateCategory(id){
+                this.$Progress.start();
+                this.form.put('api/category/'+this.form.id)
+                .then(() => {
+                    $('#addNew').modal('hide');
+                    Swal.fire(
+                        'Atualizado',
+                        'Informações Atualizadas',
+                        'success'
+                        )
+                        this.$Progress.finish();
+                        Fire.$emit('AfterCreate');
+                })
+                .catch(() => {
+                    this.$Progress.fail();
+                });
+            },
+            editModal(category){
+                this.editmode = true;
+                this.form.reset();
+                $('#addNew').modal('show');
+                this.form.fill(category);
+            },
+            newModal(){
+                this.editmode = false;
+                this.form.reset();
+                $('#addNew').modal('show');
+            },
+            deleteCategory(id){
+                Swal.fire({
+                    title: 'Você tem certeza?',
+                    text: "Você não poderá reverter isso.",
+                    type: 'warning',
+                    showCancelButton: true,
+                    confirmButtonColor: '#3085d6',
+                    cancelButtonColor: '#d33',
+                    confirmButtonText: 'Sim, apague!'
+                }).then((result) => {
+
+                    //enviar requisição para o servidor
+                    if (result.value) {
+                        this.form.delete('api/category/' + id).then(()=>{
+                                Swal.fire(
+                                    'Apagado',
+                                    'Categoria foi apagada',
+                                    'success'
+                                    )
+                                    Fire.$emit('AfterCreate');
+
+                            }).catch(()=> {
+                                Swal.fire("Falhou!", "Houve algum erro.", "warning");
+                            });
+                        }
+                    })
+            },
             loadCategories(){
                 axios.get("api/category").then(({ data }) => (this.categories = data.data));
             },
@@ -97,11 +172,13 @@ import Swal from 'sweetalert2';
                 .then(() => {
                     Fire.$emit('AfterCreate');
                     $('#addNew').modal('hide')
+
                     Toast.fire({
                         type: 'success',
                         title: 'Categoria Criada com sucesso !!'
                     })
                     this.$Progress.finish();
+
                 })
                 .catch(()=>{
 
