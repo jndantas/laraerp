@@ -42,7 +42,7 @@ class UserRequest extends FormRequest
                 return [
                     'name'=> 'required|string|min:3|max:191',
                     'email' => 'required|string|email|max:255|unique:users,email,' . $this->id,
-                    'password' => 'sometimes|min:6'
+                    'password' => 'sometimes|required|min:6'
                 ];
                 break;
             case 'PATCH':
