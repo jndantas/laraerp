@@ -59,7 +59,12 @@
                         <img src="{{ asset('img/profile/'. Auth::user()->photo)}}" class="img-circle elevation-2" alt="User Image">
                     </div>
                     <div class="info">
-                        <a href="#" class="d-block">{{ Auth::user()->name }}</a>
+                        <a href="#" class="d-block">
+                            {{ Auth::user()->name }}
+                            <span class="d-block text-muted">
+                                {{ Auth::user()->type }}
+                            </span>
+                        </a>
                     </div>
                 </div>
 
@@ -101,9 +106,13 @@
         </footer>
     </div>
     <!-- ./wrapper -->
+    @auth
+    <script>
+        window.user = @json(auth()->user())
+    </script>
+    @endauth
 
     <script src="{{ asset('js/app.js') }}"></script>
-    @yield('js')
 </body>
 
 </html>

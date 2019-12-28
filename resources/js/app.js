@@ -11,6 +11,10 @@ import moment from 'moment';
 moment.locale("pt-BR");
 import { Form, HasError, AlertError } from 'vform';
 
+import Gate from "./Gate";
+Vue.prototype.$gate = new Gate(window.user);
+
+
 import Swal from 'sweetalert2'
 window.Swal = Swal;
 
@@ -88,6 +92,10 @@ Vue.component(
     require('./components/passport/PersonalAccessTokens.vue').default
 );
 
+Vue.component(
+    'not-found',
+    require('./components/NotFound.vue').default
+);
 Vue.component('example-component', require('./components/ExampleComponent.vue').default);
 
 /**

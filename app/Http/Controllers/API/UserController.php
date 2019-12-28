@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\UserRequest;
 use Illuminate\Http\Request;
 use App\User;
+use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Facades\Hash;
 use Intervention\Image\Facades\Image;
 
@@ -23,7 +24,9 @@ class UserController extends Controller
      */
     public function index()
     {
-        return User::latest()->paginate(10);
+        if (Gate::allows('isAdmin') || Gate::allows('isModerator')) {
+            return User::latest()->paginate(5);
+        }
     }
 
     /**
@@ -108,6 +111,8 @@ class UserController extends Controller
      */
     public function destroy($id)
     {
+        $this->authorize('isAdmin');
+
         $user = User::findOrFail($id);
         $user->delete();
         return ['message' => 'Usuário Apagado'];

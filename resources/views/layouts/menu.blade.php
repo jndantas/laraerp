@@ -35,6 +35,7 @@
                                     </li>
                                 </ul>
                             </li>
+                            @can('isAdmin')
                             <li class="nav-item has-treeview">
                                 <a href="#" class="nav-link">
                                     <i class="nav-icon fas fa-cogs"></i>
@@ -43,6 +44,7 @@
                                         <i class="right fas fa-angle-left"></i>
                                     </p>
                                 </a>
+
                                 <ul class="nav nav-treeview">
                                     <li class="nav-item">
                                         <router-link to="/users" tag="a" class="nav-link" active-class="active" exact>
@@ -51,6 +53,7 @@
                                         </router-link>
                                     </li>
                                 </ul>
+
                                 <ul class="nav nav-treeview">
                                     <li class="nav-item">
                                         <router-link to="/developer" tag="a" class="nav-link" active-class="active" exact>
@@ -59,6 +62,7 @@
                                         </router-link>
                                     </li>
                                 </ul>
+                                @endcan
                             </li>
                             <li class="nav-item">
                                 <router-link to="/profile" tag="a" class="nav-link" active-class="active" exact>

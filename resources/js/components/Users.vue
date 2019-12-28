@@ -1,6 +1,6 @@
 <template>
     <div class="container-fluid">
-        <div class="content-header">
+        <div class="content-header" v-if="$gate.isAdminOrModerator()">
             <div class="container-fluid">
                 <div class="row mb-2">
                     <div class="col-sm-6">
@@ -16,7 +16,7 @@
             </div>
         </div>
         <div class="container-fluid">
-        <div class="row pt-3">
+        <div class="row pt-3" v-if="$gate.isAdminOrModerator()">
             <div class="col-12">
                 <div class="card">
                     <div class="card-header">
@@ -63,6 +63,10 @@
                 </div>
                 <!-- /.card -->
             </div>
+        </div>
+
+        <div v-if="!$gate.isAdminOrModerator()">
+            <not-found></not-found>
         </div>
 
         <!-- Modal -->
@@ -202,7 +206,9 @@ import Swal from 'sweetalert2';
                     })
             },
             loadUsers(){
-                axios.get("api/user").then(({ data }) => (this.users = data.data));
+                if(this.$gate.isAdminOrModerator()){
+                    axios.get("api/user").then(({ data }) => (this.users = data.data));
+                }
             },
             createUser(){
                 this.$Progress.start();
