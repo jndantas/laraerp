@@ -38,7 +38,7 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr v-for="category in categories" :key="category.id">
+                                <tr v-for="category in categories.data" :key="category.id">
                                 <td>{{category.id}}</td>
                                 <td>{{category.name | upText }}</td>
                                 <td>1</td>
@@ -56,6 +56,9 @@
                         </table>
                     </div>
                 <!-- /.card-body -->
+                <div class="card-footer">
+                    <pagination :data="categories" @pagination-change-page="getResults"></pagination>
+                </div>
                 </div>
                 <!-- /.card -->
             </div>
@@ -108,6 +111,12 @@ import Swal from 'sweetalert2';
             }
         },
         methods: {
+            getResults(page = 1) {
+                axios.get('api/category?page=' + page)
+                    .then(response => {
+                        this.categories = response.data;
+                    });
+		    },
             updateCategory(id){
                 this.$Progress.start();
                 this.form.put('api/category/'+this.form.id)
@@ -164,7 +173,7 @@ import Swal from 'sweetalert2';
                     })
             },
             loadCategories(){
-                axios.get("api/category").then(({ data }) => (this.categories = data.data));
+                axios.get("api/category").then(({ data }) => (this.categories = data));
             },
             createCategory(){
                 this.$Progress.start();
