@@ -50,7 +50,8 @@ let routes = [
     { path: '/profile', component: require('./components/Profile.vue').default },
     { path: '/developer', component: require('./components/Developer.vue').default },
     { path: '/users', component: require('./components/Users.vue').default },
-    { path: '/category', component: require('./components/Category.vue').default }
+    { path: '/category', component: require('./components/Category.vue').default },
+    { path: '*', component: require('./components/NotFound.vue').default }
 ]
 
 const router = new VueRouter({
@@ -108,5 +109,13 @@ Vue.component('example-component', require('./components/ExampleComponent.vue').
 
 const app = new Vue({
     el: '#app',
-    router
+    router,
+    data: {
+        search: ''
+    },
+    methods: {
+        searchit: _.debounce(() => {
+            Fire.$emit('searching');
+        }, 1000)
+    }
 });
