@@ -5,16 +5,16 @@
                                 with font-awesome or any other icon font library -->
 
                             <li class="nav-item">
-                                <router-link to="/dashboard" tag="a" class="nav-link" active-class="active" exact>
+                                <a href="{{route('home')}}" class="nav-link" active-class="active" exact>
                                     <i class="nav-icon fas fa-tachometer-alt blue"></i>
                                     <p>
                                         Dashboard
                                     </p>
-                                </router-link>
+                                </a>
                             </li>
                             <li class="nav-item has-treeview">
                                 <a href="#" class="nav-link">
-                                    <i class="nav-icon fas fa-tachometer-alt"></i>
+                                    <i class="nav-icon fas fa-user-astronaut"></i>
                                     <p>
                                         Segurança do Trabalho
                                         <i class="right fas fa-angle-left"></i>
@@ -22,70 +22,83 @@
                                 </a>
                                 <ul class="nav nav-treeview">
                                     <li class="nav-item">
-                                        <router-link to="/enterprise" tag="a" class="nav-link" active-class="active" exact>
+                                        <a href="{{route('enterprises')}}" class="nav-link" active-class="active" exact>
                                             <i class="fas fa-building nav-icon"></i>
                                             <p>Empresas</p>
-                                        </router-link>
+                                        </a>
                                     </li>
                                     <li class="nav-item">
-                                        <router-link to="/category" tag="a" class="nav-link" active-class="active" exact>
+                                        <a href="{{route('categories')}}" class="nav-link" active-class="active" exact>
                                             <i class="fas fa-boxes nav-icon"></i>
                                             <p>Categorias</p>
-                                        </router-link>
+                                        </a>
                                     </li>
-                                    <li class="nav-item">
-                                        <router-link to="/product" tag="a" class="nav-link" active-class="active" exact>
+
+                                    <li class="nav-item has-treeview">
+                                        <a href="#" class="nav-link">
                                             <i class="fas fa-user-shield nav-icon"></i>
-                                            <p>EPI's</p>
-                                        </router-link>
+                                            <p>
+                                                EPI's
+                                                <i class="right fas fa-angle-left"></i>
+                                            </p>
+                                        </a>
+                                        <ul class="nav nav-treeview" style="display: none;">
+                                            <li class="nav-item">
+                                                <a href="{{route('products')}}" class="nav-link">
+                                                    <i class="fas fa-circle nav-icon"></i>
+                                                    <p>Produtos</p>
+                                                </a>
+                                            </li>
+                                            <li class="nav-item">
+                                                <a href="{{route('inputs')}}" class="nav-link" active-class="active" exact>
+                                                    <i class="fas fa-sign-in-alt nav-icon"></i>
+                                                    <p>Entradas</p>
+                                                </a>
+                                            </li>
+                                            <li class="nav-item">
+                                                <a href="{{route('outputs')}}" class="nav-link" active-class="active" exact>
+                                                    <i class="fas fa-sign-out-alt nav-icon"></i>
+                                                    <p>Saídas</p>
+                                                </a>
+                                            </li>
+                                        </ul>
                                     </li>
+
                                     <li class="nav-item">
-                                        <router-link to="/position" tag="a" class="nav-link" active-class="active" exact>
+                                        <a href="{{route('positions')}}" class="nav-link" active-class="active" exact>
                                             <i class="fas fa-user-tie nav-icon"></i>
                                             <p>Cargos</p>
-                                        </router-link>
+                                        </a>
                                     </li>
                                     <li class="nav-item">
-                                        <router-link to="/employee" tag="a" class="nav-link" active-class="active" exact>
+                                        <a href="{{route('employees')}}" class="nav-link" active-class="active" exact>
                                             <i class="fas fa-user-friends nav-icon"></i>
                                             <p>Funcionários</p>
-                                        </router-link>
+                                        </a>
                                     </li>
                                     <li class="nav-item">
-                                        <router-link to="/typeaccident" tag="a" class="nav-link" active-class="active" exact>
+                                        <a href="{{route('typeaccident')}}" class="nav-link" active-class="active" exact>
                                             <i class="fas fa-car-crash nav-icon"></i>
                                             <p>Tipos de Acidentes</p>
-                                        </router-link>
+                                        </a>
                                     </li>
                                     <li class="nav-item">
-                                        <router-link to="/accident" tag="a" class="nav-link" active-class="active" exact>
+                                        <a href="{{route('accidents')}}" class="nav-link" active-class="active" exact>
                                             <i class="fas fa-user-injured nav-icon"></i>
                                             <p>Acidentes</p>
-                                        </router-link>
+                                        </a>
                                     </li>
                                     <li class="nav-item">
-                                        <router-link to="/input" tag="a" class="nav-link" active-class="active" exact>
-                                            <i class="fas fa-sign-in-alt nav-icon"></i>
-                                            <p>Entradas</p>
-                                        </router-link>
-                                    </li>
-                                    <li class="nav-item">
-                                        <router-link to="/output" tag="a" class="nav-link" active-class="active" exact>
-                                            <i class="fas fa-sign-out-alt nav-icon"></i>
-                                            <p>Saídas</p>
-                                        </router-link>
-                                    </li>
-                                    <li class="nav-item">
-                                        <router-link to="/training" tag="a" class="nav-link" active-class="active" exact>
+                                        <a href="{{route('trainings')}}" class="nav-link" active-class="active" exact>
                                             <i class="fas fa-running nav-icon"></i>
                                             <p>Treinamentos</p>
-                                        </router-link>
+                                        </a>
                                     </li>
                                     <li class="nav-item">
-                                        <router-link to="/exam" tag="a" class="nav-link" active-class="active" exact>
+                                        <a href="{{route('exams')}}" class="nav-link" active-class="active" exact>
                                             <i class="fas fa-clinic-medical nav-icon"></i>
                                             <p>Exames</p>
-                                        </router-link>
+                                        </a>
                                     </li>
                                 </ul>
                             </li>
@@ -101,30 +114,30 @@
 
                                 <ul class="nav nav-treeview">
                                     <li class="nav-item">
-                                        <router-link to="/users" tag="a" class="nav-link" active-class="active" exact>
+                                        <a href="{{route('users')}}" class="nav-link" active-class="active" exact>
                                             <i class="fas fa-users nav-icon"></i>
                                             <p>Usuários</p>
-                                        </router-link>
+                                        </a>
                                     </li>
                                 </ul>
 
                                 <ul class="nav nav-treeview">
                                     <li class="nav-item">
-                                        <router-link to="/developer" tag="a" class="nav-link" active-class="active" exact>
+                                        <a href="{{route('developer')}}" class="nav-link" active-class="active" exact>
                                             <i class="fas fa-user-cog nav-icon"></i>
                                             <p>Desenvolvedor</p>
-                                        </router-link>
+                                        </a>
                                     </li>
                                 </ul>
                                 @endcan
                             </li>
                             <li class="nav-item">
-                                <router-link to="/profile" tag="a" class="nav-link" active-class="active" exact>
+                                <a href="{{route('profile')}}" class="nav-link" active-class="active" exact>
                                     <i class="nav-icon fas fa-user-alt green"></i>
                                     <p>
                                         Perfil
                                     </p>
-                                </router-link>
+                                </a>
                             </li>
                             <li class="nav-item">
                                 <a class="nav-link" href="{{ route('logout') }}" onclick="event.preventDefault();

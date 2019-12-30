@@ -10,22 +10,6 @@
 </style>
 
 <template>
-    <div class="container-fluid">
-        <div class="content-header">
-            <div class="container-fluid">
-                <div class="row mb-2">
-                    <div class="col-sm-6">
-                        <h1>Perfil</h1>
-                    </div>
-                    <div class="col-sm-6">
-                        <ol class="breadcrumb float-sm-right">
-                            <li class="breadcrumb-item"><router-link to="/dashboard" tag="a">Dashboard</router-link></li>
-                            <li class="breadcrumb-item active">Perfil</li>
-                        </ol>
-                    </div>
-                </div>
-            </div>
-        </div>
         <div class="container-fluid">
             <div class="row">
                 <div class="col-12 pt-3">
@@ -142,7 +126,6 @@
             </div>
 
         </div>
-    </div>
 
 </template>
 

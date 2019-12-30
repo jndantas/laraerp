@@ -17,7 +17,7 @@
 </head>
 
 <body class="hold-transition sidebar-mini">
-    <div class="wrapper" id="app">
+    <div class="wrapper">
 
         <!-- Navbar -->
         <nav class="main-header navbar navbar-expand navbar-white navbar-light">
@@ -65,10 +65,11 @@
         <div class="content-wrapper">
 
             <!-- Main content -->
+            <!-- <router-view></router-view>
 
-            <router-view></router-view>
+            <vue-progress-bar></vue-progress-bar> -->
+            @yield('content')
 
-            <vue-progress-bar></vue-progress-bar>
             <!-- /.content -->
         </div>
         <!-- /.content-wrapper -->
@@ -99,7 +100,7 @@
         window.user = @json(auth()->user())
     </script>
     @endauth
-
+    @routes
     <script src="{{ asset('js/app.js') }}"></script>
 </body>
 

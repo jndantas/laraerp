@@ -45,28 +45,8 @@ Vue.use(VueProgressBar, {
 })
 
 
-let routes = [
-    { path: '/admin/home', component: require('./components/Dashboard.vue').default },
-    { path: '/profile', component: require('./components/Profile.vue').default },
-    { path: '/developer', component: require('./components/Developer.vue').default },
-    { path: '/users', component: require('./components/Users.vue').default },
-    { path: '/category', component: require('./components/sesmt/Category.vue').default },
-    { path: '/accident', component: require('./components/sesmt/Accident.vue').default },
-    { path: '/employee', component: require('./components/sesmt/Employee.vue').default },
-    { path: '/enterprise', component: require('./components/sesmt/Enterprise.vue').default },
-    { path: '/exam', component: require('./components/sesmt/Exam.vue').default },
-    { path: '/input', component: require('./components/sesmt/Input.vue').default },
-    { path: '/output', component: require('./components/sesmt/Output.vue').default },
-    { path: '/position', component: require('./components/sesmt/Position.vue').default },
-    { path: '/product', component: require('./components/sesmt/Product.vue').default },
-    { path: '/training', component: require('./components/sesmt/Training.vue').default },
-    { path: '/typeaccident', component: require('./components/sesmt/TypeAccident.vue').default },
-    { path: '*', component: require('./components/NotFound.vue').default }
-]
-
 const router = new VueRouter({
-    mode: 'history',
-    routes
+    mode: 'history'
 })
 
 Vue.filter('upText', function(text) {
@@ -109,7 +89,26 @@ Vue.component(
     'not-found',
     require('./components/NotFound.vue').default
 );
+
 Vue.component('example-component', require('./components/ExampleComponent.vue').default);
+
+Vue.component('sesmt-category', require('./components/sesmt/Category.vue').default);
+
+
+Vue.component('profile', require('./components/Profile.vue').default);
+Vue.component('developer', require('./components/Developer.vue').default);
+Vue.component('users', require('./components/Users.vue').default);
+Vue.component('sesmt-accident', require('./components/sesmt/Accident.vue').default);
+Vue.component('sesmt-employee', require('./components/sesmt/Employee.vue').default);
+Vue.component('sesmt-enterprise', require('./components/sesmt/Enterprise.vue').default);
+Vue.component('sesmt-exam', require('./components/sesmt/Exam.vue').default);
+Vue.component('sesmt-input', require('./components/sesmt/Input.vue').default);
+Vue.component('sesmt-output', require('./components/sesmt/Output.vue').default);
+Vue.component('sesmt-position', require('./components/sesmt/Position.vue').default);
+Vue.component('sesmt-product', require('./components/sesmt/Product.vue').default);
+Vue.component('sesmt-training', require('./components/sesmt/Training.vue').default);
+Vue.component('sesmt-typeaccident', require('./components/sesmt/TypeAccident.vue').default);
+
 
 /**
  * Next, we will create a fresh Vue application instance and attach it to

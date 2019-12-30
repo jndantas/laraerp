@@ -13,7 +13,7 @@ class EnterpriseRequest extends FormRequest
      */
     public function authorize()
     {
-        return false;
+        return true;
     }
 
     /**
@@ -23,8 +23,40 @@ class EnterpriseRequest extends FormRequest
      */
     public function rules()
     {
+        switch($this->method())
+        {
+            case 'GET':
+                break;
+            case 'DELETE':
+                break;
+            case 'POST':
+            {
+                return [
+                    'name'=> 'required|min:3',
+                    'title'=> 'required|min:3'
+                ];
+                break;
+            }
+            case 'PUT':
+                return [
+                    'name' => 'required|min:3',
+                    'title'=> 'required|min:3'
+                ];
+                break;
+            case 'PATCH':
+                break;
+            default:
+            break;
+        }
+    }
+
+    public function messages(){
         return [
-            //
+        'name.required' => 'O campo nome é obrigatorio.',
+        'name.min' => 'O campo nome deve conter mais de 3 caracteres.',
+        'id.required' => 'O campo id é obrigatorio.',
+        'id.numeric' => 'O campo id deve ser numerico',
+        'id.exists' => 'O campo id informado não existe',
         ];
     }
 }

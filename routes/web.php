@@ -19,9 +19,21 @@ Auth::routes();
 
 Route::get('/admin/home', 'HomeController@index')->name('home');
 
-Route::get('{path}', 'HomeController@index')->where( 'path' , '([A-z\d\-\/_.]+)?' );
 
-Route::group(['prefix' => 'admin', 'namespace'=>'Admin'], function () {
-    Route::resource('categories', 'CategoryController');
-    Route::resource('empresas', 'EnterpriseController');
+Route::group(['namespace'=>'Admin'], function () {
+    Route::get('categories', 'SesmtController@category')->name('categories');
+    Route::get('enterprises', 'SesmtController@enterprise')->name('enterprises');
+    Route::get('products', 'SesmtController@product')->name('products');
+    Route::get('positions', 'SesmtController@position')->name('positions');
+    Route::get('employees', 'SesmtController@employee')->name('employees');
+    Route::get('typeaccident', 'SesmtController@typeaccident')->name('typeaccident');
+    Route::get('accidents', 'SesmtController@accident')->name('accidents');
+    Route::get('exams', 'SesmtController@exam')->name('exams');
+    Route::get('inputs', 'SesmtController@input')->name('inputs');
+    Route::get('outputs', 'SesmtController@output')->name('outputs');
+    Route::get('trainings', 'SesmtController@training')->name('trainings');
+    Route::get('users', 'AdminController@user')->name('users');
+    Route::get('developer', 'AdminController@developer')->name('developer');
+    Route::get('profile', 'AdminController@profile')->name('profile');
 });
+

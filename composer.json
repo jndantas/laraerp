@@ -9,12 +9,13 @@
     "license": "MIT",
     "require": {
         "php": "^7.2",
+        "ext-gd": "*",
         "fideloper/proxy": "^4.0",
         "intervention/image": "^2.5",
-        "ext-gd": "*",
         "laravel/framework": "^6.2",
         "laravel/passport": "^8.0",
-        "laravel/tinker": "^1.0"
+        "laravel/tinker": "^1.0",
+        "tightenco/ziggy": "^0.8.1"
     },
     "require-dev": {
         "facade/ignition": "^1.4",

@@ -3,16 +3,12 @@
 namespace App\Http\Controllers\API;
 
 use App\Http\Controllers\Controller;
-use App\Http\Requests\CategoryRequest;
-use App\Models\Category;
+use App\Http\Requests\EnterpriseRequest;
 use Illuminate\Http\Request;
+use App\Models\Enterprise;
 
-class CategoryController extends Controller
+class EnterpriseController extends Controller
 {
-    public function __construct()
-    {
-        $this->middleware("auth:api");
-    }
     /**
      * Display a listing of the resource.
      *
@@ -20,7 +16,7 @@ class CategoryController extends Controller
      */
     public function index()
     {
-        return Category::paginate(10);
+        return Enterprise::paginate(10);
     }
 
     /**
@@ -29,9 +25,9 @@ class CategoryController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(CategoryRequest $request)
+    public function store(EnterpriseRequest $request)
     {
-        return Category::create($request->all());
+        return Enterprise::create($request->all());
     }
 
     /**
@@ -52,10 +48,10 @@ class CategoryController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(CategoryRequest $request, $id)
+    public function update(EnterpriseRequest $request, $id)
     {
-        $category = Category::findOrFail($id);
-        $category->update($request->all());
+        $enterprise = Enterprise::findOrFail($id);
+        $enterprise->update($request->all());
         return ['message' => 'Atualizado'];
     }
 
@@ -67,9 +63,8 @@ class CategoryController extends Controller
      */
     public function destroy($id)
     {
-        $category = Category::findOrFail($id);
-        $category->delete();
-        return ['message' => 'Categoria Apagada'];
+        $enterprise = Enterprise::findOrFail($id);
+        $enterprise->delete();
+        return ['message' => 'Empresa Apagada'];
     }
-
 }

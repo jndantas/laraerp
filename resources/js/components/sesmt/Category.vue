@@ -1,21 +1,5 @@
 <template>
-    <div class="container-fluid">
-        <div class="content-header">
-            <div class="container-fluid">
-                <div class="row mb-2">
-                    <div class="col-sm-6">
-                        <h1>Categorias</h1>
-                    </div>
-                    <div class="col-sm-6">
-                        <ol class="breadcrumb float-sm-right">
-                            <li class="breadcrumb-item"><router-link to="/dashboard" tag="a">Dashboard</router-link></li>
-                            <li class="breadcrumb-item active">Categorias</li>
-                        </ol>
-                    </div>
-                </div>
-            </div>
-        </div>
-    <div class="container-fluid">
+    <div class="container">
         <div class="row pt-3">
             <div class="col-12">
                 <div class="card">
@@ -93,7 +77,6 @@
         </div>
 
     </div>
-    </div>
 
 </template>
 
@@ -153,6 +136,7 @@ import Swal from 'sweetalert2';
                     showCancelButton: true,
                     confirmButtonColor: '#3085d6',
                     cancelButtonColor: '#d33',
+                    cancelButtonText: 'Cancelar',
                     confirmButtonText: 'Sim, apague!'
                 }).then((result) => {
 
