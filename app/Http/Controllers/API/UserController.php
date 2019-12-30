@@ -118,16 +118,4 @@ class UserController extends Controller
         return ['message' => 'Usuário Apagado'];
     }
 
-    public function search(){
-        if ($search = \Request::get('q')) {
-            $users = User::where(function($query) use ($search){
-                $query->where('name','LIKE',"%$search%")
-                        ->orWhere('email','LIKE',"%$search%")
-                        ->orWhere('type','LIKE',"%$search%");
-            })->paginate(20);
-        }else{
-            $users = User::latest()->paginate(5);
-        }
-        return $users;
-    }
 }

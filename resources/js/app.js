@@ -46,11 +46,21 @@ Vue.use(VueProgressBar, {
 
 
 let routes = [
-    { path: '/dashboard', component: require('./components/Dashboard.vue').default },
+    { path: '/admin/home', component: require('./components/Dashboard.vue').default },
     { path: '/profile', component: require('./components/Profile.vue').default },
     { path: '/developer', component: require('./components/Developer.vue').default },
     { path: '/users', component: require('./components/Users.vue').default },
-    { path: '/category', component: require('./components/Category.vue').default },
+    { path: '/category', component: require('./components/sesmt/Category.vue').default },
+    { path: '/accident', component: require('./components/sesmt/Accident.vue').default },
+    { path: '/employee', component: require('./components/sesmt/Employee.vue').default },
+    { path: '/enterprise', component: require('./components/sesmt/Enterprise.vue').default },
+    { path: '/exam', component: require('./components/sesmt/Exam.vue').default },
+    { path: '/input', component: require('./components/sesmt/Input.vue').default },
+    { path: '/output', component: require('./components/sesmt/Output.vue').default },
+    { path: '/position', component: require('./components/sesmt/Position.vue').default },
+    { path: '/product', component: require('./components/sesmt/Product.vue').default },
+    { path: '/training', component: require('./components/sesmt/Training.vue').default },
+    { path: '/typeaccident', component: require('./components/sesmt/TypeAccident.vue').default },
     { path: '*', component: require('./components/NotFound.vue').default }
 ]
 
@@ -109,13 +119,5 @@ Vue.component('example-component', require('./components/ExampleComponent.vue').
 
 const app = new Vue({
     el: '#app',
-    router,
-    data: {
-        search: ''
-    },
-    methods: {
-        searchit: _.debounce(() => {
-            Fire.$emit('searching');
-        }, 1000)
-    }
+    router
 });

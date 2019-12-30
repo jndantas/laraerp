@@ -4,12 +4,12 @@
             <div class="container-fluid">
                 <div class="row mb-2">
                     <div class="col-sm-6">
-                        <h1>Home</h1>
+                        <h1>Treinamentos</h1>
                     </div>
                     <div class="col-sm-6">
                         <ol class="breadcrumb float-sm-right">
                             <li class="breadcrumb-item"><router-link to="/dashboard" tag="a">Dashboard</router-link></li>
-                            <li class="breadcrumb-item active">Home</li>
+                            <li class="breadcrumb-item active">Treinamentos</li>
                         </ol>
                     </div>
                 </div>
