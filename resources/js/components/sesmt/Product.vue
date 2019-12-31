@@ -15,32 +15,32 @@
                         <table class="table table-hover">
                             <thead>
                                 <tr>
-                                <th>ID</th>
-                                <th>Nome</th>
-                                <th>Tamanho</th>
-                                <th>CA</th>
-                                <th>Categoria</th>
-                                <th>Qntd Disponível</th>
-                                <th>Ações</th>
+                                    <th>ID</th>
+                                    <th>Nome</th>
+                                    <th>Tamanho</th>
+                                    <th>CA</th>
+                                    <th>Categoria</th>
+                                    <th>Qntd Disponível</th>
+                                    <th>Ações</th>
                                 </tr>
                             </thead>
                             <tbody>
                                 <tr v-for="product in products.data" :key="product.id">
-                                <td>{{product.id}}</td>
-                                <td>{{product.name | upText }}</td>
-                                <td>{{product.measure}}</td>
-                                <td>{{product.ca}}</td>
-                                <td>{{product.category_id}}</td>
-                                <td>{{product.qntd}}</td>
-                                <td>
-                                    <a href="#">
-                                        <i class="fa fa-edit blue" @click="editModal(product)"></i>
-                                    </a>
-                                    /
-                                    <a href="#" @click="deleteData(product.id)">
-                                        <i class="fa fa-trash red"></i>
-                                    </a>
-                                </td>
+                                    <td>{{product.id}}</td>
+                                    <td>{{product.name | upText }}</td>
+                                    <td>{{product.measure}}</td>
+                                    <td>{{product.ca}}</td>
+                                    <td>{{product.category_id}}</td>
+                                    <td>{{product.qntd}}</td>
+                                    <td>
+                                        <a href="#">
+                                            <i class="fa fa-edit blue" @click="editModal(product)"></i>
+                                        </a>
+                                        /
+                                        <a href="#" @click="deleteData(product.id)">
+                                            <i class="fa fa-trash red"></i>
+                                        </a>
+                                    </td>
                                 </tr>
                             </tbody>
                         </table>
