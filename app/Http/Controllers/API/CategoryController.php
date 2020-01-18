@@ -20,7 +20,7 @@ class CategoryController extends Controller
      */
     public function index()
     {
-        return Category::paginate(10);
+        return Category::withCount('products')->paginate(10);
     }
 
     /**

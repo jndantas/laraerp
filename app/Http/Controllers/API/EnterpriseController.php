@@ -4,6 +4,7 @@ namespace App\Http\Controllers\API;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\EnterpriseRequest;
+use App\Models\Employee;
 use Illuminate\Http\Request;
 use App\Models\Enterprise;
 
@@ -16,7 +17,7 @@ class EnterpriseController extends Controller
      */
     public function index()
     {
-        return Enterprise::paginate(10);
+        return Enterprise::withCount('employees')->paginate(10);
     }
 
     /**

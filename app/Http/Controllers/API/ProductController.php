@@ -3,6 +3,10 @@
 namespace App\Http\Controllers\API;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\ProductRequest;
+use App\Models\Category;
+use App\Models\Product;
+use App\Models\Reminder;
 use Illuminate\Http\Request;
 
 class ProductController extends Controller
@@ -14,7 +18,13 @@ class ProductController extends Controller
      */
     public function index()
     {
-        //
+        return Product::with('category', 'reminders')->paginate(10);
+    }
+
+    public function getCategories()
+    {
+        $data = Category::select('id', 'name')->get();
+        return response()->json($data);
     }
 
     /**
@@ -23,9 +33,26 @@ class ProductController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(ProductRequest $request)
     {
-        //
+            $input = $request->all();
+            $product = new Product;
+            $product->name = $input['name'];
+            $product->measure = $input['measure'];
+            if ($request->has('ca')) {
+                $product->ca = $input['ca'];
+            }
+            $category = Category::findOrFail($input['category_id']);
+            $product->category()->associate($category);
+            $product->save();
+            if ($request->has('min')){
+                $reminder = new Reminder();
+                $reminder->min = $input['min'];
+                $reminder->product()->associate($product);
+                $reminder->save();
+            }
+            return redirect()->back();
+
     }
 
     /**
@@ -46,9 +73,17 @@ class ProductController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(ProductRequest $request, $id)
     {
-        //
+        $product = Product::findOrFail($id);
+        $product->update($request->all());
+        if ($request->has('ca')) {
+            $product->ca = $request['ca'];
+        }
+        $category = Category::findOrFail($request['category_id']);
+        $product->category()->associate($category);
+        $product->save();
+        return redirect()->back();
     }
 
     /**

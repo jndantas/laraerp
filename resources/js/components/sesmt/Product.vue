@@ -30,7 +30,7 @@
                                     <td>{{product.name | upText }}</td>
                                     <td>{{product.measure}}</td>
                                     <td>{{product.ca}}</td>
-                                    <td>{{product.category_id}}</td>
+                                    <td>{{product.category.name}}</td>
                                     <td>{{product.qntd}}</td>
                                     <td>
                                         <a href="#">
@@ -92,7 +92,8 @@
                         </div>
                         <div class="form-group">
                             <select name="category_id" v-model="form.category_id" id="category_id" class="form-control" :class="{ 'is-invalid': form.errors.has('category_id') }">
-                                <option value="">Selecione a Categoria</option>
+                                <option value='' >Selecione uma Categoria</option>
+                                <option v-for='data in categories' :value='data.id'>{{ data.name }}</option>
                             </select>
                             <has-error :form="form" field="category_id"></has-error>
                         </div>
@@ -117,6 +118,8 @@ import Swal from 'sweetalert2';
             return {
                 editmode: false,
                 products: {},
+                category: 0,
+                categories: [],
                 form: new Form({
                     id: '',
                     name : '',
@@ -132,10 +135,10 @@ import Swal from 'sweetalert2';
                     .then(response => {
                         this.products = response.data;
                     });
-		    },
+            },
             updateData(id){
                 this.$Progress.start();
-                this.form.put('api/product/'+this.form.id)
+                this.form.put('/api/product/'+this.form.id)
                 .then(() => {
                     $('#addNew').modal('hide');
                     Swal.fire(
@@ -192,6 +195,14 @@ import Swal from 'sweetalert2';
             loadDatas(){
                 axios.get("api/product").then(({ data }) => (this.products = data));
             },
+
+            getCategories: function(){
+                axios.get('/api/getCategories')
+                .then(function (response) {
+                this.categories = response.data;
+                }.bind(this));
+
+            },
             createData(){
                 this.$Progress.start();
                 this.form.post('api/product')
@@ -213,6 +224,7 @@ import Swal from 'sweetalert2';
         },
         created() {
             this.loadDatas();
+            this.getCategories();
             Fire.$on('AfterCreate', () => {
                 this.loadDatas();
             });

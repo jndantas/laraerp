@@ -29,7 +29,10 @@
                                 <td>{{enterprise.name | upText }}</td>
                                 <td>{{enterprise.title | upText }}</td>
                                 <td>{{enterprise.document_number}}</td>
-                                <td>1</td>
+                                <td>
+                                    <span v-if="enterprise.employees && enterprise.employees.length > 1" class="badge badge-pill badge-success">10</span>
+                                    <span v-else class="badge badge-pill badge-warning">0</span>
+                                </td>
                                 <td>
                                     <a href="#">
                                         <i class="fa fa-edit blue" @click="editModal(enterprise)"></i>
@@ -103,7 +106,9 @@ import Swal from 'sweetalert2';
         data() {
             return {
                 editmode: false,
-                enterprises: {},
+                enterprises: {
+                employees: []
+                },
                 form: new Form({
                     id: '',
                     name : '',

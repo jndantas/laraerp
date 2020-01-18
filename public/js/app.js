@@ -3515,6 +3515,9 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
@@ -3958,12 +3961,17 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
       editmode: false,
-      enterprises: {},
+      enterprises: {
+        employees: []
+      },
       form: new Form({
         id: '',
         name: '',
@@ -4822,12 +4830,15 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
       editmode: false,
       products: {},
+      category: 0,
+      categories: [],
       form: new Form({
         id: '',
         name: '',
@@ -4850,7 +4861,7 @@ __webpack_require__.r(__webpack_exports__);
       var _this2 = this;
 
       this.$Progress.start();
-      this.form.put('api/product/' + this.form.id).then(function () {
+      this.form.put('/api/product/' + this.form.id).then(function () {
         $('#addNew').modal('hide');
         sweetalert2__WEBPACK_IMPORTED_MODULE_0___default.a.fire('Atualizado', 'Informações Atualizadas', 'success');
 
@@ -4904,6 +4915,11 @@ __webpack_require__.r(__webpack_exports__);
         return _this4.products = data;
       });
     },
+    getCategories: function getCategories() {
+      axios.get('/api/getCategories').then(function (response) {
+        this.categories = response.data;
+      }.bind(this));
+    },
     createData: function createData() {
       var _this5 = this;
 
@@ -4924,6 +4940,7 @@ __webpack_require__.r(__webpack_exports__);
     var _this6 = this;
 
     this.loadDatas();
+    this.getCategories();
     Fire.$on('AfterCreate', function () {
       _this6.loadDatas();
     });
@@ -83534,7 +83551,19 @@ var render = function() {
                     _vm._v(" "),
                     _c("td", [_vm._v(_vm._s(_vm._f("upText")(category.name)))]),
                     _vm._v(" "),
-                    _c("td", [_vm._v("1")]),
+                    _c("td", [
+                      category.products && category.products.length > 1
+                        ? _c(
+                            "span",
+                            { staticClass: "badge badge-pill badge-success" },
+                            [_vm._v("10")]
+                          )
+                        : _c(
+                            "span",
+                            { staticClass: "badge badge-pill badge-warning" },
+                            [_vm._v("0")]
+                          )
+                    ]),
                     _vm._v(" "),
                     _c("td", [
                       _c("a", { attrs: { href: "#" } }, [
@@ -84207,7 +84236,19 @@ var render = function() {
                     _vm._v(" "),
                     _c("td", [_vm._v(_vm._s(enterprise.document_number))]),
                     _vm._v(" "),
-                    _c("td", [_vm._v("1")]),
+                    _c("td", [
+                      enterprise.employees && enterprise.employees.length > 1
+                        ? _c(
+                            "span",
+                            { staticClass: "badge badge-pill badge-success" },
+                            [_vm._v("10")]
+                          )
+                        : _c(
+                            "span",
+                            { staticClass: "badge badge-pill badge-warning" },
+                            [_vm._v("0")]
+                          )
+                    ]),
                     _vm._v(" "),
                     _c("td", [
                       _c("a", { attrs: { href: "#" } }, [
@@ -85408,7 +85449,7 @@ var render = function() {
                     _vm._v(" "),
                     _c("td", [_vm._v(_vm._s(product.ca))]),
                     _vm._v(" "),
-                    _c("td", [_vm._v(_vm._s(product.category_id))]),
+                    _c("td", [_vm._v(_vm._s(product.category.name))]),
                     _vm._v(" "),
                     _c("td", [_vm._v(_vm._s(product.qntd))]),
                     _vm._v(" "),
@@ -85700,9 +85741,18 @@ var render = function() {
                           },
                           [
                             _c("option", { attrs: { value: "" } }, [
-                              _vm._v("Selecione a Categoria")
-                            ])
-                          ]
+                              _vm._v("Selecione uma Categoria")
+                            ]),
+                            _vm._v(" "),
+                            _vm._l(_vm.categories, function(data) {
+                              return _c(
+                                "option",
+                                { domProps: { value: data.id } },
+                                [_vm._v(_vm._s(data.name))]
+                              )
+                            })
+                          ],
+                          2
                         ),
                         _vm._v(" "),
                         _c("has-error", {

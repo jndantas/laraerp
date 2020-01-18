@@ -25,7 +25,10 @@
                                 <tr v-for="category in categories.data" :key="category.id">
                                 <td>{{category.id}}</td>
                                 <td>{{category.name | upText }}</td>
-                                <td>1</td>
+                                <td>
+                                    <span v-if="category.products && category.products.length > 1" class="badge badge-pill badge-success">10</span>
+                                    <span v-else class="badge badge-pill badge-warning">0</span>
+                                </td>
                                 <td>
                                     <a href="#">
                                         <i class="fa fa-edit blue" @click="editModal(category)"></i>

@@ -20,8 +20,10 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 Route::apiResources([
     'user' => 'API\UserController',
     'category' => 'API\CategoryController',
-    'enterprise' => 'API\EnterpriseController'
+    'enterprise' => 'API\EnterpriseController',
+    'product' => 'API\ProductController',
+    'employee' => 'API\EmployeeController'
 ]);
-
+Route::get('getCategories', 'API\ProductController@getCategories');
 Route::get('profile', 'API\UserController@profile');
 Route::put('profile', 'API\UserController@updateProfile');
