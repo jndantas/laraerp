@@ -22,7 +22,12 @@ Route::apiResources([
     'category' => 'API\CategoryController',
     'enterprise' => 'API\EnterpriseController',
     'product' => 'API\ProductController',
-    'employee' => 'API\EmployeeController'
+    'employee' => 'API\EmployeeController',
+    'position' => 'API\PositionController',
+    'typeaccident' => 'API\TypeAccidentController',
+    'accident' => 'API\AccidentController',
+    'trainning' => 'API\TrainingController',
+    'exam' => 'API\ExamController',
 ]);
 Route::get('getCategories', 'API\ProductController@getCategories');
 Route::get('profile', 'API\UserController@profile');

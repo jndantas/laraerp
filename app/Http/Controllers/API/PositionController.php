@@ -3,10 +3,16 @@
 namespace App\Http\Controllers\API;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\PositionRequest;
+use App\Models\Position;
 use Illuminate\Http\Request;
 
 class PositionController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware("auth:api");
+    }
     /**
      * Display a listing of the resource.
      *
@@ -14,7 +20,7 @@ class PositionController extends Controller
      */
     public function index()
     {
-        //
+        return Position::withCount('employees')->paginate(10);
     }
 
     /**
@@ -23,9 +29,18 @@ class PositionController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(PositionRequest $request)
     {
-        //
+        $input = $request->all();
+        $position = new Position;
+        $position->name = $input['name'];
+        if ($request->has('description')) {
+            $position->description = $input['description'];
+        }
+
+        $position->save();
+        return redirect()->back();
+
     }
 
     /**
@@ -46,9 +61,17 @@ class PositionController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(PositionRequest $request, $id)
     {
-        //
+        $input = $request->all();
+        $position = Position::findOrFail($id);
+        $position->name = $input['name'];
+        if ($request->has('description')) {
+            $position->description = $input['description'];
+        }
+        $position->save();
+
+        return ['message' => 'Atualizado'];
     }
 
     /**
@@ -59,6 +82,8 @@ class PositionController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $position = Position::findOrFail($id);
+        $position->delete();
+        return ['message' => 'Apagado'];
     }
 }

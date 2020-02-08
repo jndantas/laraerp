@@ -83,7 +83,7 @@ class ProductController extends Controller
         $category = Category::findOrFail($request['category_id']);
         $product->category()->associate($category);
         $product->save();
-        return redirect()->back();
+        return ['message' => 'Atualizado'];
     }
 
     /**
@@ -94,6 +94,8 @@ class ProductController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $product = Product::findOrFail($id);
+        $product->delete();
+        return ['message' => 'Deletado'];
     }
 }

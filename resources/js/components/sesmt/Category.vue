@@ -26,7 +26,7 @@
                                 <td>{{category.id}}</td>
                                 <td>{{category.name | upText }}</td>
                                 <td>
-                                    <span v-if="category.products && category.products.length > 1" class="badge badge-pill badge-success">10</span>
+                                    <span v-if="category.products_count > 0" class="badge badge-pill badge-success">{{ category.products_count }}</span>
                                     <span v-else class="badge badge-pill badge-warning">0</span>
                                 </td>
                                 <td>
@@ -89,7 +89,7 @@ import Swal from 'sweetalert2';
         data() {
             return {
                 editmode: false,
-                categories: {},
+                categories: [],
                 form: new Form({
                     id: '',
                     name : ''

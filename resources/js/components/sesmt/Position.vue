@@ -27,7 +27,9 @@
                                 <td>{{position.id}}</td>
                                 <td>{{position.name | upText }}</td>
                                 <td>{{position.description}}</td>
-                                <td>1</td>
+                                <td>
+                                    <span v-if="position.employees_count > 0" class="badge badge-pill badge-success">{{ position.employees_count }}</span>
+                                    <span v-else class="badge badge-pill badge-warning">0</span>
                                 <td>
                                     <a href="#">
                                         <i class="fa fa-edit blue" @click="editModal(position)"></i>
@@ -95,7 +97,10 @@ import Swal from 'sweetalert2';
         data() {
             return {
                 editmode: false,
-                positions: {},
+                positions: {
+                    employees: []
+
+                },
                 form: new Form({
                     id: '',
                     name : '',
@@ -178,7 +183,7 @@ import Swal from 'sweetalert2';
 
                     Toast.fire({
                         type: 'success',
-                        title: 'Cargo Criadp com sucesso !!'
+                        title: 'Cargo Criado com sucesso !!'
                     })
                     this.$Progress.finish();
 

@@ -13,7 +13,7 @@ class CreatePositionEmployeeTable extends Migration
      */
     public function up()
     {
-        Schema::create('position_employee', function (Blueprint $table) {
+        Schema::create('employee_position', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->timestamp('date');
 
@@ -32,6 +32,6 @@ class CreatePositionEmployeeTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('position_employee');
+        Schema::dropIfExists('employee_position');
     }
 }

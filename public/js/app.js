@@ -3523,7 +3523,7 @@ __webpack_require__.r(__webpack_exports__);
   data: function data() {
     return {
       editmode: false,
-      categories: {},
+      categories: [],
       form: new Form({
         id: '',
         name: ''
@@ -4599,12 +4599,16 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
       editmode: false,
-      positions: {},
+      positions: {
+        employees: []
+      },
       form: new Form({
         id: '',
         name: '',
@@ -4688,7 +4692,7 @@ __webpack_require__.r(__webpack_exports__);
         $('#addNew').modal('hide');
         Toast.fire({
           type: 'success',
-          title: 'Cargo Criadp com sucesso !!'
+          title: 'Cargo Criado com sucesso !!'
         });
 
         _this5.$Progress.finish();
@@ -4837,7 +4841,6 @@ __webpack_require__.r(__webpack_exports__);
     return {
       editmode: false,
       products: {},
-      category: 0,
       categories: [],
       form: new Form({
         id: '',
@@ -4916,12 +4919,15 @@ __webpack_require__.r(__webpack_exports__);
       });
     },
     getCategories: function getCategories() {
-      axios.get('/api/getCategories').then(function (response) {
-        this.categories = response.data;
-      }.bind(this));
+      var _this5 = this;
+
+      axios.get("api/getCategories").then(function (_ref2) {
+        var data = _ref2.data;
+        return _this5.categories = data;
+      });
     },
     createData: function createData() {
-      var _this5 = this;
+      var _this6 = this;
 
       this.$Progress.start();
       this.form.post('api/product').then(function () {
@@ -4932,17 +4938,17 @@ __webpack_require__.r(__webpack_exports__);
           title: 'Acidente Criada com sucesso !!'
         });
 
-        _this5.$Progress.finish();
+        _this6.$Progress.finish();
       })["catch"](function () {});
     }
   },
   created: function created() {
-    var _this6 = this;
+    var _this7 = this;
 
     this.loadDatas();
     this.getCategories();
     Fire.$on('AfterCreate', function () {
-      _this6.loadDatas();
+      _this7.loadDatas();
     });
   }
 });
@@ -83552,11 +83558,11 @@ var render = function() {
                     _c("td", [_vm._v(_vm._s(_vm._f("upText")(category.name)))]),
                     _vm._v(" "),
                     _c("td", [
-                      category.products && category.products.length > 1
+                      category.products_count > 0
                         ? _c(
                             "span",
                             { staticClass: "badge badge-pill badge-success" },
-                            [_vm._v("10")]
+                            [_vm._v(_vm._s(category.products_count))]
                           )
                         : _c(
                             "span",
@@ -84237,11 +84243,11 @@ var render = function() {
                     _c("td", [_vm._v(_vm._s(enterprise.document_number))]),
                     _vm._v(" "),
                     _c("td", [
-                      enterprise.employees && enterprise.employees.length > 1
+                      enterprise.employees && enterprise.employees_count > 0
                         ? _c(
                             "span",
                             { staticClass: "badge badge-pill badge-success" },
-                            [_vm._v("10")]
+                            [_vm._v(_vm._s(enterprise.employees_count))]
                           )
                         : _c(
                             "span",
@@ -85154,8 +85160,19 @@ var render = function() {
                     _vm._v(" "),
                     _c("td", [_vm._v(_vm._s(position.description))]),
                     _vm._v(" "),
-                    _c("td", [_vm._v("1")]),
-                    _vm._v(" "),
+                    _c("td", [
+                      position.employees_count > 0
+                        ? _c(
+                            "span",
+                            { staticClass: "badge badge-pill badge-success" },
+                            [_vm._v(_vm._s(position.employees_count))]
+                          )
+                        : _c(
+                            "span",
+                            { staticClass: "badge badge-pill badge-warning" },
+                            [_vm._v("0")]
+                          )
+                    ]),
                     _c("td", [
                       _c("a", { attrs: { href: "#" } }, [
                         _c("i", {

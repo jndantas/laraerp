@@ -118,7 +118,6 @@ import Swal from 'sweetalert2';
             return {
                 editmode: false,
                 products: {},
-                category: 0,
                 categories: [],
                 form: new Form({
                     id: '',
@@ -138,7 +137,7 @@ import Swal from 'sweetalert2';
             },
             updateData(id){
                 this.$Progress.start();
-                this.form.put('/api/product/'+this.form.id)
+                this.form.put('/api/product/' + this.form.id)
                 .then(() => {
                     $('#addNew').modal('hide');
                     Swal.fire(
@@ -197,11 +196,7 @@ import Swal from 'sweetalert2';
             },
 
             getCategories: function(){
-                axios.get('/api/getCategories')
-                .then(function (response) {
-                this.categories = response.data;
-                }.bind(this));
-
+                axios.get("api/getCategories").then(({ data }) => (this.categories = data));
             },
             createData(){
                 this.$Progress.start();

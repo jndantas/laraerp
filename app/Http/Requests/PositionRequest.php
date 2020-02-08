@@ -13,7 +13,7 @@ class PositionRequest extends FormRequest
      */
     public function authorize()
     {
-        return false;
+        return true;
     }
 
     /**
@@ -23,8 +23,41 @@ class PositionRequest extends FormRequest
      */
     public function rules()
     {
+        switch($this->method())
+        {
+            case 'GET':
+                break;
+            case 'DELETE':
+                break;
+            case 'POST':
+            {
+                return [
+                    'name'       => 'required|min:3',
+                    //'name'       => 'required|min:3'
+                ];
+                break;
+            }
+            case 'PUT':
+                return [
+                    'name'       => 'required|min:3',
+                    'id'       => 'required|numeric|exists:positions'
+                ];
+                break;
+            case 'PATCH':
+                break;
+            default:
+            break;
+        }
+
+    }
+
+    public function messages(){
         return [
-            //
+        'name.required' => 'O nome do Cargo é obrigatorio.',
+        'name.min' => 'O campo name deve conter mais de 3 caracteres.',
+        'id.required' => 'O campo id é obrigatorio.',
+        'id.numeric' => 'O campo id deve ser numerico',
+        'id.exists' => 'O campo id informado não existe',
         ];
     }
 }
