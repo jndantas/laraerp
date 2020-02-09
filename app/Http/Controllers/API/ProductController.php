@@ -35,23 +35,23 @@ class ProductController extends Controller
      */
     public function store(ProductRequest $request)
     {
-            $input = $request->all();
-            $product = new Product;
-            $product->name = $input['name'];
-            $product->measure = $input['measure'];
-            if ($request->has('ca')) {
-                $product->ca = $input['ca'];
-            }
-            $category = Category::findOrFail($input['category_id']);
-            $product->category()->associate($category);
-            $product->save();
-            if ($request->has('min')){
-                $reminder = new Reminder();
-                $reminder->min = $input['min'];
-                $reminder->product()->associate($product);
-                $reminder->save();
-            }
-            return redirect()->back();
+        $input = $request->all();
+        $product = new Product;
+        $product->name = $input['name'];
+        $product->measure = $input['measure'];
+        if ($request->has('ca')) {
+            $product->ca = $input['ca'];
+        }
+        $category = Category::findOrFail($input['category_id']);
+        $product->category()->associate($category);
+        $product->save();
+        if ($request->has('min')){
+            $reminder = new Reminder();
+            $reminder->min = $input['min'];
+            $reminder->product()->associate($product);
+            $reminder->save();
+        }
+        return redirect()->back();
 
     }
 

@@ -103,14 +103,14 @@ import Swal from 'sweetalert2';
         },
         methods: {
             getResults(page = 1) {
-                axios.get('api/training?page=' + page)
+                axios.get('api/trainning?page=' + page)
                     .then(response => {
                         this.trainings = response.data;
                     });
 		    },
             updateData(id){
                 this.$Progress.start();
-                this.form.put('api/training/'+this.form.id)
+                this.form.put('api/trainning/'+this.form.id)
                 .then(() => {
                     $('#addNew').modal('hide');
                     Swal.fire(
@@ -150,7 +150,7 @@ import Swal from 'sweetalert2';
 
                     //enviar requisição para o servidor
                     if (result.value) {
-                        this.form.delete('api/training/' + id).then(()=>{
+                        this.form.delete('api/trainning/' + id).then(()=>{
                                 Swal.fire(
                                     'Apagado',
                                     'Tipo de Acidente foi apagada',
@@ -165,11 +165,11 @@ import Swal from 'sweetalert2';
                     })
             },
             loadDatas(){
-                axios.get("api/training").then(({ data }) => (this.trainings = data));
+                axios.get("api/trainning").then(({ data }) => (this.trainings = data));
             },
             createData(){
                 this.$Progress.start();
-                this.form.post('api/training')
+                this.form.post('api/trainning')
                 .then(() => {
                     Fire.$emit('AfterCreate');
                     $('#addNew').modal('hide')

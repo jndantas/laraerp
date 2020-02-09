@@ -3,7 +3,8 @@
 namespace App\Http\Controllers\API;
 
 use App\Http\Controllers\Controller;
-use Illuminate\Http\Request;
+use App\Http\Requests\ExamRequest;
+use App\Models\Exam;
 
 class ExamController extends Controller
 {
@@ -14,7 +15,7 @@ class ExamController extends Controller
      */
     public function index()
     {
-        //
+        return Exam::paginate(10);
     }
 
     /**
@@ -23,9 +24,9 @@ class ExamController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(ExamRequest $request)
     {
-        //
+        return Exam::create($request->all());
     }
 
     /**
@@ -46,9 +47,12 @@ class ExamController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(ExamRequest $request, $id)
     {
-        //
+        $exam = Exam::findOrFail($id);
+        $exam->update($request->all());
+
+        return ['message' => 'Atualizado'];
     }
 
     /**
@@ -59,6 +63,8 @@ class ExamController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $exam = Exam::findOrFail($id);
+        $exam->delete();
+        return ['message' => 'Deletado'];
     }
 }

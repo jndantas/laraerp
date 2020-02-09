@@ -27,7 +27,7 @@
                                     <td>{{exam.id}}</td>
                                     <td>{{exam.name }}</td>
                                     <td>{{exam.code}}</td>
-                                    <td>{{exam.duration}}</td>
+                                    <td>{{exam.duration}} dias</td>
                                     <td>
                                         <a href="#">
                                             <i class="fa fa-edit blue" @click="editModal(exam)"></i>

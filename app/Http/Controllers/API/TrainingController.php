@@ -3,7 +3,8 @@
 namespace App\Http\Controllers\API;
 
 use App\Http\Controllers\Controller;
-use Illuminate\Http\Request;
+use App\Http\Requests\TrainingRequest;
+use App\Models\Training;
 
 class TrainingController extends Controller
 {
@@ -14,7 +15,7 @@ class TrainingController extends Controller
      */
     public function index()
     {
-        //
+        return Training::paginate(10);
     }
 
     /**
@@ -23,9 +24,10 @@ class TrainingController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(TrainingRequest $request)
     {
-        //
+        return Training::create($request->all());
+
     }
 
     /**
@@ -46,9 +48,11 @@ class TrainingController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(TrainingRequest $request, $id)
     {
-        //
+        $trainning = Training::findOrFail($id);
+        $trainning->update($request->all());
+        return ['message' => 'Atualizado'];
     }
 
     /**
@@ -59,6 +63,8 @@ class TrainingController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $trainning = Training::findOrFail($id);
+        $trainning->delete();
+        return ['message' => 'Categoria Apagada'];
     }
 }

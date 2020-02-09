@@ -3,6 +3,8 @@
 namespace App\Http\Controllers\API;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\TypeAccidentRequest;
+use App\Models\TypeAccident;
 use Illuminate\Http\Request;
 
 class TypeAccidentController extends Controller
@@ -14,7 +16,7 @@ class TypeAccidentController extends Controller
      */
     public function index()
     {
-        //
+        return TypeAccident::paginate(10);
     }
 
     /**
@@ -23,9 +25,11 @@ class TypeAccidentController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(TypeAccidentRequest $request)
     {
-        //
+
+        TypeAccident::create($request->all());
+        return redirect()->back();
     }
 
     /**
@@ -46,9 +50,13 @@ class TypeAccidentController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(TypeAccidentRequest $request, $id)
     {
-        //
+
+        $type = TypeAccident::findOrFail($id);
+        $type->update($request->all());
+
+        return ['message' => 'Atualizado'];
     }
 
     /**
@@ -59,6 +67,9 @@ class TypeAccidentController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $type = TypeAccident::findOrFail($id);
+        $type->delete();
+        return ['message' => 'Apagado'];
+
     }
 }

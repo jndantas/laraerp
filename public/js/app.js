@@ -5073,7 +5073,7 @@ __webpack_require__.r(__webpack_exports__);
       var _this = this;
 
       var page = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : 1;
-      axios.get('api/training?page=' + page).then(function (response) {
+      axios.get('api/trainning?page=' + page).then(function (response) {
         _this.trainings = response.data;
       });
     },
@@ -5081,7 +5081,7 @@ __webpack_require__.r(__webpack_exports__);
       var _this2 = this;
 
       this.$Progress.start();
-      this.form.put('api/training/' + this.form.id).then(function () {
+      this.form.put('api/trainning/' + this.form.id).then(function () {
         $('#addNew').modal('hide');
         sweetalert2__WEBPACK_IMPORTED_MODULE_0___default.a.fire('Atualizado', 'Informações Atualizadas', 'success');
 
@@ -5118,7 +5118,7 @@ __webpack_require__.r(__webpack_exports__);
       }).then(function (result) {
         //enviar requisição para o servidor
         if (result.value) {
-          _this3.form["delete"]('api/training/' + id).then(function () {
+          _this3.form["delete"]('api/trainning/' + id).then(function () {
             sweetalert2__WEBPACK_IMPORTED_MODULE_0___default.a.fire('Apagado', 'Tipo de Acidente foi apagada', 'success');
             Fire.$emit('AfterCreate');
           })["catch"](function () {
@@ -5130,7 +5130,7 @@ __webpack_require__.r(__webpack_exports__);
     loadDatas: function loadDatas() {
       var _this4 = this;
 
-      axios.get("api/training").then(function (_ref) {
+      axios.get("api/trainning").then(function (_ref) {
         var data = _ref.data;
         return _this4.trainings = data;
       });
@@ -5139,7 +5139,7 @@ __webpack_require__.r(__webpack_exports__);
       var _this5 = this;
 
       this.$Progress.start();
-      this.form.post('api/training').then(function () {
+      this.form.post('api/trainning').then(function () {
         Fire.$emit('AfterCreate');
         $('#addNew').modal('hide');
         Toast.fire({
@@ -84593,7 +84593,7 @@ var render = function() {
                     _vm._v(" "),
                     _c("td", [_vm._v(_vm._s(exam.code))]),
                     _vm._v(" "),
-                    _c("td", [_vm._v(_vm._s(exam.duration))]),
+                    _c("td", [_vm._v(_vm._s(exam.duration) + " dias")]),
                     _vm._v(" "),
                     _c("td", [
                       _c("a", { attrs: { href: "#" } }, [
