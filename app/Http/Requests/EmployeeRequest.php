@@ -34,8 +34,8 @@ class EmployeeRequest extends FormRequest
                 return [
                     'name' => 'required|min:3',
                     'document_number' => 'required|min:3|unique:employees,document_number',
-                    'enterprise' => 'required|exists:enterprises,id',
-                    'position' => 'required|exists:positions,id',
+                    'enterprise_id' => 'required|exists:enterprises,id',
+                    'position_id' => 'required|exists:positions,id',
                 ];
                 break;
             }
@@ -43,9 +43,8 @@ class EmployeeRequest extends FormRequest
                 return [
                     'id' => 'required|numeric|exists:employees',
                     'name' => 'required|min:3',
-                    'document_number' => 'required|min:3|unique:employees,document_number',
-                    'enterprise' => 'required|exists:enterprises,id',
-                    'position' => 'required|exists:positions,id',
+                    'enterprise_id' => 'required|exists:enterprises,id',
+                    'position_id' => 'required|exists:positions,id',
                 ];
                 break;
             case 'PATCH':

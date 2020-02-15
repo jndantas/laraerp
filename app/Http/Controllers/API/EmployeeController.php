@@ -22,6 +22,18 @@ class EmployeeController extends Controller
         return Employee::with('enterprise', 'positions')->paginate(10);
     }
 
+    public function getEnterprises()
+    {
+        $data = Enterprise::select('id', 'name')->get();
+        return response()->json($data);
+    }
+
+    public function getPositions()
+    {
+        $data = Position::select('id', 'name')->get();
+        return response()->json($data);
+    }
+
     /**
      * Store a newly created resource in storage.
      *
@@ -30,22 +42,7 @@ class EmployeeController extends Controller
      */
     public function store(EmployeeRequest $request)
     {
-        $input = $request->all();
-        $employee = new Employee();
-        $employee->name = $input['name'];
-        $employee->document_number = $input['document_number'];
-        $enterprise = Enterprise::findOrFail($input['enterprise']);
-        $employee->enterprise()->associate($enterprise);
-
-        $position = Position::findOrFail($input['position']);
-
-        $employee->save();
-        $employee->positions()->attach($position->id, [
-            'date' => Carbon::now(),
-            'created_at' => Carbon::now(),
-            'updated_at' => Carbon::now(),
-            ]);
-        return redirect()->back();
+        return Employee::create($request->all());
     }
 
     /**
@@ -68,24 +65,8 @@ class EmployeeController extends Controller
      */
     public function update(EmployeeRequest $request, $id)
     {
-        $input = $request->all();
         $employee = Employee::findOrFail($id);
-        $employee->name = $input['name'];
-        $employee->document_number = $input['document_number'];
-        $enterprise = Enterprise::findOrFail($input['enterprise']);
-        $employee->enterprise()->associate($enterprise);
-
-        $position = Position::findOrFail($input['position']);
-        if ($employee->position[0]->id != $position->id) {
-            $employee->positions()->attach($position->id, [
-            'date' => Carbon::now(),
-            'created_at' => Carbon::now(),
-            'updated_at' => Carbon::now(),
-            ]);
-        }
-
-        $employee->save();
-
+        $employee->update($request->all());
         return ['message' => 'Atualizado'];
 
     }

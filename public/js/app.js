@@ -3523,7 +3523,7 @@ __webpack_require__.r(__webpack_exports__);
   data: function data() {
     return {
       editmode: false,
-      categories: [],
+      categories: {},
       form: new Form({
         id: '',
         name: ''
@@ -3742,17 +3742,22 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
       editmode: false,
       employees: {},
+      enterprises: [],
+      positions: [],
       form: new Form({
         id: '',
         name: '',
         document_number: '',
-        enterprise_id: ''
+        enterprise_id: '',
+        position_id: ''
       })
     };
   },
@@ -3823,8 +3828,24 @@ __webpack_require__.r(__webpack_exports__);
         return _this4.employees = data;
       });
     },
-    createData: function createData() {
+    getEnterprises: function getEnterprises() {
       var _this5 = this;
+
+      axios.get("api/getEnterprises").then(function (_ref2) {
+        var data = _ref2.data;
+        return _this5.enterprises = data;
+      });
+    },
+    getPositions: function getPositions() {
+      var _this6 = this;
+
+      axios.get("api/getPositions").then(function (_ref3) {
+        var data = _ref3.data;
+        return _this6.positions = data;
+      });
+    },
+    createData: function createData() {
+      var _this7 = this;
 
       this.$Progress.start();
       this.form.post('api/employee').then(function () {
@@ -3835,16 +3856,18 @@ __webpack_require__.r(__webpack_exports__);
           title: 'Acidente Criada com sucesso !!'
         });
 
-        _this5.$Progress.finish();
+        _this7.$Progress.finish();
       })["catch"](function () {});
     }
   },
   created: function created() {
-    var _this6 = this;
+    var _this8 = this;
 
     this.loadDatas();
+    this.getEnterprises();
+    this.getPositions();
     Fire.$on('AfterCreate', function () {
-      _this6.loadDatas();
+      _this8.loadDatas();
     });
   }
 });
@@ -84051,9 +84074,18 @@ var render = function() {
                           },
                           [
                             _c("option", { attrs: { value: "" } }, [
-                              _vm._v("Selecione a Categoria")
-                            ])
-                          ]
+                              _vm._v("Selecione a Empresa")
+                            ]),
+                            _vm._v(" "),
+                            _vm._l(_vm.enterprises, function(data) {
+                              return _c(
+                                "option",
+                                { domProps: { value: data.id } },
+                                [_vm._v(_vm._s(data.name))]
+                              )
+                            })
+                          ],
+                          2
                         ),
                         _vm._v(" "),
                         _c("has-error", {
@@ -84105,9 +84137,18 @@ var render = function() {
                           },
                           [
                             _c("option", { attrs: { value: "" } }, [
-                              _vm._v("Selecione a Categoria")
-                            ])
-                          ]
+                              _vm._v("Selecione o Cargo")
+                            ]),
+                            _vm._v(" "),
+                            _vm._l(_vm.positions, function(data) {
+                              return _c(
+                                "option",
+                                { domProps: { value: data.id } },
+                                [_vm._v(_vm._s(data.name))]
+                              )
+                            })
+                          ],
+                          2
                         ),
                         _vm._v(" "),
                         _c("has-error", {
@@ -84243,7 +84284,7 @@ var render = function() {
                     _c("td", [_vm._v(_vm._s(enterprise.document_number))]),
                     _vm._v(" "),
                     _c("td", [
-                      enterprise.employees && enterprise.employees_count > 0
+                      enterprise.employees_count > 0
                         ? _c(
                             "span",
                             { staticClass: "badge badge-pill badge-success" },

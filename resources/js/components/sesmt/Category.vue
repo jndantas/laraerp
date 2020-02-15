@@ -89,7 +89,7 @@ import Swal from 'sweetalert2';
         data() {
             return {
                 editmode: false,
-                categories: [],
+                categories: {},
                 form: new Form({
                     id: '',
                     name : ''

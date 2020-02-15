@@ -79,14 +79,16 @@
 
                         <div class="form-group">
                             <select name="enterprise_id" v-model="form.enterprise_id" id="enterprise_id" class="form-control" :class="{ 'is-invalid': form.errors.has('enterprise_id') }">
-                                <option value="">Selecione a Categoria</option>
+                                <option value="">Selecione a Empresa</option>
+                                <option v-for='data in enterprises' :value='data.id'>{{ data.name }}</option>
                             </select>
                             <has-error :form="form" field="enterprise_id"></has-error>
                         </div>
 
                         <div class="form-group">
                             <select name="position_id" v-model="form.position_id" id="position_id" class="form-control" :class="{ 'is-invalid': form.errors.has('position_id') }">
-                                <option value="">Selecione a Categoria</option>
+                                <option value="">Selecione o Cargo</option>
+                                <option v-for='data in positions' :value='data.id'>{{ data.name }}</option>
                             </select>
                             <has-error :form="form" field="position_id"></has-error>
                         </div>
@@ -111,11 +113,14 @@ import Swal from 'sweetalert2';
             return {
                 editmode: false,
                 employees: {},
+                enterprises: [],
+                positions: [],
                 form: new Form({
                     id: '',
                     name : '',
                     document_number : '',
-                    enterprise_id : ''
+                    enterprise_id : '',
+                    position_id : ''
                 })
             }
         },
@@ -185,6 +190,12 @@ import Swal from 'sweetalert2';
             loadDatas(){
                 axios.get("api/employee").then(({ data }) => (this.employees = data));
             },
+            getEnterprises: function(){
+                axios.get("api/getEnterprises").then(({ data }) => (this.enterprises = data));
+            },
+            getPositions: function(){
+                axios.get("api/getPositions").then(({ data }) => (this.positions = data));
+            },
             createData(){
                 this.$Progress.start();
                 this.form.post('api/employee')
@@ -206,6 +217,8 @@ import Swal from 'sweetalert2';
         },
         created() {
             this.loadDatas();
+            this.getEnterprises();
+            this.getPositions();
             Fire.$on('AfterCreate', () => {
                 this.loadDatas();
             });

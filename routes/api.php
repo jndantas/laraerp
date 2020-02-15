@@ -30,5 +30,7 @@ Route::apiResources([
     'exam' => 'API\ExamController',
 ]);
 Route::get('getCategories', 'API\ProductController@getCategories');
+Route::get('getEnterprises', 'API\EmployeeController@getEnterprises');
+Route::get('getPositions', 'API\EmployeeController@getPositions');
 Route::get('profile', 'API\UserController@profile');
 Route::put('profile', 'API\UserController@updateProfile');

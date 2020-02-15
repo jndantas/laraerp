@@ -10,7 +10,8 @@ class Employee extends Model
     protected $fillable = [
         'name',
         'document_number',
-        'enterprise_id'
+        'enterprise_id',
+        'position_id'
     ];
     use SoftDeletes;
 

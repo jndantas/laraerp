@@ -30,7 +30,7 @@
                                 <td>{{enterprise.title | upText }}</td>
                                 <td>{{enterprise.document_number}}</td>
                                 <td>
-                                    <span v-if="enterprise.employees && enterprise.employees_count > 0" class="badge badge-pill badge-success">{{ enterprise.employees_count }}</span>
+                                    <span v-if="enterprise.employees_count > 0" class="badge badge-pill badge-success">{{ enterprise.employees_count }}</span>
                                     <span v-else class="badge badge-pill badge-warning">0</span>
                                 </td>
                                 <td>
