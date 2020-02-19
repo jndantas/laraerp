@@ -10,6 +10,8 @@ $fa-font-path: "../webfonts";
 @import '~@fortawesome/fontawesome-free/scss/solid.scss';
 @import '~@fortawesome/fontawesome-free/scss/brands.scss';
 @import '~datatables.net-bs4/css/dataTables.bootstrap4.css';
+@import '~jquery-ui/themes/base/all.css';
+@import "~select2/dist/css/select2.css";
 .navbar-laravel {
     background-color: #fff;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.04);

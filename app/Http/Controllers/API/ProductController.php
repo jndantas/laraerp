@@ -39,15 +39,16 @@ class ProductController extends Controller
         $product = new Product;
         $product->name = $input['name'];
         $product->measure = $input['measure'];
+        $product->stock_min = $input['stock_min'];
         if ($request->has('ca')) {
             $product->ca = $input['ca'];
         }
         $category = Category::findOrFail($input['category_id']);
         $product->category()->associate($category);
         $product->save();
-        if ($request->has('min')){
+        if ($request->has('stock_min')){
             $reminder = new Reminder();
-            $reminder->min = $input['min'];
+            $reminder->stock_min = $input['stock_min'];
             $reminder->product()->associate($product);
             $reminder->save();
         }

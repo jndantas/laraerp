@@ -28,9 +28,13 @@ Route::apiResources([
     'accident' => 'API\AccidentController',
     'trainning' => 'API\TrainingController',
     'exam' => 'API\ExamController',
+    'stock_entries' => 'API\InputController',
+    'stock_outputs' => 'API\OutputController',
 ]);
 Route::get('getCategories', 'API\ProductController@getCategories');
 Route::get('getEnterprises', 'API\EmployeeController@getEnterprises');
 Route::get('getPositions', 'API\EmployeeController@getPositions');
+Route::get('getTypeAccidents', 'API\AccidentController@getTypeAccidents');
+Route::get('getEmployees', 'API\AccidentController@getEmployees');
 Route::get('profile', 'API\UserController@profile');
 Route::put('profile', 'API\UserController@updateProfile');

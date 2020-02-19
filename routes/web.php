@@ -35,5 +35,6 @@ Route::group(['namespace'=>'Admin'], function () {
     Route::get('users', 'AdminController@user')->name('users');
     Route::get('developer', 'AdminController@developer')->name('developer');
     Route::get('profile', 'AdminController@profile')->name('profile');
+    Route::get('inputstock/{product}', 'ProductStockController@getViewInput')->name('inputStock');
 });
 

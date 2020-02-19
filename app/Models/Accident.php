@@ -16,7 +16,7 @@ class Accident extends Model
 
     public function employees()
     {
-        return $this->belongsToMany(Employee::class);
+        return $this->belongsToMany(Employee::class, 'accident_employee');
     }
 
     public function typeAccident()

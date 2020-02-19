@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 class Reminder extends Model
 {
     protected $fillable = [
-        'min',
+        'stock_min',
         'product_id'
     ];
 

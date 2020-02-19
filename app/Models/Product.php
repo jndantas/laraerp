@@ -11,7 +11,8 @@ class Product extends Model
         'name',
         'measure',
         'ca',
-        'category_id'
+        'category_id',
+        'stock_min'
     ];
 
     use SoftDeletes;

@@ -15,7 +15,7 @@ class CreateRemindersTable extends Migration
     {
         Schema::create('reminders', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->integer('min');
+            $table->integer('stock_min');
 
             $table->bigInteger('product_id')->unsigned();
             $table->foreign('product_id')->references('id')->on('products');

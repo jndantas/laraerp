@@ -22,6 +22,18 @@ class AccidentController extends Controller
         return Accident::with('typeAccident', 'employees')->paginate(10);
     }
 
+    public function getTypeAccidents()
+    {
+        $data = TypeAccident::select('id', 'name')->get();
+        return response()->json($data);
+    }
+
+    public function getEmployees()
+    {
+        $data = Employee::select('id', 'name')->get();
+        return response()->json($data);
+    }
+
     /**
      * Store a newly created resource in storage.
      *
@@ -35,8 +47,8 @@ class AccidentController extends Controller
             $accident->description = $input['description'];
             $accident->procedure = $input['procedure'];
 
-            $type = TypeAccident::findOrFail($input['type_id']);
-            $accident->type()->associate($type);
+            $type = TypeAccident::findOrFail($input['type_accident_id']);
+            $accident->typeAccident()->associate($type);
 
             $accident->save();
             if ($request->has('employee_id')) {

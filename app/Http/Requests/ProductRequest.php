@@ -35,7 +35,7 @@ class ProductRequest extends FormRequest
                     'name' => 'required|min:3',
                     'measure' => 'required',
                     'category_id' => 'required|exists:categories,id',
-                    'min' => 'required|numeric',
+                    'stock_min' => 'required|numeric',
                     'ca' => 'required|numeric',
                 ];
                 break;
@@ -47,7 +47,7 @@ class ProductRequest extends FormRequest
                     'measure' => 'required',
                     'category_id' => 'required|exists:categories,id',
                     'ca' => 'numeric',
-                    'min' => 'numeric',
+                    'stock_min' => 'numeric',
                 ];
                 break;
             case 'PATCH':

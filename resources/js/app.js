@@ -33,7 +33,6 @@ Vue.component(AlertError.name, AlertError)
 
 Vue.component('pagination', require('laravel-vue-pagination'));
 
-
 import VueRouter from 'vue-router'
 Vue.use(VueRouter)
 
@@ -45,9 +44,39 @@ Vue.use(VueProgressBar, {
 })
 
 
+import $ from 'jquery';
+window.$ = window.jQuery = $;
+
+import 'jquery-ui/ui/widgets/datepicker.js';
+import 'select2';
+
 const router = new VueRouter({
     mode: 'history'
 })
+
+$(function() {
+    $(".select2").select2({
+        width: 'resolve', // need to override the changed default
+        theme: "classic"
+    });
+});
+
+
+Vue.mixin({
+    methods: {
+        route: route
+    }
+});
+
+$(function() {
+    $("#datepicker").datepicker({
+        showOn: "focus",
+        dateFormat: "dd/mm/yy",
+        dayNames: ["Domingo", "Segunda", "Terça", "Quarte", "Quinta", "Sexta", "Sábado"],
+        dayNamesMin: ["Dom", "Seg", "Ter", "Qua", "Qui", "Sex", "Sab"],
+        monthNames: ['Janeiro', 'Fevereiro', 'Março', 'Abril', 'Maio', 'Junho', 'Julho', 'Agosto', 'Setembro', 'Outubro', 'Novembro', 'Dezembro']
+    });
+});
 
 Vue.filter('upText', function(text) {
     return text.charAt(0).toUpperCase() + text.slice(1);

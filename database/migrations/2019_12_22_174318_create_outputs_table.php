@@ -15,7 +15,6 @@ class CreateOutputsTable extends Migration
     {
         Schema::create('outputs', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->timestamp('date');
             $table->integer('qntd');
 
             $table->bigInteger('employee_id')->unsigned();

@@ -28,8 +28,8 @@
                                 <td>{{employee.id}}</td>
                                 <td>{{employee.name | upText }}</td>
                                 <td>{{employee.document_number}}</td>
-                                <td>Cargo</td>
-                                <td>Empresa</td>
+                                <td>{{employee.position.name}}</td>
+                                <td>{{employee.enterprise.name}}</td>
                                 <td>
                                     <a href="#">
                                         <i class="fa fa-edit blue" @click="editModal(employee)"></i>

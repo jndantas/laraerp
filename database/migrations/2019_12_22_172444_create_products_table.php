@@ -18,10 +18,10 @@ class CreateProductsTable extends Migration
             $table->string('name');
             $table->string('measure');
             $table->integer('ca');
-
+            $table->integer('stock')->unsigned()->default(0);
+            $table->integer('stock_min')->unsigned();
             $table->bigInteger('category_id')->unsigned();
             $table->foreign('category_id')->references('id')->on('categories');
-
             $table->softDeletes();
             $table->timestamps();
         });

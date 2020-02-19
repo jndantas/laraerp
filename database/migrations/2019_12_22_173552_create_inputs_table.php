@@ -15,7 +15,6 @@ class CreateInputsTable extends Migration
     {
         Schema::create('inputs', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->timestamp('date');
             $table->integer('qntd');
 
             $table->bigInteger('product_id')->unsigned();

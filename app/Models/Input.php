@@ -7,7 +7,6 @@ use Illuminate\Database\Eloquent\Model;
 class Input extends Model
 {
     protected $fillable = [
-        'date',
         'qntd',
         'product_id'
     ];

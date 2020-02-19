@@ -22,14 +22,9 @@ class Employee extends Model
         return $this->belongsTo(Enterprise::class);
     }
 
-    public function positions()
-    {
-        return $this->belongsToMany(Position::class);
-    }
-
     public function position()
     {
-        return $this->belongsToMany(Position::class)->latest();
+        return $this->belongsTo(Position::class);
     }
 
     public function exams()

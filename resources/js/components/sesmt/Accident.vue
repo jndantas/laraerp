@@ -25,9 +25,9 @@
                             <tbody>
                                 <tr v-for="accident in accidents.data" :key="accident.id">
                                 <td>{{accident.id}}</td>
-                                <td>{{accident.name | upText }}</td>
+                                <td>{{accident.description}}</td>
                                 <td>{{accident.created_at}}</td>
-                                <td>0</td>
+                                <td>{{accident.employees.lenght}}</td>
                                 <td>
                                     <a href="#">
                                         <i class="fa fa-edit blue" @click="editModal(accident)"></i>
@@ -77,12 +77,15 @@
                         <div class="form-group">
                             <select name="type_accident_id" v-model="form.type_accident_id" id="type_accident_id" class="form-control" :class="{ 'is-invalid': form.errors.has('type_accident_id') }">
                                 <option value="">Selecione um tipo</option>
+                                <option v-for='data in typeAccidents' :value='data.id'>{{ data.name }}</option>
                             </select>
                             <has-error :form="form" field="type_accident_id"></has-error>
                         </div>
                         <div class="form-group">
-                            <select multiple name="employee_id[]" v-model="form.type" id="employee_id" class="form-control" :class="{ 'is-invalid': form.errors.has('employee_id') }">
+                            <select name="employee_id" v-model="form.employee_id" id="employee_id" class="form-control" :class="{ 'is-invalid': form.errors.has('employee_id') }">
                                 <option value="">Funcionários envolvidos</option>
+                                <option v-for='data in employees' :value='data.id'>{{ data.name }}</option>
+
                             </select>
                             <has-error :form="form" field="employee_id"></has-error>
                         </div>
@@ -107,11 +110,14 @@ import Swal from 'sweetalert2';
             return {
                 editmode: false,
                 accidents: {},
+                typeAccidents: [],
+                employees: [],
                 form: new Form({
                     id: '',
                     description : '',
                     procedure : '',
-                    type_accident_id : ''
+                    type_accident_id : '',
+                    employee_id: ''
                 })
             }
         },
@@ -181,6 +187,12 @@ import Swal from 'sweetalert2';
             loadDatas(){
                 axios.get("api/accident").then(({ data }) => (this.accidents = data));
             },
+            getTypeAccidents: function(){
+                axios.get("api/getTypeAccidents").then(({ data }) => (this.typeAccidents = data));
+            },
+            getEmployees: function(){
+                axios.get("api/getEmployees").then(({ data }) => (this.employees = data));
+            },
             createData(){
                 this.$Progress.start();
                 this.form.post('api/accident')
@@ -202,6 +214,8 @@ import Swal from 'sweetalert2';
         },
         created() {
             this.loadDatas();
+            this.getTypeAccidents();
+            this.getEmployees();
             Fire.$on('AfterCreate', () => {
                 this.loadDatas();
             });

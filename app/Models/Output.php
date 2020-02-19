@@ -8,7 +8,6 @@ use Illuminate\Support\Facades\DB;
 class Output extends Model
 {
     protected $fillable = [
-        'date',
         'qntd',
         'employee_id',
         'product_id'

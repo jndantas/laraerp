@@ -21,6 +21,7 @@
                                     <th>CA</th>
                                     <th>Categoria</th>
                                     <th>Qntd Disponível</th>
+                                    <th>Movimento</th>
                                     <th>Ações</th>
                                 </tr>
                             </thead>
@@ -31,7 +32,16 @@
                                     <td>{{product.measure}}</td>
                                     <td>{{product.ca}}</td>
                                     <td>{{product.category.name}}</td>
-                                    <td>{{product.qntd}}</td>
+                                    <td>{{product.stock}}</td>
+                                    <td>
+                                        <a href="#" :href="route('inputStock', product.id)">
+                                            <i class="fas fa-sign-in-alt green"></i>
+                                        </a>
+                                        /
+                                        <a href="#" @click="outputModal(product)">
+                                            <i class="fas fa-sign-out-alt red"></i>
+                                        </a>
+                                    </td>
                                     <td>
                                         <a href="#">
                                             <i class="fa fa-edit blue" @click="editModal(product)"></i>
@@ -85,10 +95,10 @@
                             <has-error :form="form" field="ca"></has-error>
                         </div>
                         <div class="form-group">
-                            <input v-model="form.min" type="number" name="min"
+                            <input v-model="form.stock_min" type="number" name="stock_min"
                             placeholder="Mínimo para lembrete"
-                                class="form-control" :class="{ 'is-invalid': form.errors.has('min') }">
-                            <has-error :form="form" field="min"></has-error>
+                                class="form-control" :class="{ 'is-invalid': form.errors.has('stock_min') }">
+                            <has-error :form="form" field="stock_min"></has-error>
                         </div>
                         <div class="form-group">
                             <select name="category_id" v-model="form.category_id" id="category_id" class="form-control" :class="{ 'is-invalid': form.errors.has('category_id') }">
@@ -106,7 +116,6 @@
                 </div>
             </div>
         </div>
-
     </div>
 
 </template>
@@ -124,7 +133,8 @@ import Swal from 'sweetalert2';
                     name : '',
                     measure : '',
                     ca : '',
-                    category_id : ''
+                    category_id : '',
+                    stock_min: ''
                 })
             }
         },
@@ -192,7 +202,7 @@ import Swal from 'sweetalert2';
                     })
             },
             loadDatas(){
-                axios.get("api/product").then(({ data }) => (this.products = data));
+                axios.get(route('product.index')).then(({ data }) => (this.products = data));
             },
 
             getCategories: function(){
@@ -200,7 +210,7 @@ import Swal from 'sweetalert2';
             },
             createData(){
                 this.$Progress.start();
-                this.form.post('api/product')
+                this.form.post(route('product.store'))
                 .then(() => {
                     Fire.$emit('AfterCreate');
                     $('#addNew').modal('hide')

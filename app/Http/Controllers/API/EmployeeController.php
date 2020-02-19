@@ -19,7 +19,7 @@ class EmployeeController extends Controller
      */
     public function index()
     {
-        return Employee::with('enterprise', 'positions')->paginate(10);
+        return Employee::with('enterprise', 'position')->paginate(10);
     }
 
     public function getEnterprises()
@@ -42,8 +42,17 @@ class EmployeeController extends Controller
      */
     public function store(EmployeeRequest $request)
     {
-        return Employee::create($request->all());
-    }
+        $employee = new Employee();
+        $employee->name = $request->name;
+        $employee->document_number = $request->document_number;
+        $employee->position_id = $request->position_id;
+
+        $enterprise = Enterprise::findOrFail($request->enterprise_id);
+        $employee->enterprise()->associate($enterprise);
+        $employee->save();
+        return ['message' => 'Salvo'];
+
+        }
 
     /**
      * Display the specified resource.
@@ -66,7 +75,13 @@ class EmployeeController extends Controller
     public function update(EmployeeRequest $request, $id)
     {
         $employee = Employee::findOrFail($id);
-        $employee->update($request->all());
+        $employee->name = $request->name;
+        $employee->document_number = $request->document_number;
+        $employee->enterprise_id = $request->enterprise_id;
+        $enterprise = Enterprise::findOrFail($request->enterprise_id);
+        $employee->enterprise()->associate($enterprise);
+        $employee->save();
+
         return ['message' => 'Atualizado'];
 
     }
@@ -79,8 +94,8 @@ class EmployeeController extends Controller
      */
     public function destroy($id)
     {
-            $employee = Employee::findOrFail($id);
-            $employee->delete();
-            return ['message' => 'Deletado'];
+        $employee = Employee::findOrFail($id);
+        $employee->delete();
+        return ['message' => 'Deletado'];
     }
 }
