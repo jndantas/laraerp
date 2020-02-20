@@ -33,6 +33,12 @@
                                             <p>Categorias</p>
                                         </a>
                                     </li>
+                                    <li class="nav-item">
+                                        <a href="{{route('certificates')}}" class="nav-link" active-class="active" exact>
+                                            <i class="fas fa-certificate nav-icon"></i>
+                                            <p>CAs</p>
+                                        </a>
+                                    </li>
 
                                     <li class="nav-item has-treeview">
                                         <a href="#" class="nav-link">

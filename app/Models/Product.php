@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Events\StockEntryCreated;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
@@ -10,7 +11,6 @@ class Product extends Model
     protected $fillable = [
         'name',
         'measure',
-        'ca',
         'category_id',
         'stock_min'
     ];

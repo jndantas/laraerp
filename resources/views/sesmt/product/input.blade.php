@@ -36,6 +36,8 @@ Lista de Produtos
             <i class="fas fa-times"></i></button>
         </div>
         </div>
+        <form action="{{route('storeInput')}}" method="POST">
+            {{ csrf_field() }}
         <div class="card-body">
             <div class="row">
                 <div class="col-12 col-md-12 col-lg-12 order-2 order-md-1">
@@ -67,8 +69,26 @@ Lista de Produtos
                     </div>
 
                 <div class="row">
+                    <input type="hidden" name="product_id" id="product_id" value="{{ $product->id }}">
                     <!-- /.col -->
-                    <div class="col-md-6">
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label>Nota Fiscal:</label>
+                            <div class="input-group">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text">
+                                        <i class="fas fa-file-invoice-dollar"></i>
+                                    </span>
+                                </div>
+                                <input type="text" class="form-control" name="document_number">
+                            </div>
+                            <!-- /.input group -->
+                        </div>
+
+                    <!-- /.form-group -->
+                    </div>
+                    <!-- /.col -->
+                    <div class="col-md-4">
                         <div class="form-group">
                             <label>Data da Entrada:</label>
                             <div class="input-group">
@@ -77,7 +97,7 @@ Lista de Produtos
                                         <i class="fas fa-calendar-alt"></i>
                                     </span>
                                 </div>
-                                <input type="text" class="form-control datepicker" id="datepicker" value="{{now()}}">
+                                <input type="text" class="form-control datepicker" id="datepicker" name="date" value="{{now()}}">
                             </div>
                             <!-- /.input group -->
                         </div>
@@ -85,30 +105,68 @@ Lista de Produtos
                     <!-- /.form-group -->
                     </div>
                     <!-- /.col -->
-                    <div class="col-md-6" data-select2-id="29">
+                    <div class="col-md-4" data-select2-id="29">
                         <div class="form-group">
                             <label>CA: </label>
-                            <select class="form-control select2" data-select2-id="1" tabindex="-1" aria-hidden="true">
-                                <option selected="selected" data-select2-id="3">Alabama</option>
-                                <option data-select2-id="30">Alaska</option>
-                                <option data-select2-id="31">California</option>
-                                <option data-select2-id="32">Delaware</option>
-                                <option data-select2-id="33">Tennessee</option>
-                                <option data-select2-id="34">Texas</option>
-                                <option data-select2-id="35">Washington</option>
+                            <select class="form-control select2" name="authorization_certificate_id" data-select2-id="1" tabindex="-1" aria-hidden="true">
+                                @foreach ($certificates as $c)
+                                <option data-select2-id="{{ $c->id}}" value="{{ $c->id}}" >{{ $c->document_number}}</option>
+                                @endforeach
                             </select>
                         </div>
                         <!-- /.form-group -->
                     </div>
                 </div>
 
+                <div class="row">
+
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label>Valor:</label>
+                            <div class="input-group">
+                                <div class="input-group">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text">
+                                            <i class="fas fa-money-bill-alt"></i>
+                                        </span>
+                                    </div>
+                                <input type="text" class="form-control" name="value">
+                            </div>
+                            <!-- /.input group -->
+                        </div>
+                    </div>
+
+                    <!-- /.form-group -->
+                    </div>
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label>Quantidade:</label>
+                            <div class="input-group">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text">
+                                        <i class="fas fa-plus"></i>
+                                    </span>
+                                </div>
+                                <input type="number" class="form-control" name="qntd" min="0">
+                            </div>
+                            <!-- /.input group -->
+                        </div>
+
+                    <!-- /.form-group -->
+                    </div>
 
                 </div>
             </div>
             <!-- /.card-body -->
         </div>
-    <!-- /.card -->
-    </div>
+        <!-- /.card -->
+        </div>
+
+        <div class="card-footer text-right">
+            <button type="reset" class="btn btn-danger">Cancelar</button>
+            <button type="submit" class="btn btn-info">Salvar</button>
+        </div>
+    </form>
 </section>
 @endsection
 

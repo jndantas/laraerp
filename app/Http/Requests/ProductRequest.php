@@ -36,7 +36,6 @@ class ProductRequest extends FormRequest
                     'measure' => 'required',
                     'category_id' => 'required|exists:categories,id',
                     'stock_min' => 'required|numeric',
-                    'ca' => 'required|numeric',
                 ];
                 break;
             }
@@ -46,7 +45,6 @@ class ProductRequest extends FormRequest
                     'name' => 'required|min:3',
                     'measure' => 'required',
                     'category_id' => 'required|exists:categories,id',
-                    'ca' => 'numeric',
                     'stock_min' => 'numeric',
                 ];
                 break;
@@ -68,7 +66,6 @@ class ProductRequest extends FormRequest
             'category_id.required' => 'O campo categoria é obrigatorio.',
             'category_id.exists' => 'O campo categoria informado não existe',
             'min.numeric' => 'O campo minimo para lembrete deve ser numerico',
-            'ca.numeric' => 'O campo CA deve ser numerico',
         ];
     }
 }

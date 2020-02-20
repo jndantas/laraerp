@@ -1,35 +1,21 @@
 <?php
 
-namespace App\Http\Controllers\Admin;
+namespace App\Http\Controllers\API;
 
 use App\Http\Controllers\Controller;
 use App\Models\AuthorizationCertificate;
-use App\Models\Input;
-use App\Models\Product;
 use Illuminate\Http\Request;
 
-class ProductStockController extends Controller
+class AuthorizationCertificateController extends Controller
 {
     /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
-    public function getViewInput($id)
+    public function index()
     {
-        $product = Product::findOrFail($id);
-        $certificates = AuthorizationCertificate::all();
-        return view('sesmt.product.input', compact('product', 'certificates'));
-    }
-
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
+        return AuthorizationCertificate::paginate(10);
     }
 
     /**
@@ -38,15 +24,9 @@ class ProductStockController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function storeInput(Request $request)
+    public function store(Request $request)
     {
-        $data = $request->all();
-        Input::create($data);
-        return redirect()->route('products');
-
-       //$time = strtotime('$request->date');
-        //$newformat = date('Y-m-d',$time);
-        //echo $newformat;
+        return AuthorizationCertificate::create($request->all());
     }
 
     /**
@@ -61,17 +41,6 @@ class ProductStockController extends Controller
     }
 
     /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id)
-    {
-        //
-    }
-
-    /**
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
@@ -80,7 +49,9 @@ class ProductStockController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $certificate = AuthorizationCertificate::findOrFail($id);
+        $certificate->update($request->all());
+        return ['message' => 'Atualizado'];
     }
 
     /**
@@ -91,6 +62,8 @@ class ProductStockController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $certificate = AuthorizationCertificate::findOrFail($id);
+        $certificate->delete();
+        return ['message' => 'Categoria Apagada'];
     }
 }

@@ -15,6 +15,11 @@ class CreateInputsTable extends Migration
     {
         Schema::create('inputs', function (Blueprint $table) {
             $table->bigIncrements('id');
+            $table->string('document_number');
+            $table->dateTime('date');
+            $table->bigInteger('authorization_certificate_id')->unsigned();
+            $table->foreign('authorization_certificate_id')->references('id')->on('authorization_certificates');
+            $table->float('value');
             $table->integer('qntd');
 
             $table->bigInteger('product_id')->unsigned();

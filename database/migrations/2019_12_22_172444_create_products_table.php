@@ -17,7 +17,6 @@ class CreateProductsTable extends Migration
             $table->bigIncrements('id');
             $table->string('name');
             $table->string('measure');
-            $table->integer('ca');
             $table->integer('stock')->unsigned()->default(0);
             $table->integer('stock_min')->unsigned();
             $table->bigInteger('category_id')->unsigned();

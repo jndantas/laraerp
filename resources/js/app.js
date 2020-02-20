@@ -129,6 +129,7 @@ Vue.component('developer', require('./components/Developer.vue').default);
 Vue.component('users', require('./components/Users.vue').default);
 Vue.component('sesmt-accident', require('./components/sesmt/Accident.vue').default);
 Vue.component('sesmt-employee', require('./components/sesmt/Employee.vue').default);
+Vue.component('sesmt-certificate', require('./components/sesmt/Certificate.vue').default);
 Vue.component('sesmt-enterprise', require('./components/sesmt/Enterprise.vue').default);
 Vue.component('sesmt-exam', require('./components/sesmt/Exam.vue').default);
 Vue.component('sesmt-input', require('./components/sesmt/Input.vue').default);

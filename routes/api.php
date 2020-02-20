@@ -20,6 +20,7 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 Route::apiResources([
     'user' => 'API\UserController',
     'category' => 'API\CategoryController',
+    'authorizationcertificate' => 'API\AuthorizationCertificateController',
     'enterprise' => 'API\EnterpriseController',
     'product' => 'API\ProductController',
     'employee' => 'API\EmployeeController',

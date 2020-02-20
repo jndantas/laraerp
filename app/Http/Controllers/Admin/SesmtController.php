@@ -16,6 +16,11 @@ class SesmtController extends Controller
         return View('sesmt.category.index');
     }
 
+    public function certificate()
+    {
+        return View('sesmt.ca.index');
+    }
+
     public function employee()
     {
         return View('sesmt.employee.index');

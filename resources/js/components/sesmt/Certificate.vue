@@ -4,7 +4,7 @@
             <div class="col-12">
                 <div class="card">
                     <div class="card-header">
-                        <h3 class="card-title">Lista de EPI's</h3>
+                        <h3 class="card-title">CA's</h3>
 
                         <div class="card-tools">
                             <button class="btn btn-success" @click="newModal">Novo<i class="fas fa-plus pl-2"></i> </button>
@@ -15,47 +15,38 @@
                         <table class="table table-hover">
                             <thead>
                                 <tr>
-                                    <th>ID</th>
-                                    <th>Nome</th>
-                                    <th>Tamanho</th>
-                                    <th>Categoria</th>
-                                    <th>Qntd Disponível</th>
-                                    <th>Movimento</th>
-                                    <th>Ações</th>
+                                <th>ID</th>
+                                <th>CA</th>
+                                <th>Início</th>
+                                <th>Fim</th>
+                                <th>Data de Cadastro</th>
+                                <th>Ações</th>
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr v-for="product in products.data" :key="product.id">
-                                    <td>{{product.id}}</td>
-                                    <td>{{product.name | upText }}</td>
-                                    <td>{{product.measure}}</td>
-                                    <td>{{product.category.name}}</td>
-                                    <td>{{product.stock}}</td>
-                                    <td>
-                                        <a href="#" :href="route('inputStock', product.id)">
-                                            <i class="fas fa-sign-in-alt green"></i>
-                                        </a>
-                                        /
-                                        <a href="#" @click="outputModal(product)">
-                                            <i class="fas fa-sign-out-alt red"></i>
-                                        </a>
-                                    </td>
-                                    <td>
-                                        <a href="#">
-                                            <i class="fa fa-edit blue" @click="editModal(product)"></i>
-                                        </a>
-                                        /
-                                        <a href="#" @click="deleteData(product.id)">
-                                            <i class="fa fa-trash red"></i>
-                                        </a>
-                                    </td>
+                                <tr v-for="certificate in certificates.data" :key="certificate.id">
+                                <td>{{certificate.id}}</td>
+                                <td>{{certificate.document_number}}</td>
+                                <td>{{certificate.start_date}}</td>
+                                <td>{{certificate.end_date}}</td>
+                                <td>{{certificate.created_at}}</td>
+
+                                <td>
+                                    <a href="#">
+                                        <i class="fa fa-edit blue" @click="editModal(certificate)"></i>
+                                    </a>
+                                    /
+                                    <a href="#" @click="deleteCertificate(certificate.id)">
+                                        <i class="fa fa-trash red"></i>
+                                    </a>
+                                </td>
                                 </tr>
                             </tbody>
                         </table>
                     </div>
                 <!-- /.card-body -->
                 <div class="card-footer">
-                    <pagination :data="products" @pagination-change-page="getResults"></pagination>
+                    <pagination :data="certificates" @pagination-change-page="getResults"></pagination>
                 </div>
                 </div>
                 <!-- /.card -->
@@ -67,37 +58,30 @@
             <div class="modal-dialog modal-dialog-centered" role="document">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <h5 class="modal-title" id="addNewLabel">{{ editmode ? 'Editar EPI' : 'Novo EPI' }}</h5>
+                        <h5 class="modal-title" id="addNewLabel">{{ editmode ? 'Editar CA' : 'Nova CA' }}</h5>
                         <button type="button" class="close" data-dismiss="modal" aria-label="Fechar">
                         <span aria-hidden="true">&times;</span>
                         </button>
                     </div>
-                    <form @submit.prevent="editmode ? updateData() : createData()">
+                    <form @submit.prevent="editmode ? updateCA() : createCA()">
                     <div class="modal-body">
                         <div class="form-group">
-                            <input v-model="form.name" type="text" name="name"
-                            placeholder="Nome"
-                                class="form-control" :class="{ 'is-invalid': form.errors.has('name') }">
-                            <has-error :form="form" field="name"></has-error>
+                            <input v-model="form.document_number" type="text" name="document_number"
+                            placeholder="CA"
+                                class="form-control" :class="{ 'is-invalid': form.errors.has('document_number') }">
+                            <has-error :form="form" field="document_number"></has-error>
                         </div>
                         <div class="form-group">
-                            <input v-model="form.measure" type="text" name="measure"
-                            placeholder="Tamanho"
-                                class="form-control" :class="{ 'is-invalid': form.errors.has('measure') }">
-                            <has-error :form="form" field="measure"></has-error>
+                            <input v-model="form.start_date" type="date" name="start_date"
+                            placeholder="Data Início"
+                                class="form-control" :class="{ 'is-invalid': form.errors.has('start_date') }">
+                            <has-error :form="form" field="start_date"></has-error>
                         </div>
-                        <div class="form-group">
-                            <input v-model="form.stock_min" type="number" name="stock_min"
-                            placeholder="Mínimo para lembrete"
-                                class="form-control" :class="{ 'is-invalid': form.errors.has('stock_min') }">
-                            <has-error :form="form" field="stock_min"></has-error>
-                        </div>
-                        <div class="form-group">
-                            <select name="category_id" v-model="form.category_id" id="category_id" class="form-control" :class="{ 'is-invalid': form.errors.has('category_id') }">
-                                <option value='' >Selecione uma Categoria</option>
-                                <option v-for='data in categories' :value='data.id'>{{ data.name }}</option>
-                            </select>
-                            <has-error :form="form" field="category_id"></has-error>
+                            <div class="form-group">
+                            <input v-model="form.end_date" type="date" name="end_date"
+                            placeholder="Data Fim"
+                                class="form-control" :class="{ 'is-invalid': form.errors.has('end_date') }">
+                            <has-error :form="form" field="end_date"></has-error>
                         </div>
                     </div>
                     <div class="modal-footer">
@@ -108,6 +92,7 @@
                 </div>
             </div>
         </div>
+
     </div>
 
 </template>
@@ -118,27 +103,25 @@ import Swal from 'sweetalert2';
         data() {
             return {
                 editmode: false,
-                products: {},
-                categories: [],
+                certificates: {},
                 form: new Form({
                     id: '',
-                    name : '',
-                    measure : '',
-                    category_id : '',
-                    stock_min: ''
+                    document_number: '',
+                    start_date : '',
+                    end_date : ''
                 })
             }
         },
         methods: {
             getResults(page = 1) {
-                axios.get('api/product?page=' + page)
+                axios.get('api/authorizationcertificate?page=' + page)
                     .then(response => {
-                        this.products = response.data;
+                        this.certificates = response.data;
                     });
-            },
-            updateData(id){
+		    },
+            updateCA(id){
                 this.$Progress.start();
-                this.form.put('/api/product/' + this.form.id)
+                this.form.put(route('authorizationcertificate.update', this.form.id))
                 .then(() => {
                     $('#addNew').modal('hide');
                     Swal.fire(
@@ -153,18 +136,18 @@ import Swal from 'sweetalert2';
                     this.$Progress.fail();
                 });
             },
-            editModal(product){
+            editModal(certificate){
                 this.editmode = true;
                 this.form.reset();
                 $('#addNew').modal('show');
-                this.form.fill(product);
+                this.form.fill(certificate);
             },
             newModal(){
                 this.editmode = false;
                 this.form.reset();
                 $('#addNew').modal('show');
             },
-            deleteData(id){
+            deleteCertificate(id){
                 Swal.fire({
                     title: 'Você tem certeza?',
                     text: "Você não poderá reverter isso.",
@@ -178,10 +161,10 @@ import Swal from 'sweetalert2';
 
                     //enviar requisição para o servidor
                     if (result.value) {
-                        this.form.delete('api/product/' + id).then(()=>{
+                        this.form.delete(route('authorizationcertificate.destroy', id)).then(()=>{
                                 Swal.fire(
                                     'Apagado',
-                                    'Acidente foi apagada',
+                                    'CA foi apagado',
                                     'success'
                                     )
                                     Fire.$emit('AfterCreate');
@@ -192,23 +175,19 @@ import Swal from 'sweetalert2';
                         }
                     })
             },
-            loadDatas(){
-                axios.get(route('product.index')).then(({ data }) => (this.products = data));
+            loadCertificates(){
+                axios.get(route('authorizationcertificate.index')).then(({ data }) => (this.certificates = data));
             },
-
-            getCategories: function(){
-                axios.get("api/getCategories").then(({ data }) => (this.categories = data));
-            },
-            createData(){
+            createCA(){
                 this.$Progress.start();
-                this.form.post(route('product.store'))
+                this.form.post(route('authorizationcertificate.store'))
                 .then(() => {
                     Fire.$emit('AfterCreate');
                     $('#addNew').modal('hide')
 
                     Toast.fire({
                         type: 'success',
-                        title: 'Acidente Criada com sucesso !!'
+                        title: 'CA Criada com sucesso !!'
                     })
                     this.$Progress.finish();
 
@@ -219,10 +198,9 @@ import Swal from 'sweetalert2';
             }
         },
         created() {
-            this.loadDatas();
-            this.getCategories();
+            this.loadCertificates();
             Fire.$on('AfterCreate', () => {
-                this.loadDatas();
+                this.loadCertificates();
             });
         }
     }

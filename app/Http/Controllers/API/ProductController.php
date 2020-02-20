@@ -40,9 +40,7 @@ class ProductController extends Controller
         $product->name = $input['name'];
         $product->measure = $input['measure'];
         $product->stock_min = $input['stock_min'];
-        if ($request->has('ca')) {
-            $product->ca = $input['ca'];
-        }
+
         $category = Category::findOrFail($input['category_id']);
         $product->category()->associate($category);
         $product->save();
@@ -78,9 +76,7 @@ class ProductController extends Controller
     {
         $product = Product::findOrFail($id);
         $product->update($request->all());
-        if ($request->has('ca')) {
-            $product->ca = $request['ca'];
-        }
+
         $category = Category::findOrFail($request['category_id']);
         $product->category()->associate($category);
         $product->save();
