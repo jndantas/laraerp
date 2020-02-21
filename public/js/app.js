@@ -5102,6 +5102,12 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
@@ -94425,7 +94431,29 @@ var render = function() {
                     _vm._v(" "),
                     _c("td", [_vm._v(_vm._s(product.category.name))]),
                     _vm._v(" "),
-                    _c("td", [_vm._v(_vm._s(product.stock))]),
+                    _c("td", [
+                      product.stock <= 1
+                        ? _c(
+                            "span",
+                            { staticClass: "badge badge-pill badge-danger" },
+                            [_vm._v(_vm._s(product.stock))]
+                          )
+                        : product.stock <= product.stock_min
+                        ? _c(
+                            "span",
+                            { staticClass: "badge badge-pill badge-warning" },
+                            [_vm._v(_vm._s(product.stock))]
+                          )
+                        : product.stock > product.stock_min
+                        ? _c(
+                            "span",
+                            { staticClass: "badge badge-pill badge-success" },
+                            [_vm._v(_vm._s(product.stock))]
+                          )
+                        : _vm._e()
+                    ]),
+                    _vm._v(" "),
+                    _c("td", [_vm._v(_vm._s(product.stock_min))]),
                     _vm._v(" "),
                     _c("td", [
                       _c(
@@ -94777,6 +94805,8 @@ var staticRenderFns = [
         _c("th", [_vm._v("Categoria")]),
         _vm._v(" "),
         _c("th", [_vm._v("Qntd Disponível")]),
+        _vm._v(" "),
+        _c("th", [_vm._v("Estoque mínimo")]),
         _vm._v(" "),
         _c("th", [_vm._v("Movimento")]),
         _vm._v(" "),

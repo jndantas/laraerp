@@ -20,6 +20,7 @@
                                     <th>Tamanho</th>
                                     <th>Categoria</th>
                                     <th>Qntd Disponível</th>
+                                    <th>Estoque mínimo</th>
                                     <th>Movimento</th>
                                     <th>Ações</th>
                                 </tr>
@@ -30,7 +31,12 @@
                                     <td>{{product.name | upText }}</td>
                                     <td>{{product.measure}}</td>
                                     <td>{{product.category.name}}</td>
-                                    <td>{{product.stock}}</td>
+                                    <td>
+                                        <span v-if="product.stock <= 1" class="badge badge-pill badge-danger">{{ product.stock }}</span>
+                                        <span v-else-if="(product.stock <= product.stock_min )" class="badge badge-pill badge-warning">{{ product.stock }}</span>
+                                        <span v-else-if="product.stock > product.stock_min" class="badge badge-pill badge-success">{{ product.stock }}</span>
+                                    </td>
+                                    <td>{{product.stock_min}}</td>
                                     <td>
                                         <a href="#" :href="route('inputStock', product.id)">
                                             <i class="fas fa-sign-in-alt green"></i>

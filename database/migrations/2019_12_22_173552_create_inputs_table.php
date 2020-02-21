@@ -19,9 +19,10 @@ class CreateInputsTable extends Migration
             $table->dateTime('date');
             $table->bigInteger('authorization_certificate_id')->unsigned();
             $table->foreign('authorization_certificate_id')->references('id')->on('authorization_certificates');
-            $table->float('value');
+            $table->decimal('value', 12,2);
             $table->integer('qntd');
-
+            $table->bigInteger('user_id')->unsigned();
+            $table->foreign('user_id')->references('id')->on('users');
             $table->bigInteger('product_id')->unsigned();
             $table->foreign('product_id')->references('id')->on('products');
 

@@ -4,7 +4,7 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class InputRequest extends FormRequest
+class InputStockRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -32,9 +32,12 @@ class InputRequest extends FormRequest
             case 'POST':
             {
                 return [
-                    'id'       => 'required|numeric|exists:produtos',
-                    'date'       => 'required|date_format:d/m/Y',
-                    'qntd'       => 'required|numeric|min:1'
+                    'product_id' => 'required|numeric|exists:products,id',
+                    'document_number' => 'required',
+                    'authorization_certificate_id' => 'required|exists:authorization_certificates,id',
+                    'value' => 'required',
+                    'date' => 'required|date_format:d/m/Y',
+                    'qntd' => 'required|min:1'
                 ];
                 break;
             }
@@ -50,12 +53,20 @@ class InputRequest extends FormRequest
 
     public function messages(){
         return [
-        'date.required' => 'O campo Data é obrigatorio.',
+        'document_number.required' => 'Insira o número da Nota Fiscal',
+
+        'authorization_certificate_id.required' => 'Insira o CA do Produto.',
+        'authorization_certificate_id.exists' => 'O campo CA informado não existe',
+
+        'date.required' => 'Insira a Data da chegado do Produto.',
         'date.date_format' => 'O campo Data deve ser : DIA/MES/ANO',
 
-        'id.required' => 'O campo id é obrigatorio.',
-        'id.numeric' => 'O campo id deve ser numerico',
-        'id.exists' => 'O campo id informado não existe',
+        'product_id.required' => 'O campo id é obrigatorio.',
+        'product_id.numeric' => 'O campo id deve ser numerico',
+        'product_id.exists' => 'O campo id informado não existe',
+
+        'value.required' => 'Informe o valor do produto.',
+        'value.numeric' => 'Informe o valor do produto.',
 
         'qntd.required' => 'O campo quantidade é obrigatorio.',
         'qntd.min' => 'O campo quantidade deve conter no minimo 1 unidade.',

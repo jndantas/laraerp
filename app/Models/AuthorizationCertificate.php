@@ -12,8 +12,8 @@ class AuthorizationCertificate extends Model
         'end_date'
     ];
 
-    public function products()
+    public function inputs()
 	{
-		return $this->hasMany(Product::class);
+		return $this->hasMany(Input::class);
 	}
 }

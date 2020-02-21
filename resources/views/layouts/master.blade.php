@@ -14,6 +14,8 @@
     <title>{{ config('app.name', 'Laravel') }} | @yield('title') </title>
 
     <link rel="stylesheet" href="{{ asset('css/app.css')}}">
+    @stack('css')
+
 </head>
 
 <body class="hold-transition sidebar-mini">
@@ -102,6 +104,8 @@
     @endauth
     @routes
     <script src="{{ asset('js/app.js') }}"></script>
+
+    @stack('js')
 </body>
 
 </html>

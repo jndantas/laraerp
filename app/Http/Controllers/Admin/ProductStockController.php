@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\InputStockRequest;
 use App\Models\AuthorizationCertificate;
 use App\Models\Input;
 use App\Models\Product;
@@ -38,10 +39,17 @@ class ProductStockController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function storeInput(Request $request)
+    public function storeInput(InputStockRequest $request)
     {
-        $data = $request->all();
-        Input::create($data);
+        Input::create([
+            'document_number' => $request->document_number,
+            'date' => date("Y-m-d", strtotime($request->date)),
+            'qntd' => $request->qntd,
+            'authorization_certificate_id' => $request->authorization_certificate_id,
+            'value' => str_replace(['.',','], ['','.'], $request->value),
+            'product_id' => $request->product_id,
+            'user_id' => auth()->user()->id
+        ]);
         return redirect()->route('products');
 
        //$time = strtotime('$request->date');

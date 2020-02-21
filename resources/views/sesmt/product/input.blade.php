@@ -15,7 +15,8 @@ Lista de Produtos
             <div class="col-sm-6">
                 <ol class="breadcrumb float-sm-right">
                     <li class="breadcrumb-item"><a href="{{ route('home') }}">Home</a></li>
-                    <li class="breadcrumb-item active">Produtos</li>
+                    <li class="breadcrumb-item"><a href="{{ route('products') }}">Produtos</a></li>
+                    <li class="breadcrumb-item active">Entrada de Estoque</li>
                 </ol>
             </div>
         </div>
@@ -80,7 +81,12 @@ Lista de Produtos
                                         <i class="fas fa-file-invoice-dollar"></i>
                                     </span>
                                 </div>
-                                <input type="text" class="form-control" name="document_number">
+                                <input type="text" class="form-control @error('document_number') is-invalid @enderror" name="document_number" value="{{ old('document_number') }}">
+                                @error('document_number')
+                                <span class="invalid-feedback" role="alert">
+                                    <strong>{{ $message }}</strong>
+                                </span>
+                                @enderror
                             </div>
                             <!-- /.input group -->
                         </div>
@@ -97,7 +103,12 @@ Lista de Produtos
                                         <i class="fas fa-calendar-alt"></i>
                                     </span>
                                 </div>
-                                <input type="text" class="form-control datepicker" id="datepicker" name="date" value="{{now()}}">
+                                <input type="text" class="form-control datepicker @error('date') is-invalid @enderror" id="datepicker" name="date" value="{{ old('date') }}">
+                                @error('date')
+                                <span class="invalid-feedback" role="alert">
+                                    <strong>{{ $message }}</strong>
+                                </span>
+                                @enderror
                             </div>
                             <!-- /.input group -->
                         </div>
@@ -108,11 +119,16 @@ Lista de Produtos
                     <div class="col-md-4" data-select2-id="29">
                         <div class="form-group">
                             <label>CA: </label>
-                            <select class="form-control select2" name="authorization_certificate_id" data-select2-id="1" tabindex="-1" aria-hidden="true">
+                            <select class="form-control select2 @error('authorization_certificate_id') is-invalid @enderror" name="authorization_certificate_id" data-select2-id="1" tabindex="-1" aria-hidden="true">
                                 @foreach ($certificates as $c)
                                 <option data-select2-id="{{ $c->id}}" value="{{ $c->id}}" >{{ $c->document_number}}</option>
                                 @endforeach
                             </select>
+                            @error('authorization_certificate_id')
+                            <span class="invalid-feedback" role="alert">
+                                <strong>{{ $message }}</strong>
+                            </span>
+                            @enderror
                         </div>
                         <!-- /.form-group -->
                     </div>
@@ -130,7 +146,12 @@ Lista de Produtos
                                             <i class="fas fa-money-bill-alt"></i>
                                         </span>
                                     </div>
-                                <input type="text" class="form-control" name="value">
+                                <input type="text" class="form-control money @error('value') is-invalid @enderror" name="value" value="{{ old('value') }}">
+                                @error('value')
+                                <span class="invalid-feedback" role="alert">
+                                    <strong>{{ $message }}</strong>
+                                </span>
+                                @enderror
                             </div>
                             <!-- /.input group -->
                         </div>
@@ -147,7 +168,12 @@ Lista de Produtos
                                         <i class="fas fa-plus"></i>
                                     </span>
                                 </div>
-                                <input type="number" class="form-control" name="qntd" min="0">
+                                <input type="number" class="form-control @error('qntd') is-invalid @enderror" name="qntd" min="0" id="quantity" value="{{ old('qntd') }}"> &nbsp;<span id="errmsg"></span>
+                                @error('qntd')
+                                <span class="invalid-feedback" role="alert">
+                                    <strong>{{ $message }}</strong>
+                                </span>
+                                @enderror
                             </div>
                             <!-- /.input group -->
                         </div>
@@ -170,4 +196,35 @@ Lista de Produtos
 </section>
 @endsection
 
+@push('css')
+<style type="text/css">
+#errmsg
+{
+color: red;
+}
+</style>
+@endpush
+@push('js')
 
+<script src="https://cdn.rawgit.com/plentz/jquery-maskmoney/master/dist/jquery.maskMoney.min.js"></script>
+
+<script>
+$(document).ready(function()
+{
+    $(".money").maskMoney({
+        decimal: ",",
+        thousands: "."
+    });
+
+    $("#quantity").keypress(function (e) {
+     //if the letter is not digit then display error and don't type anything
+     if (e.which != 8 && e.which != 0 && (e.which < 48 || e.which > 57)) {
+        //display error message
+        $("#errmsg").html("Apenas Números inteiros").show().fadeOut("slow");
+               return false;
+    }
+   });
+});
+</script>
+
+@endpush
