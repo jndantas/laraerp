@@ -1,7 +1,7 @@
 @extends('layouts.master')
 
 @section('title')
-Entrada de EPI's
+Saída de EPI's
 @stop
 
 @section('content')
@@ -37,7 +37,7 @@ Entrada de EPI's
             <i class="fas fa-times"></i></button>
         </div>
         </div>
-        <form action="{{route('storeInput')}}" method="POST">
+        <form action="{{route('storeOutput')}}" method="POST">
             {{ csrf_field() }}
         <div class="card-body">
             <div class="row">
@@ -71,83 +71,9 @@ Entrada de EPI's
 
                 <div class="row">
                     <input type="hidden" name="product_id" id="product_id" value="{{ $product->id }}">
+                    <input type="hidden" name="max" id="max" value="{{ $product->qntd }}">
                     <!-- /.col -->
                     <div class="col-md-2"></div>
-
-                    <div class="col-md-4">
-                        <div class="form-group">
-                            <label>Nota Fiscal:</label>
-                            <div class="input-group">
-                                <div class="input-group-prepend">
-                                    <span class="input-group-text">
-                                        <i class="fas fa-file-invoice-dollar"></i>
-                                    </span>
-                                </div>
-                                <input type="text" class="form-control @error('document_number') is-invalid @enderror" name="document_number" value="{{ old('document_number') }}">
-                                @error('document_number')
-                                <span class="invalid-feedback" role="alert">
-                                    <strong>{{ $message }}</strong>
-                                </span>
-                                @enderror
-                            </div>
-                            <!-- /.input group -->
-                        </div>
-
-                    <!-- /.form-group -->
-                    </div>
-                    <!-- /.col -->
-                    <div class="col-md-4">
-                        <div class="form-group">
-                            <label>Data da Entrada:</label>
-                            <div class="input-group">
-                                <div class="input-group-prepend">
-                                    <span class="input-group-text">
-                                        <i class="fas fa-calendar-alt"></i>
-                                    </span>
-                                </div>
-                                <input type="date" class="form-control @error('date') is-invalid @enderror" name="date" value="{{ old('date', date('Y-m-d')) }}">
-                                @error('date')
-                                <span class="invalid-feedback" role="alert">
-                                    <strong>{{ $message }}</strong>
-                                </span>
-                                @enderror
-                            </div>
-                            <!-- /.input group -->
-                        </div>
-
-                    <!-- /.form-group -->
-                    </div>
-                    <!-- /.col -->
-                    <div class="col-md-2"></div>
-
-                </div>
-
-                <div class="row">
-                    <div class="col-md-2"></div>
-
-                    <div class="col-md-4">
-                        <div class="form-group">
-                            <label>Valor:</label>
-                            <div class="input-group">
-                                <div class="input-group">
-                                    <div class="input-group-prepend">
-                                        <span class="input-group-text">
-                                            <i class="fas fa-money-bill-alt"></i>
-                                        </span>
-                                    </div>
-                                <input type="text" class="form-control money @error('value') is-invalid @enderror" name="value" value="{{ old('value') }}">
-                                @error('value')
-                                <span class="invalid-feedback" role="alert">
-                                    <strong>{{ $message }}</strong>
-                                </span>
-                                @enderror
-                            </div>
-                            <!-- /.input group -->
-                        </div>
-                    </div>
-
-                    <!-- /.form-group -->
-                    </div>
                     <div class="col-md-4">
                         <div class="form-group">
                             <label>Quantidade:</label>
@@ -166,10 +92,48 @@ Entrada de EPI's
                             </div>
                             <!-- /.input group -->
                         </div>
-
                     <!-- /.form-group -->
                     </div>
+
+                    <div class="col-md-4" data-select2-id="29">
+                        <div class="form-group">
+                            <label>Funcionário: </label>
+                            <select class="form-control select2 @error('employees_id') is-invalid @enderror" name="employee_id" data-select2-id="1" tabindex="-1" aria-hidden="true">
+                                @foreach ($employees as $e)
+                                <option data-select2-id="{{ $e->id}}" value="{{ $e->id}}" >{{ $e->name}}</option>
+                                @endforeach
+                            </select>
+                            @error('employees_id')
+                            <span class="invalid-feedback" role="alert">
+                                <strong>{{ $message }}</strong>
+                            </span>
+                            @enderror
+                        </div>
+                        <!-- /.form-group -->
+                    </div>
                     <div class="col-md-2"></div>
+
+                    <!-- /.col -->
+                </div>
+
+                <div class="row">
+
+                    <div class="col-md">
+                        <div class="form-group">
+                            <label>Observações:</label>
+
+                                <textarea type="text" class="form-control @error('content') is-invalid @enderror" name="content" value="{{ old('content') }}"></textarea>
+                                @error('content')
+                                <span class="invalid-feedback" role="alert">
+                                    <strong>{{ $message }}</strong>
+                                </span>
+                                @enderror
+
+                        </div>
+                    <!-- /.form-group -->
+                    </div>
+
+
 
                 </div>
             </div>

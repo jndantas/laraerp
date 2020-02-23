@@ -11,11 +11,11 @@
         "php": "^7.2",
         "ext-gd": "*",
         "fideloper/proxy": "^4.0",
+        "fzaninotto/faker": "^1.4",
         "intervention/image": "^2.5",
         "laravel/framework": "^6.2",
         "laravel/passport": "^8.0",
         "laravel/tinker": "^1.0",
-        "fzaninotto/faker": "^1.4",
         "tightenco/ziggy": "^0.8.1"
     },
     "require-dev": {

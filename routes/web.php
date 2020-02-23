@@ -37,6 +37,8 @@ Route::group(['namespace'=>'Admin'], function () {
     Route::get('developer', 'AdminController@developer')->name('developer');
     Route::get('profile', 'AdminController@profile')->name('profile');
     Route::get('inputstock/{product}', 'ProductStockController@getViewInput')->name('inputStock');
+    Route::get('outputstock/{product}', 'ProductStockController@getViewOutput')->name('outputStock');
     Route::post('inputstock', 'ProductStockController@storeInput')->name('storeInput');
+    Route::post('outputstock', 'ProductStockController@storeOutput')->name('storeOutput');
 });
 

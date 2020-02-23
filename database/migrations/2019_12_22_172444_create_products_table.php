@@ -19,6 +19,8 @@ class CreateProductsTable extends Migration
             $table->string('measure');
             $table->integer('stock')->unsigned()->default(0);
             $table->integer('stock_min')->unsigned();
+            $table->bigInteger('authorization_certificate_id')->unsigned();
+            $table->foreign('authorization_certificate_id')->references('id')->on('authorization_certificates');
             $table->bigInteger('category_id')->unsigned();
             $table->foreign('category_id')->references('id')->on('categories');
             $table->softDeletes();

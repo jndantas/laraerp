@@ -4,8 +4,11 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\InputStockRequest;
+use App\Http\Requests\OutputStockRequest;
 use App\Models\AuthorizationCertificate;
+use App\Models\Employee;
 use App\Models\Input;
+use App\Models\Output;
 use App\Models\Product;
 use Illuminate\Http\Request;
 
@@ -28,9 +31,11 @@ class ProductStockController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function getViewOutput($id)
     {
-        //
+        $product = Product::findOrFail($id);
+        $employees = Employee::all();
+        return view('sesmt.product.output', compact('product', 'employees'));
     }
 
     /**
@@ -43,9 +48,8 @@ class ProductStockController extends Controller
     {
         Input::create([
             'document_number' => $request->document_number,
-            'date' => date("Y-m-d", strtotime($request->date)),
+            'date' => $request->date,
             'qntd' => $request->qntd,
-            'authorization_certificate_id' => $request->authorization_certificate_id,
             'value' => str_replace(['.',','], ['','.'], $request->value),
             'product_id' => $request->product_id,
             'user_id' => auth()->user()->id
@@ -63,9 +67,17 @@ class ProductStockController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function storeOutput(OutputStockRequest $request)
     {
-        //
+        Output::create([
+            'qntd' => $request->qntd,
+            //'authorization_certificate_id' => $request->authorization_certificate_id,
+            'content' => $request->content,
+            'product_id' => $request->product_id,
+            'employee_id' => $request->employee_id,
+            'user_id' => auth()->user()->id
+        ]);
+        return redirect()->route('products');
     }
 
     /**

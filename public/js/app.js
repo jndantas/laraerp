@@ -4621,6 +4621,14 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
@@ -4646,7 +4654,7 @@ __webpack_require__.r(__webpack_exports__);
     loadDatas: function loadDatas() {
       var _this2 = this;
 
-      axios.get("api/input").then(function (_ref) {
+      axios.get(route('stock_entries.index')).then(function (_ref) {
         var data = _ref.data;
         return _this2.inputs = data;
       });
@@ -4720,6 +4728,10 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
@@ -4745,7 +4757,7 @@ __webpack_require__.r(__webpack_exports__);
     loadDatas: function loadDatas() {
       var _this2 = this;
 
-      axios.get("api/output").then(function (_ref) {
+      axios.get(route('stock_outputs.index')).then(function (_ref) {
         var data = _ref.data;
         return _this2.outputs = data;
       });
@@ -5108,6 +5120,15 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
@@ -5115,11 +5136,13 @@ __webpack_require__.r(__webpack_exports__);
       editmode: false,
       products: {},
       categories: [],
+      authorization_certificates: [],
       form: new Form({
         id: '',
         name: '',
         measure: '',
         category_id: '',
+        authorization_certificate_id: '',
         stock_min: ''
       })
     };
@@ -5199,8 +5222,16 @@ __webpack_require__.r(__webpack_exports__);
         return _this5.categories = data;
       });
     },
-    createData: function createData() {
+    getCertificates: function getCertificates() {
       var _this6 = this;
+
+      axios.get(route('getCertificates')).then(function (_ref3) {
+        var data = _ref3.data;
+        return _this6.authorization_certificates = data;
+      });
+    },
+    createData: function createData() {
+      var _this7 = this;
 
       this.$Progress.start();
       this.form.post(route('product.store')).then(function () {
@@ -5208,20 +5239,21 @@ __webpack_require__.r(__webpack_exports__);
         $('#addNew').modal('hide');
         Toast.fire({
           type: 'success',
-          title: 'Acidente Criada com sucesso !!'
+          title: 'Produto Criado com sucesso !!'
         });
 
-        _this6.$Progress.finish();
+        _this7.$Progress.finish();
       })["catch"](function () {});
     }
   },
   created: function created() {
-    var _this7 = this;
+    var _this8 = this;
 
     this.loadDatas();
     this.getCategories();
+    this.getCertificates();
     Fire.$on('AfterCreate', function () {
-      _this7.loadDatas();
+      _this8.loadDatas();
     });
   }
 });
@@ -93921,11 +93953,17 @@ var render = function() {
                   return _c("tr", { key: input.id }, [
                     _c("td", [_vm._v(_vm._s(input.id))]),
                     _vm._v(" "),
-                    _c("td", [
-                      _vm._v(_vm._s(_vm._f("upText")(input.product.name)))
-                    ]),
+                    _c("td", [_vm._v(_vm._s(input.document_number))]),
                     _vm._v(" "),
-                    _c("td", [_vm._v(_vm._s(input.date))]),
+                    _c("td", [_vm._v(_vm._s(input.product.name))]),
+                    _vm._v(" "),
+                    _c("td", [_vm._v(_vm._s(input.product.measure))]),
+                    _vm._v(" "),
+                    _c("td", [_vm._v(_vm._s(_vm._f("myDate")(input.date)))]),
+                    _vm._v(" "),
+                    _c("td", [_vm._v(_vm._s(input.user.name))]),
+                    _vm._v(" "),
+                    _c("td", [_vm._v(_vm._s(input.value))]),
                     _vm._v(" "),
                     _c("td", [_vm._v(_vm._s(input.qntd))])
                   ])
@@ -93968,9 +94006,17 @@ var staticRenderFns = [
       _c("tr", [
         _c("th", [_vm._v("ID")]),
         _vm._v(" "),
+        _c("th", [_vm._v("NF")]),
+        _vm._v(" "),
         _c("th", [_vm._v("EPI")]),
         _vm._v(" "),
+        _c("th", [_vm._v("Tamanho")]),
+        _vm._v(" "),
         _c("th", [_vm._v("Data de Entrada")]),
+        _vm._v(" "),
+        _c("th", [_vm._v("Funcionário")]),
+        _vm._v(" "),
+        _c("th", [_vm._v("Valor")]),
         _vm._v(" "),
         _c("th", [_vm._v("Qntd")])
       ])
@@ -94018,11 +94064,23 @@ var render = function() {
                       _vm._v(_vm._s(_vm._f("upText")(output.product.name)))
                     ]),
                     _vm._v(" "),
-                    _c("td", [_vm._v(_vm._s(output.date))]),
+                    _c("td", [
+                      _vm._v(_vm._s(_vm._f("myDate")(output.created_at)))
+                    ]),
+                    _vm._v(" "),
+                    _c("td", [
+                      _vm._v(_vm._s(_vm._f("myHour")(output.created_at)))
+                    ]),
+                    _vm._v(" "),
+                    _c("td", [
+                      _vm._v(_vm._s(_vm._f("upText")(output.user.name)))
+                    ]),
                     _vm._v(" "),
                     _c("td", [_vm._v(_vm._s(output.qntd))]),
                     _vm._v(" "),
-                    _c("td", [_vm._v(_vm._s(output.employee.name))])
+                    _c("td", [
+                      _vm._v(_vm._s(_vm._f("upText")(output.employee.name)))
+                    ])
                   ])
                 }),
                 0
@@ -94066,6 +94124,10 @@ var staticRenderFns = [
         _c("th", [_vm._v("EPI")]),
         _vm._v(" "),
         _c("th", [_vm._v("Data de Saída")]),
+        _vm._v(" "),
+        _c("th", [_vm._v("Hora")]),
+        _vm._v(" "),
+        _c("th", [_vm._v("Entregue por ")]),
         _vm._v(" "),
         _c("th", [_vm._v("Qntd")]),
         _vm._v(" "),
@@ -94429,6 +94491,14 @@ var render = function() {
                     _vm._v(" "),
                     _c("td", [_vm._v(_vm._s(product.measure))]),
                     _vm._v(" "),
+                    _c("td", [
+                      _vm._v(
+                        _vm._s(
+                          product.authorization_certificate.document_number
+                        )
+                      )
+                    ]),
+                    _vm._v(" "),
                     _c("td", [_vm._v(_vm._s(product.category.name))]),
                     _vm._v(" "),
                     _c("td", [
@@ -94472,11 +94542,9 @@ var render = function() {
                       _c(
                         "a",
                         {
-                          attrs: { href: "#" },
-                          on: {
-                            click: function($event) {
-                              return _vm.outputModal(product)
-                            }
+                          attrs: {
+                            href: "#",
+                            href: _vm.route("outputStock", product.id)
                           }
                         },
                         [_c("i", { staticClass: "fas fa-sign-out-alt red" })]
@@ -94708,6 +94776,79 @@ var render = function() {
                               {
                                 name: "model",
                                 rawName: "v-model",
+                                value: _vm.form.authorization_certificate_id,
+                                expression: "form.authorization_certificate_id"
+                              }
+                            ],
+                            staticClass: "form-control",
+                            class: {
+                              "is-invalid": _vm.form.errors.has(
+                                "authorization_certificate_id"
+                              )
+                            },
+                            attrs: {
+                              name: "authorization_certificate_id",
+                              id: "authorization_certificate_id"
+                            },
+                            on: {
+                              change: function($event) {
+                                var $$selectedVal = Array.prototype.filter
+                                  .call($event.target.options, function(o) {
+                                    return o.selected
+                                  })
+                                  .map(function(o) {
+                                    var val = "_value" in o ? o._value : o.value
+                                    return val
+                                  })
+                                _vm.$set(
+                                  _vm.form,
+                                  "authorization_certificate_id",
+                                  $event.target.multiple
+                                    ? $$selectedVal
+                                    : $$selectedVal[0]
+                                )
+                              }
+                            }
+                          },
+                          [
+                            _c("option", { attrs: { value: "" } }, [
+                              _vm._v("Selecione um CA")
+                            ]),
+                            _vm._v(" "),
+                            _vm._l(_vm.authorization_certificates, function(
+                              data
+                            ) {
+                              return _c(
+                                "option",
+                                { domProps: { value: data.id } },
+                                [_vm._v(_vm._s(data.document_number))]
+                              )
+                            })
+                          ],
+                          2
+                        ),
+                        _vm._v(" "),
+                        _c("has-error", {
+                          attrs: {
+                            form: _vm.form,
+                            field: "authorization_certificate_id"
+                          }
+                        })
+                      ],
+                      1
+                    ),
+                    _vm._v(" "),
+                    _c(
+                      "div",
+                      { staticClass: "form-group" },
+                      [
+                        _c(
+                          "select",
+                          {
+                            directives: [
+                              {
+                                name: "model",
+                                rawName: "v-model",
                                 value: _vm.form.category_id,
                                 expression: "form.category_id"
                               }
@@ -94801,6 +94942,8 @@ var staticRenderFns = [
         _c("th", [_vm._v("Nome")]),
         _vm._v(" "),
         _c("th", [_vm._v("Tamanho")]),
+        _vm._v(" "),
+        _c("th", [_vm._v("CA")]),
         _vm._v(" "),
         _c("th", [_vm._v("Categoria")]),
         _vm._v(" "),
@@ -110619,6 +110762,9 @@ Vue.filter('upText', function (text) {
 });
 Vue.filter('myDate', function (created) {
   return moment__WEBPACK_IMPORTED_MODULE_0___default()(created).format('LL');
+});
+Vue.filter('myHour', function (created) {
+  return moment__WEBPACK_IMPORTED_MODULE_0___default()(created).format('LTS');
 });
 window.Fire = new Vue();
 /**

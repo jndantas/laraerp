@@ -4,6 +4,7 @@ namespace App\Models;
 
 use App\Events\StockEntryCreated;
 use Illuminate\Database\Eloquent\Model;
+use App\User;
 
 class Input extends Model
 {
@@ -24,8 +25,9 @@ class Input extends Model
 	{
 		return $this->belongsTo(Product::class);
     }
-    public function authorizationCertificate()
+
+    public function user()
     {
-        return $this->belongsTo(AuthorizationCertificate::class);
+        return $this->belongsTo(User::class);
     }
 }

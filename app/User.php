@@ -3,6 +3,7 @@
 namespace App;
 
 use App\Models\Input;
+use App\Models\Output;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
@@ -42,5 +43,10 @@ class User extends Authenticatable
     public function inputs()
 	{
 		return $this->hasMany(Input::class);
+    }
+
+    public function outputs()
+	{
+		return $this->hasMany(Output::class);
 	}
 }

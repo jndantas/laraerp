@@ -4,6 +4,7 @@ namespace App\Http\Controllers\API;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\ProductRequest;
+use App\Models\AuthorizationCertificate;
 use App\Models\Category;
 use App\Models\Product;
 use App\Models\Reminder;
@@ -18,12 +19,18 @@ class ProductController extends Controller
      */
     public function index()
     {
-        return Product::with('category', 'reminders')->paginate(10);
+        return Product::with('category', 'reminders', 'authorizationCertificate')->paginate(10);
     }
 
     public function getCategories()
     {
         $data = Category::select('id', 'name')->get();
+        return response()->json($data);
+    }
+
+    public function getCertificates()
+    {
+        $data = AuthorizationCertificate::select('id', 'document_number')->get();
         return response()->json($data);
     }
 
@@ -41,9 +48,12 @@ class ProductController extends Controller
         $product->measure = $input['measure'];
         $product->stock_min = $input['stock_min'];
 
+        $certificate = AuthorizationCertificate::findOrFail($input['authorization_certificate_id']);
+        $product->authorizationCertificate()->associate($certificate);
         $category = Category::findOrFail($input['category_id']);
         $product->category()->associate($category);
         $product->save();
+
         if ($request->has('stock_min')){
             $reminder = new Reminder();
             $reminder->stock_min = $input['stock_min'];
@@ -77,6 +87,7 @@ class ProductController extends Controller
         $product = Product::findOrFail($id);
         $product->update($request->all());
 
+        $certificate = AuthorizationCertificate::findOrFail($request['authorization_certificate_id']);
         $category = Category::findOrFail($request['category_id']);
         $product->category()->associate($category);
         $product->save();

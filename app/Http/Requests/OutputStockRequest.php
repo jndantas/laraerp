@@ -4,7 +4,7 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class OutputRequest extends FormRequest
+class OutputStockRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -36,7 +36,7 @@ class OutputRequest extends FormRequest
                 return [
                     'id' => 'required|numeric|exists:produtos',
                     'employee'       => 'required|numeric|exists:employees,id',
-                    'date'       => 'required|date_format:d/m/Y',
+                    'content'       => 'required',
                     'qntd'       => 'required|numeric|max:'.$max,
                 ];
                 break;
@@ -53,19 +53,17 @@ class OutputRequest extends FormRequest
 
     public function messages(){
         return [
-        'date.required' => 'O campo data é obrigatorio.',
-        'date.date_format' => 'O campo data deve ser : DIA/MES/ANO',
 
         'id.required' => 'O campo id é obrigatorio.',
         'id.numeric' => 'O campo id deve ser numerico',
         'id.exists' => 'O campo id informado não existe',
 
         'employee.required' => 'O campo funcionario é obrigatorio.',
-        'employee.numeric' => 'O campo funcionario deve ser numerico',
-        'employee.exists' => 'O campo funcionario informado não existe',
+        'employee.exists' => 'Este funcionario informado não existe',
 
+        'content.required' => 'Faça as observações sobre a entrega do EPI.',
 
-        'qntd.required' => 'O campo quantidade é obrigatorio.',
+        'qntd.required' => 'A quantidade é obrigatoria.',
         'qntd.min' => 'O campo quantidade deve conter no minimo 1 unidade.',
         'qntd.numeric' => 'O campo quantidade deve ser numerico',
         'qntd.max' => 'Quantidade no estoque indisponivel'

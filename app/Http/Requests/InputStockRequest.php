@@ -34,9 +34,9 @@ class InputStockRequest extends FormRequest
                 return [
                     'product_id' => 'required|numeric|exists:products,id',
                     'document_number' => 'required',
-                    'authorization_certificate_id' => 'required|exists:authorization_certificates,id',
+                    //'authorization_certificate_id' => 'required|exists:authorization_certificates,id',
                     'value' => 'required',
-                    'date' => 'required|date_format:d/m/Y',
+                    'date' => 'required|date_format:Y-m-d',
                     'qntd' => 'required|min:1'
                 ];
                 break;
@@ -55,8 +55,8 @@ class InputStockRequest extends FormRequest
         return [
         'document_number.required' => 'Insira o número da Nota Fiscal',
 
-        'authorization_certificate_id.required' => 'Insira o CA do Produto.',
-        'authorization_certificate_id.exists' => 'O campo CA informado não existe',
+        //'authorization_certificate_id.required' => 'Insira o CA do Produto.',
+        //'authorization_certificate_id.exists' => 'O campo CA informado não existe',
 
         'date.required' => 'Insira a Data da chegado do Produto.',
         'date.date_format' => 'O campo Data deve ser : DIA/MES/ANO',

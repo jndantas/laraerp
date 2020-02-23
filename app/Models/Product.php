@@ -12,7 +12,8 @@ class Product extends Model
         'name',
         'measure',
         'category_id',
-        'stock_min'
+        'stock_min',
+        'authorization_certificate_id'
     ];
 
     use SoftDeletes;
@@ -38,6 +39,11 @@ class Product extends Model
 
     {
         return $this->hasMany(Output::class);
+    }
+
+    public function authorizationCertificate()
+    {
+        return $this->belongsTo(AuthorizationCertificate::class);
     }
 
     public function getQntdAttribute()

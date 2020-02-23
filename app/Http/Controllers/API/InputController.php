@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\API;
 
 use App\Http\Controllers\Controller;
+use App\Models\Input;
 use Illuminate\Http\Request;
 
 class InputController extends Controller
@@ -14,7 +15,7 @@ class InputController extends Controller
      */
     public function index()
     {
-        //
+        return Input::with('product', 'user')->paginate(10);
     }
 
     /**

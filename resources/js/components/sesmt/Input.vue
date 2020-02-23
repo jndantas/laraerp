@@ -13,16 +13,24 @@
                             <thead>
                                 <tr>
                                     <th>ID</th>
+                                    <th>NF</th>
                                     <th>EPI</th>
+                                    <th>Tamanho</th>
                                     <th>Data de Entrada</th>
+                                    <th>Funcionário</th>
+                                    <th>Valor</th>
                                     <th>Qntd</th>
                                 </tr>
                             </thead>
                             <tbody>
                                 <tr v-for="input in inputs.data" :key="input.id">
                                     <td>{{input.id}}</td>
-                                    <td>{{input.product.name | upText }}</td>
-                                    <td>{{input.date}}</td>
+                                    <td>{{input.document_number}}</td>
+                                    <td>{{input.product.name }}</td>
+                                    <td>{{input.product.measure }}</td>
+                                    <td>{{input.date |myDate}}</td>
+                                    <td>{{input.user.name}}</td>
+                                    <td>{{input.value}}</td>
                                     <td>{{input.qntd}}</td>
                                 </tr>
                             </tbody>
@@ -64,7 +72,7 @@ import Swal from 'sweetalert2';
 		    },
 
             loadDatas(){
-                axios.get("api/input").then(({ data }) => (this.inputs = data));
+                axios.get(route('stock_entries.index')).then(({ data }) => (this.inputs = data));
             },
         },
         created() {

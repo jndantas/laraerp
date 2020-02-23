@@ -2,15 +2,22 @@
 
 namespace App\Models;
 
+use App\Events\StockOutputCreated;
+use App\User;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\DB;
 
 class Output extends Model
 {
+    protected $dispatchesEvents = [
+        'created' => StockOutputCreated::class
+    ];
     protected $fillable = [
         'qntd',
         'employee_id',
-        'product_id'
+        'content',
+        'product_id',
+        'user_id'
     ];
 
 	public function product()
@@ -21,6 +28,11 @@ class Output extends Model
 	public function employee()
 	{
 		return $this->belongsTo(Employee::class)->withTrashed();
+    }
+
+    public function user()
+    {
+        return $this->belongsTo(User::class);
     }
 
     public function scopeHistoric($query)

@@ -18,6 +18,7 @@
                                     <th>ID</th>
                                     <th>Nome</th>
                                     <th>Tamanho</th>
+                                    <th>CA</th>
                                     <th>Categoria</th>
                                     <th>Qntd Disponível</th>
                                     <th>Estoque mínimo</th>
@@ -30,6 +31,7 @@
                                     <td>{{product.id}}</td>
                                     <td>{{product.name | upText }}</td>
                                     <td>{{product.measure}}</td>
+                                    <td>{{product.authorization_certificate.document_number}}</td>
                                     <td>{{product.category.name}}</td>
                                     <td>
                                         <span v-if="product.stock <= 1" class="badge badge-pill badge-danger">{{ product.stock }}</span>
@@ -42,7 +44,7 @@
                                             <i class="fas fa-sign-in-alt green"></i>
                                         </a>
                                         /
-                                        <a href="#" @click="outputModal(product)">
+                                        <a href="#" :href="route('outputStock', product.id)">
                                             <i class="fas fa-sign-out-alt red"></i>
                                         </a>
                                     </td>
@@ -99,6 +101,13 @@
                             <has-error :form="form" field="stock_min"></has-error>
                         </div>
                         <div class="form-group">
+                            <select name="authorization_certificate_id" v-model="form.authorization_certificate_id" id="authorization_certificate_id" class="form-control" :class="{ 'is-invalid': form.errors.has('authorization_certificate_id') }">
+                                <option value='' >Selecione um CA</option>
+                                <option v-for='data in authorization_certificates' :value='data.id'>{{ data.document_number }}</option>
+                            </select>
+                            <has-error :form="form" field="authorization_certificate_id"></has-error>
+                        </div>
+                        <div class="form-group">
                             <select name="category_id" v-model="form.category_id" id="category_id" class="form-control" :class="{ 'is-invalid': form.errors.has('category_id') }">
                                 <option value='' >Selecione uma Categoria</option>
                                 <option v-for='data in categories' :value='data.id'>{{ data.name }}</option>
@@ -126,11 +135,13 @@ import Swal from 'sweetalert2';
                 editmode: false,
                 products: {},
                 categories: [],
+                authorization_certificates: [],
                 form: new Form({
                     id: '',
                     name : '',
                     measure : '',
                     category_id : '',
+                    authorization_certificate_id : '',
                     stock_min: ''
                 })
             }
@@ -205,6 +216,9 @@ import Swal from 'sweetalert2';
             getCategories: function(){
                 axios.get("api/getCategories").then(({ data }) => (this.categories = data));
             },
+            getCertificates: function(){
+                axios.get(route('getCertificates')).then(({ data }) => (this.authorization_certificates = data));
+            },
             createData(){
                 this.$Progress.start();
                 this.form.post(route('product.store'))
@@ -214,7 +228,7 @@ import Swal from 'sweetalert2';
 
                     Toast.fire({
                         type: 'success',
-                        title: 'Acidente Criada com sucesso !!'
+                        title: 'Produto Criado com sucesso !!'
                     })
                     this.$Progress.finish();
 
@@ -227,6 +241,7 @@ import Swal from 'sweetalert2';
         created() {
             this.loadDatas();
             this.getCategories();
+            this.getCertificates();
             Fire.$on('AfterCreate', () => {
                 this.loadDatas();
             });

@@ -33,6 +33,7 @@ Route::apiResources([
     'stock_outputs' => 'API\OutputController',
 ]);
 Route::get('getCategories', 'API\ProductController@getCategories');
+Route::get('getCertificates', 'API\ProductController@getCertificates')->name('getCertificates');
 Route::get('getEnterprises', 'API\EmployeeController@getEnterprises');
 Route::get('getPositions', 'API\EmployeeController@getPositions');
 Route::get('getTypeAccidents', 'API\AccidentController@getTypeAccidents');

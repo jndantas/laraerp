@@ -86,6 +86,10 @@ Vue.filter('myDate', function(created) {
     return moment(created).format('LL');
 });
 
+Vue.filter('myHour', function(created) {
+    return moment(created).format('LTS');
+});
+
 window.Fire = new Vue();
 
 /**

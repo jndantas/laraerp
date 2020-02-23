@@ -4,6 +4,8 @@
 
 use App\Models\Category;
 use App\Models\Enterprise;
+use App\Models\AuthorizationCertificate;
+use App\Models\Product;
 use App\User;
 use Faker\Generator as Faker;
 use Illuminate\Support\Str;
@@ -40,5 +42,13 @@ $factory->define(Enterprise::class, function (Faker $faker) {
         'name' => $faker->country,
         'title' => $faker->title,
         'document_number' => $faker->phoneNumber
+    ];
+});
+
+$factory->define(AuthorizationCertificate::class, function (Faker $faker) {
+    return [
+        'document_number' => $faker->phoneNumber,
+        'start_date' => $faker->date($format = 'Y-m-d', $max = 'now'),
+        'end_date' => $faker->date($format = 'Y-m-d', $max = 'now')
     ];
 });

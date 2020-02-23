@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\API;
 
 use App\Http\Controllers\Controller;
+use App\Models\Output;
 use Illuminate\Http\Request;
 
 class OutputController extends Controller
@@ -14,7 +15,7 @@ class OutputController extends Controller
      */
     public function index()
     {
-        //
+        return Output::with('product', 'employee', 'user')->paginate(10);
     }
 
     /**

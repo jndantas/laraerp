@@ -15,6 +15,8 @@
                                     <th>ID</th>
                                     <th>EPI</th>
                                     <th>Data de Saída</th>
+                                    <th>Hora</th>
+                                    <th>Entregue por </th>
                                     <th>Qntd</th>
                                     <th>Funcionário</th>
                                 </tr>
@@ -23,9 +25,11 @@
                                 <tr v-for="output in outputs.data" :key="output.id">
                                     <td>{{output.id}}</td>
                                     <td>{{output.product.name | upText }}</td>
-                                    <td>{{output.date}}</td>
+                                    <td>{{output.created_at | myDate}}</td>
+                                    <td>{{output.created_at | myHour}}</td>
+                                    <td>{{output.user.name| upText}}</td>
                                     <td>{{output.qntd}}</td>
-                                    <td>{{output.employee.name}}</td>
+                                    <td>{{output.employee.name | upText}}</td>
                                 </tr>
                             </tbody>
                         </table>
@@ -66,7 +70,7 @@ import Swal from 'sweetalert2';
 		    },
 
             loadDatas(){
-                axios.get("api/output").then(({ data }) => (this.outputs = data));
+                axios.get(route('stock_outputs.index')).then(({ data }) => (this.outputs = data));
             },
         },
         created() {
