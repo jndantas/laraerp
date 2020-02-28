@@ -44,7 +44,7 @@
                                             <i class="fas fa-sign-in-alt green"></i>
                                         </a>
                                         /
-                                        <a href="#" :href="route('outputStock', product.id)">
+                                        <a :href="route('outputStock', product.id)">
                                             <i class="fas fa-sign-out-alt red"></i>
                                         </a>
                                     </td>

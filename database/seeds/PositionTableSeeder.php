@@ -1,9 +1,9 @@
 <?php
 
-use App\Models\Enterprise;
+use App\Models\Position;
 use Illuminate\Database\Seeder;
 
-class EnterpriseTableSeeder extends Seeder
+class PositionTableSeeder extends Seeder
 {
     /**
      * Run the database seeds.
@@ -12,6 +12,6 @@ class EnterpriseTableSeeder extends Seeder
      */
     public function run()
     {
-        factory(Enterprise::class, 3)->create();
+        factory(Position::class, 30)->create();
     }
 }

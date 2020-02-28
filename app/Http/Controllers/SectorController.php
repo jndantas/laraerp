@@ -1,12 +1,11 @@
 <?php
 
-namespace App\Http\Controllers\API;
+namespace App\Http\Controllers;
 
-use App\Http\Controllers\Controller;
-use App\Models\Input;
+use App\Sector;
 use Illuminate\Http\Request;
 
-class InputController extends Controller
+class SectorController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -15,7 +14,17 @@ class InputController extends Controller
      */
     public function index()
     {
-        return Input::with('product', 'user')->orderBy('date', 'DESC')->paginate(10);
+        //
+    }
+
+    /**
+     * Show the form for creating a new resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function create()
+    {
+        //
     }
 
     /**
@@ -32,10 +41,21 @@ class InputController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  int  $id
+     * @param  \App\Sector  $sector
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show(Sector $sector)
+    {
+        //
+    }
+
+    /**
+     * Show the form for editing the specified resource.
+     *
+     * @param  \App\Sector  $sector
+     * @return \Illuminate\Http\Response
+     */
+    public function edit(Sector $sector)
     {
         //
     }
@@ -44,10 +64,10 @@ class InputController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
+     * @param  \App\Sector  $sector
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, Sector $sector)
     {
         //
     }
@@ -55,10 +75,10 @@ class InputController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  int  $id
+     * @param  \App\Sector  $sector
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Sector $sector)
     {
         //
     }

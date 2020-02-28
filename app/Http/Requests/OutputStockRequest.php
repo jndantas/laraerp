@@ -34,8 +34,8 @@ class OutputStockRequest extends FormRequest
             case 'POST':
             {
                 return [
-                    'id' => 'required|numeric|exists:produtos',
-                    'employee'       => 'required|numeric|exists:employees,id',
+                    'product_id' => 'required|numeric|exists:products,id',
+                    'employee_id'       => 'required|numeric|exists:employees,id',
                     'content'       => 'required',
                     'qntd'       => 'required|numeric|max:'.$max,
                 ];

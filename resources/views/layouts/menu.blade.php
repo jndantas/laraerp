@@ -22,21 +22,15 @@
                                 </a>
                                 <ul class="nav nav-treeview">
                                     <li class="nav-item">
-                                        <a href="{{route('enterprises')}}" class="nav-link" active-class="active" exact>
-                                            <i class="fas fa-building nav-icon"></i>
-                                            <p>Empresas</p>
-                                        </a>
-                                    </li>
-                                    <li class="nav-item">
                                         <a href="{{route('categories')}}" class="nav-link" active-class="active" exact>
                                             <i class="fas fa-boxes nav-icon"></i>
-                                            <p>Categorias</p>
+                                            <p>Categorias dos EPI's</p>
                                         </a>
                                     </li>
                                     <li class="nav-item">
                                         <a href="{{route('certificates')}}" class="nav-link" active-class="active" exact>
                                             <i class="fas fa-certificate nav-icon"></i>
-                                            <p>CAs</p>
+                                            <p>CA's</p>
                                         </a>
                                     </li>
 
@@ -71,18 +65,6 @@
                                     </li>
 
                                     <li class="nav-item">
-                                        <a href="{{route('positions')}}" class="nav-link" active-class="active" exact>
-                                            <i class="fas fa-user-tie nav-icon"></i>
-                                            <p>Cargos</p>
-                                        </a>
-                                    </li>
-                                    <li class="nav-item">
-                                        <a href="{{route('employees')}}" class="nav-link" active-class="active" exact>
-                                            <i class="fas fa-user-friends nav-icon"></i>
-                                            <p>Funcionários</p>
-                                        </a>
-                                    </li>
-                                    <li class="nav-item">
                                         <a href="{{route('typeaccident')}}" class="nav-link" active-class="active" exact>
                                             <i class="fas fa-car-crash nav-icon"></i>
                                             <p>Tipos de Acidentes</p>
@@ -104,6 +86,30 @@
                                         <a href="{{route('exams')}}" class="nav-link" active-class="active" exact>
                                             <i class="fas fa-clinic-medical nav-icon"></i>
                                             <p>Exames</p>
+                                        </a>
+                                    </li>
+                                </ul>
+                            </li>
+                            <li class="nav-item has-treeview">
+                                <a href="#" class="nav-link">
+                                    <i class="nav-icon fas fa-user-tie"></i>
+                                    <p>
+                                        Recursos Humanos
+                                        <i class="right fas fa-angle-left"></i>
+                                    </p>
+                                </a>
+                                <ul class="nav nav-treeview">
+                                    <li class="nav-item">
+                                        <a href="{{route('enterprises')}}" class="nav-link" active-class="active" exact>
+                                            <i class="fas fa-building nav-icon"></i>
+                                            <p>Cadastro</p>
+                                        </a>
+                                    </li>
+
+                                    <li class="nav-item">
+                                        <a href="{{route('employees')}}" class="nav-link" active-class="active" exact>
+                                            <i class="fas fa-user-friends nav-icon"></i>
+                                            <p>Funcionários</p>
                                         </a>
                                     </li>
                                 </ul>

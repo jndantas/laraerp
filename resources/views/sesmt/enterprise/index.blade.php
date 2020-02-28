@@ -10,12 +10,12 @@ Lista de Funcionários
     <div class="container-fluid">
         <div class="row mb-2">
             <div class="col-sm-6">
-                <h1>Empresas</h1>
+                <h1>Cadastro</h1>
             </div>
             <div class="col-sm-6">
                 <ol class="breadcrumb float-sm-right">
                     <li class="breadcrumb-item"><a href="{{ route('home') }}">Home</a></li>
-                    <li class="breadcrumb-item active">Funcionários</li>
+                    <li class="breadcrumb-item active">Cadastro</li>
                 </ol>
             </div>
         </div>
@@ -23,7 +23,10 @@ Lista de Funcionários
 </section>
 
 <div id="app">
-<sesmt-enterprise></sesmt-enterp>
-<vue-progress-bar></vue-progress-bar>
+        <sesmt-enterprise></sesmt-enterprise>
+        <sesmt-sector></sesmt-sector>
+        <sesmt-position></sesmt-position>
+        <vue-progress-bar></vue-progress-bar>
 </div>
+
 @endsection

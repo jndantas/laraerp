@@ -1,9 +1,9 @@
 <?php
 
-use App\Models\Enterprise;
+use App\Models\Sector;
 use Illuminate\Database\Seeder;
 
-class EnterpriseTableSeeder extends Seeder
+class SectorSeeder extends Seeder
 {
     /**
      * Run the database seeds.
@@ -12,6 +12,6 @@ class EnterpriseTableSeeder extends Seeder
      */
     public function run()
     {
-        factory(Enterprise::class, 3)->create();
+        factory(Sector::class, 30)->create();
     }
 }

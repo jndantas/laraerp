@@ -39,9 +39,9 @@ $factory->define(Category::class, function (Faker $faker) {
 
 $factory->define(Enterprise::class, function (Faker $faker) {
     return [
-        'name' => $faker->country,
-        'title' => $faker->title,
-        'document_number' => $faker->phoneNumber
+        'name' => $faker->company,
+        'title' => $faker->words(3, true),
+        'document_number' =>  $faker->cnpj
     ];
 });
 

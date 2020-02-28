@@ -14,4 +14,9 @@ class Position extends Model
     {
         return $this->hasMany(Employee::class);
     }
+
+    public function sectors()
+    {
+        return $this->belongsToMany(Sector::class);
+    }
 }

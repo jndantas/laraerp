@@ -15,7 +15,7 @@ class OutputController extends Controller
      */
     public function index()
     {
-        return Output::with('product', 'employee', 'user')->paginate(10);
+        return Output::with('product', 'employee', 'user')->orderBy('created_at', 'DESC')->paginate(10);
     }
 
     /**

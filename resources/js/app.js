@@ -139,6 +139,7 @@ Vue.component('sesmt-exam', require('./components/sesmt/Exam.vue').default);
 Vue.component('sesmt-input', require('./components/sesmt/Input.vue').default);
 Vue.component('sesmt-output', require('./components/sesmt/Output.vue').default);
 Vue.component('sesmt-position', require('./components/sesmt/Position.vue').default);
+Vue.component('sesmt-sector', require('./components/sesmt/Sector.vue').default);
 Vue.component('sesmt-product', require('./components/sesmt/Product.vue').default);
 Vue.component('sesmt-training', require('./components/sesmt/Training.vue').default);
 Vue.component('sesmt-typeaccident', require('./components/sesmt/TypeAccident.vue').default);

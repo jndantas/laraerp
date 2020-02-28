@@ -122,7 +122,7 @@ Saída de EPI's
                         <div class="form-group">
                             <label>Observações:</label>
 
-                                <textarea type="text" class="form-control @error('content') is-invalid @enderror" name="content" value="{{ old('content') }}"></textarea>
+                                <textarea type="text" class="form-control @error('content') is-invalid @enderror" name="content" rows="10" cols="30">{{ old('content') }}</textarea>
                                 @error('content')
                                 <span class="invalid-feedback" role="alert">
                                     <strong>{{ $message }}</strong>

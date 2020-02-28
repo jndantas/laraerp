@@ -12,8 +12,13 @@ class Enterprise extends Model
         'document_number'
     ];
 
+    public function sectors()
+    {
+        return $this->belongsToMany(Sector::class);
+    }
+
     public function employees()
     {
-    	return $this->hasMany(Employee::class);
+        return $this->hasMany(Employee::class);
     }
 }

@@ -22,6 +22,11 @@ class Employee extends Model
         return $this->belongsTo(Enterprise::class);
     }
 
+    public function sector()
+    {
+        return $this->belongsTo(Sector::class);
+    }
+
     public function position()
     {
         return $this->belongsTo(Position::class);

@@ -3,10 +3,10 @@
 namespace App\Http\Controllers\API;
 
 use App\Http\Controllers\Controller;
-use App\Models\Input;
+use App\Models\Sector;
 use Illuminate\Http\Request;
 
-class InputController extends Controller
+class SectorController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -15,7 +15,7 @@ class InputController extends Controller
      */
     public function index()
     {
-        return Input::with('product', 'user')->orderBy('date', 'DESC')->paginate(10);
+        return Sector::withCount('positions', 'employees')->paginate(10);
     }
 
     /**
