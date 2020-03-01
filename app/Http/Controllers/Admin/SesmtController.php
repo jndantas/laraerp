@@ -26,6 +26,12 @@ class SesmtController extends Controller
         return View('sesmt.employee.index');
     }
 
+
+    public function sector()
+    {
+        return View('sesmt.sector.index');
+    }
+
     public function enterprise()
     {
         return View('sesmt.enterprise.index');

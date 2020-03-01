@@ -51,11 +51,11 @@
         </div>
 
         <!-- Modal -->
-        <div class="modal fade" id="addNew" tabindex="-1" role="dialog" aria-labelledby="addNewLabel" aria-hidden="true">
+        <div class="modal fade" id="addNewSector" tabindex="-1" role="dialog" aria-labelledby="addNewLabel" aria-hidden="true">
             <div class="modal-dialog modal-dialog-centered" role="document">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <h5 class="modal-title" id="addNewLabel">{{ editmode ? 'Editar Cargo' : 'Novo Cargo' }}</h5>
+                        <h5 class="modal-title" id="addNewLabel">{{ editmode ? 'Editar Setor' : 'Novo Setor' }}</h5>
                         <button type="button" class="close" data-dismiss="modal" aria-label="Fechar">
                         <span aria-hidden="true">&times;</span>
                         </button>
@@ -64,15 +64,21 @@
                     <div class="modal-body">
                         <div class="form-group">
                             <input v-model="form.name" type="text" name="name"
-                            placeholder="Nome"
-                                class="form-control" :class="{ 'is-invalid': form.errors.has('name') }">
+                            placeholder="Nome" class="form-control" :class="{ 'is-invalid': form.errors.has('name') }">
                             <has-error :form="form" field="name"></has-error>
                         </div>
                         <div class="form-group">
-                            <input v-model="form.description" type="text" name="description"
-                            placeholder="Descrição"
-                                class="form-control" :class="{ 'is-invalid': form.errors.has('description') }">
-                            <has-error :form="form" field="description"></has-error>
+                                <multiselect
+                                    v-model="form.enterprise_id"
+                                    :options="enterprises.map(enterprise => enterprise.id)"
+                                    :custom-label="opt => enterprises.find(x => x.id == opt).name"
+                                    :multiple="true"
+                                    placeholder="Selecione uma ou mais"
+                                    :select-label="'Selecione'"
+                                    :deselect-label="'Selecione para remover'"
+                                    :class="{ 'is-invalid': form.errors.has('enterprise_id') }">
+                                </multiselect>
+                                <has-error :form="form" field="enterprise_id"></has-error>
                         </div>
 
                     </div>
@@ -91,18 +97,19 @@
 
 <script>
 import Swal from 'sweetalert2';
+import { Multiselect } from 'vue-multiselect';
     export default {
+    components: { Multiselect },
         data() {
             return {
                 editmode: false,
-                sectors: {
-                    employees: []
-
-                },
+                sectors: {},
+                selected: null,
+                enterprises: [],
                 form: new Form({
                     id: '',
                     name : '',
-                    description : ''
+                    enterprise_id : '',
                 })
             }
         },
@@ -112,7 +119,7 @@ import Swal from 'sweetalert2';
                     .then(response => {
                         this.sectors = response.data;
                     });
-		    },
+            },
             updateData(id){
                 this.$Progress.start();
                 this.form.put(route('sector.update', this.form.id))
@@ -130,16 +137,33 @@ import Swal from 'sweetalert2';
                     this.$Progress.fail();
                 });
             },
+            createData(){
+                this.$Progress.start();
+                this.form.post('api/sector')
+                .then(() => {
+                    Fire.$emit('AfterCreate');
+                    $('#addNew').modal('hide')
+                    Toast.fire({
+                        type: 'success',
+                        title: 'Setor Criado com sucesso !!'
+                    })
+                    this.$Progress.finish();
+
+                })
+                .catch(()=>{
+
+                })
+            },
             editModal(sector){
                 this.editmode = true;
                 this.form.reset();
-                $('#addNew').modal('show');
+                $('#addNewSector').modal('show');
                 this.form.fill(sector);
             },
             newModal(){
                 this.editmode = false;
                 this.form.reset();
-                $('#addNew').modal('show');
+                $('#addNewSector').modal('show');
             },
             deleteData(id){
                 Swal.fire({
@@ -172,27 +196,13 @@ import Swal from 'sweetalert2';
             loadDatas(){
                 axios.get(route('sector.index')).then(({ data }) => (this.sectors = data));
             },
-            createData(){
-                this.$Progress.start();
-                this.form.post(route('sector.store'))
-                .then(() => {
-                    Fire.$emit('AfterCreate');
-                    $('#addNew').modal('hide')
-
-                    Toast.fire({
-                        type: 'success',
-                        title: 'Cargo Criado com sucesso !!'
-                    })
-                    this.$Progress.finish();
-
-                })
-                .catch(()=>{
-
-                })
-            }
+            getEnterprises: function(){
+                axios.get(route('getEnterprises')).then(({ data }) => (this.enterprises = data));
+            },
         },
         created() {
             this.loadDatas();
+            this.getEnterprises();
             Fire.$on('AfterCreate', () => {
                 this.loadDatas();
             });

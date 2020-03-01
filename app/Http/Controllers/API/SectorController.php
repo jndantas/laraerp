@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\API;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\SectorRequest;
 use App\Models\Sector;
 use Illuminate\Http\Request;
 
@@ -24,9 +25,9 @@ class SectorController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(SectorRequest $request)
     {
-        //
+        return Sector::create(['name' => $request->name])->enterprises()->attach($request->enterprise_id);
     }
 
     /**
@@ -47,9 +48,10 @@ class SectorController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(SectorRequest $request, $id)
     {
-        //
+            //
+
     }
 
     /**
@@ -60,6 +62,9 @@ class SectorController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $sector = Sector::findOrFail($id);
+        $sector->enterprises()->detach($sector->id);
+        $sector->delete();
+        return ['message' => 'Deletado'];
     }
 }

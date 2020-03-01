@@ -79,7 +79,6 @@
 
                         <div class="form-group">
                             <select name="enterprise_id" v-model="form.enterprise_id" id="enterprise_id" class="form-control" :class="{ 'is-invalid': form.errors.has('enterprise_id') }">
-                                <option value="">Selecione a Empresa</option>
                                 <option v-for='data in enterprises' :value='data.id'>{{ data.name }}</option>
                             </select>
                             <has-error :form="form" field="enterprise_id"></has-error>
@@ -87,7 +86,6 @@
 
                         <div class="form-group">
                             <select name="position_id" v-model="form.position_id" id="position_id" class="form-control" :class="{ 'is-invalid': form.errors.has('position_id') }">
-                                <option value="">Selecione o Cargo</option>
                                 <option v-for='data in positions' :value='data.id'>{{ data.name }}</option>
                             </select>
                             <has-error :form="form" field="position_id"></has-error>
@@ -133,7 +131,7 @@ import Swal from 'sweetalert2';
 		    },
             updateData(id){
                 this.$Progress.start();
-                this.form.put('api/employee/'+this.form.id)
+                this.form.put(route('employee.update', this.form.id))
                 .then(() => {
                     $('#addNew').modal('hide');
                     Swal.fire(
@@ -173,10 +171,10 @@ import Swal from 'sweetalert2';
 
                     //enviar requisição para o servidor
                     if (result.value) {
-                        this.form.delete('api/employee/' + id).then(()=>{
+                        this.form.delete(route('employee.destroy', id)).then(()=>{
                                 Swal.fire(
                                     'Apagado',
-                                    'Acidente foi apagada',
+                                    'Funcionário foi apagada',
                                     'success'
                                     )
                                     Fire.$emit('AfterCreate');
@@ -188,10 +186,10 @@ import Swal from 'sweetalert2';
                     })
             },
             loadDatas(){
-                axios.get("api/employee").then(({ data }) => (this.employees = data));
+                axios.get(route('employee.index')).then(({ data }) => (this.employees = data));
             },
             getEnterprises: function(){
-                axios.get("api/getEnterprises").then(({ data }) => (this.enterprises = data));
+                axios.get(route('getEnterprises')).then(({ data }) => (this.enterprises = data));
             },
             getPositions: function(){
                 axios.get("api/getPositions").then(({ data }) => (this.positions = data));

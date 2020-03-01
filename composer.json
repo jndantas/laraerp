@@ -12,6 +12,7 @@
         "ext-gd": "*",
         "fideloper/proxy": "^4.0",
         "fzaninotto/faker": "^1.4",
+        "geekcom/validator-docs": "^3.4",
         "intervention/image": "^2.5",
         "laravel/framework": "^6.2",
         "laravel/passport": "^8.0",

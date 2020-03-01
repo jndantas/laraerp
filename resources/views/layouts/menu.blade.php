@@ -102,7 +102,19 @@
                                     <li class="nav-item">
                                         <a href="{{route('enterprises')}}" class="nav-link" active-class="active" exact>
                                             <i class="fas fa-building nav-icon"></i>
-                                            <p>Cadastro</p>
+                                            <p>Empresas</p>
+                                        </a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a href="{{route('sectors')}}" class="nav-link" active-class="active" exact>
+                                            <i class="fas fa-building nav-icon"></i>
+                                            <p>Setores</p>
+                                        </a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a href="{{route('positions')}}" class="nav-link" active-class="active" exact>
+                                            <i class="fas fa-building nav-icon"></i>
+                                            <p>Cargos</p>
                                         </a>
                                     </li>
 

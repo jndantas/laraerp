@@ -7,8 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 class Sector extends Model
 {
     protected $fillable = [
-        'name',
-        'enterprise_id'
+        'name'
     ];
 
     public function enterprises()

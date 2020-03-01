@@ -56,7 +56,7 @@
         </div>
 
         <!-- Modal -->
-        <div class="modal fade" id="addNew" tabindex="-1" role="dialog" aria-labelledby="addNewLabel" aria-hidden="true">
+        <div class="modal fade" id="addNewEnterprise" tabindex="-1" role="dialog" aria-labelledby="addNewLabel" aria-hidden="true">
             <div class="modal-dialog modal-dialog-centered" role="document">
                 <div class="modal-content">
                     <div class="modal-header">
@@ -144,13 +144,13 @@ import Swal from 'sweetalert2';
             editModal(enterprise){
                 this.editmode = true;
                 this.form.reset();
-                $('#addNew').modal('show');
+                $('#addNewEnterprise').modal('show');
                 this.form.fill(enterprise);
             },
             newModal(){
                 this.editmode = false;
                 this.form.reset();
-                $('#addNew').modal('show');
+                $('#addNewEnterprise').modal('show');
             },
             deleteEnterprise(id){
                 Swal.fire({

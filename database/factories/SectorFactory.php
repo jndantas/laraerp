@@ -9,7 +9,6 @@ use Faker\Generator as Faker;
 $factory->define(Sector::class, function (Faker $faker) {
     return [
         'name' => $faker->city,
-        'enterprise_id' => rand(1, 3),
     ];
 });
 

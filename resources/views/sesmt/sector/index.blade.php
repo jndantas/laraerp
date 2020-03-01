@@ -1,7 +1,7 @@
 @extends('layouts.master')
 
 @section('title')
-Empresas
+Setores
 @stop
 
 @section('content')
@@ -10,12 +10,12 @@ Empresas
     <div class="container-fluid">
         <div class="row mb-2">
             <div class="col-sm-6">
-                <h1>Cadastro</h1>
+                <h1>Setores</h1>
             </div>
             <div class="col-sm-6">
                 <ol class="breadcrumb float-sm-right">
                     <li class="breadcrumb-item"><a href="{{ route('home') }}">Home</a></li>
-                    <li class="breadcrumb-item active">Cadastro de Empresas</li>
+                    <li class="breadcrumb-item active">Setores</li>
                 </ol>
             </div>
         </div>
@@ -23,7 +23,7 @@ Empresas
 </section>
 
 <div id="app">
-        <sesmt-enterprise></sesmt-enterprise>
+        <sesmt-sector></sesmt-sector>
         <vue-progress-bar></vue-progress-bar>
 </div>
 

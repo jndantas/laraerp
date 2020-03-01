@@ -15,8 +15,8 @@ class CreatePositionSectorTable extends Migration
     {
         Schema::create('position_sector', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->bigInteger('position_id');
-            $table->bigInteger('sector_id');
+            $table->bigInteger('position_id')->unsigned()->onDelete('cascade');
+            $table->bigInteger('sector_id')->unsigned()->onDelete('cascade');
             $table->timestamps();
         });
     }
