@@ -36,6 +36,7 @@ Route::apiResources([
 Route::get('getCategories', 'API\ProductController@getCategories');
 Route::get('getCertificates', 'API\ProductController@getCertificates')->name('getCertificates');
 Route::get('getEnterprises', 'API\EmployeeController@getEnterprises')->name('getEnterprises');
+Route::get('getSectors', 'API\PositionController@getSectors')->name('getSectors');
 Route::get('getPositions', 'API\EmployeeController@getPositions');
 Route::get('getTypeAccidents', 'API\AccidentController@getTypeAccidents');
 Route::get('getEmployees', 'API\AccidentController@getEmployees');

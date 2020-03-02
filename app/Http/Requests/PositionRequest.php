@@ -32,8 +32,9 @@ class PositionRequest extends FormRequest
             case 'POST':
             {
                 return [
-                    'name'       => 'required|min:3',
-                    //'name'       => 'required|min:3'
+                    'name'  => 'required|min:3',
+                    'enterprise_id'=> 'required|exists:enterprises,id',
+                    'sector_id'=> 'required|exists:sectors,id'
                 ];
                 break;
             }
@@ -58,6 +59,10 @@ class PositionRequest extends FormRequest
         'id.required' => 'O campo id é obrigatorio.',
         'id.numeric' => 'O campo id deve ser numerico',
         'id.exists' => 'O campo id informado não existe',
+        'enterprise_id.required' => 'Selecione uma Empresa',
+        'enterprise_id.exists' => 'A Empresa selecionada não existe',
+        'sector_id.required' => 'Selecione um Setor',
+        'sector_id.exists' => 'O Setor selecionado não existe'
         ];
     }
 }

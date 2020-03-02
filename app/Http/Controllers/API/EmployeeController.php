@@ -24,7 +24,7 @@ class EmployeeController extends Controller
 
     public function getEnterprises()
     {
-        $data = Enterprise::select('id', 'name')->get();
+        $data = Enterprise::get();
         return response()->json($data);
     }
 

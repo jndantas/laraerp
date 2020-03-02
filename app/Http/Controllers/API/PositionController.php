@@ -5,6 +5,7 @@ namespace App\Http\Controllers\API;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\PositionRequest;
 use App\Models\Position;
+use App\Models\Sector;
 use Illuminate\Http\Request;
 
 class PositionController extends Controller
@@ -23,6 +24,13 @@ class PositionController extends Controller
         return Position::withCount('employees')->paginate(10);
     }
 
+    public function getSectors(Request $request)
+    {
+        $data = Sector::where('enterprise_id', $request->enterprise_id)->get();
+
+        return response()->json($data);
+    }
+
     /**
      * Store a newly created resource in storage.
      *
@@ -34,6 +42,8 @@ class PositionController extends Controller
         $input = $request->all();
         $position = new Position;
         $position->name = $input['name'];
+        $position->enterprise_id = $input['enterprise'];
+        $position->sector_id = $input['sector'];
         if ($request->has('description')) {
             $position->description = $input['description'];
         }

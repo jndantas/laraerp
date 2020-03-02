@@ -18,6 +18,7 @@
                                 <th>ID</th>
                                 <th>Nome</th>
                                 <th>Qntd Cargos</th>
+                                <th>Total de Funcionários</th>
                                 <th>Ações</th>
                                 </tr>
                             </thead>
@@ -28,6 +29,7 @@
                                 <td>
                                     <span v-if="sector.positions_count > 0" class="badge badge-pill badge-success">{{ sector.positions_count }}</span>
                                     <span v-else class="badge badge-pill badge-warning">0</span>
+                                <td>{{sector.employees_count}}</td>
                                 <td>
                                     <a href="#">
                                         <i class="fa fa-edit blue" @click="editModal(sector)"></i>
@@ -68,17 +70,11 @@
                             <has-error :form="form" field="name"></has-error>
                         </div>
                         <div class="form-group">
-                                <multiselect
-                                    v-model="form.enterprise_id"
-                                    :options="enterprises.map(enterprise => enterprise.id)"
-                                    :custom-label="opt => enterprises.find(x => x.id == opt).name"
-                                    :multiple="true"
-                                    placeholder="Selecione uma ou mais"
-                                    :select-label="'Selecione'"
-                                    :deselect-label="'Selecione para remover'"
-                                    :class="{ 'is-invalid': form.errors.has('enterprise_id') }">
-                                </multiselect>
-                                <has-error :form="form" field="enterprise_id"></has-error>
+                            <select name="enterprise_id" v-model="form.enterprise_id" id="enterprise_id" class="form-control" :class="{ 'is-invalid': form.errors.has('enterprise_id') }">
+                                <option value='' >Selecione uma Empresa</option>
+                                <option v-for='data in enterprises' :value='data.id'>{{ data.name }}</option>
+                            </select>
+                            <has-error :form="form" field="enterprise_id"></has-error>
                         </div>
 
                     </div>
@@ -97,14 +93,11 @@
 
 <script>
 import Swal from 'sweetalert2';
-import { Multiselect } from 'vue-multiselect';
     export default {
-    components: { Multiselect },
         data() {
             return {
                 editmode: false,
                 sectors: {},
-                selected: null,
                 enterprises: [],
                 form: new Form({
                     id: '',

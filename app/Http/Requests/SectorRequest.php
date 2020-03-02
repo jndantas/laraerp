@@ -39,8 +39,8 @@ class SectorRequest extends FormRequest
             }
             case 'PUT':
                 return [
-                    'name'=> 'required|min:3|unique:sectors,name'. $this->id ,
-                    'enterprise_id'=> 'requiredexists:enterprises,id'
+                    'name'=> 'required|min:3|unique:sectors,name,' . $this->id,
+                    'enterprise_id'=> 'required|exists:enterprises,id'
                 ];
                 break;
             case 'PATCH':

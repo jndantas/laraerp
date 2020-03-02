@@ -72,9 +72,27 @@
                         </div>
                         <div class="form-group">
                             <input v-model="form.description" type="text" name="description"
-                            placeholder="Descrição"
-                                class="form-control" :class="{ 'is-invalid': form.errors.has('description') }">
+                            placeholder="Descrição" class="form-control" :class="{ 'is-invalid': form.errors.has('description') }">
                             <has-error :form="form" field="description"></has-error>
+                        </div>
+
+                        <div class="form-group">
+                            <label>Selecione Empresa:</label>
+                            <select class='form-control' v-model='enterprise' name="enterprise_id" id="enterprise_id" @change='getSectors()' :class="{ 'is-invalid': form.errors.has('enterprise_id') }">
+                              <option value='0' >Selecione Empresa</option>
+                              <option v-for='data in enterprises' :value='data.id'>{{ data.name }}</option>
+                            </select>
+                            <has-error :form="form" field="enterprise_id"></has-error>
+                        </div>
+
+                        <div class="form-group">
+                            <label>Selecione o Setor:</label>
+                            <select class='form-control' v-model='sector' name="sector_id" id="sector_id" :class="{ 'is-invalid': form.errors.has('sector_id') }">
+                              <option value='0' >Selecione o Setor</option>
+                              <option v-for='data in sectors' :value='data.id'>{{ data.name }}</option>
+                            </select>
+                            <has-error :form="form" field="sector_id"></has-error>
+
                         </div>
 
                     </div>
@@ -97,6 +115,10 @@ import Swal from 'sweetalert2';
         data() {
             return {
                 editmode: false,
+                enterprise: 0,
+                enterprises: [],
+                sector: 0,
+                sectors: [],
                 positions: {
                     employees: []
 
@@ -104,7 +126,9 @@ import Swal from 'sweetalert2';
                 form: new Form({
                     id: '',
                     name : '',
-                    description : ''
+                    description : '',
+                    enterprise_id : '',
+                    sector_id : ''
                 })
             }
         },
@@ -115,6 +139,22 @@ import Swal from 'sweetalert2';
                         this.positions = response.data;
                     });
 		    },
+            getEnterprises: function(){
+              axios.get('/api/getEnterprises')
+              .then(function (response) {
+                 this.enterprises = response.data;
+              }.bind(this));
+
+            },
+            getSectors: function() {
+                axios.get('/api/getSectors',{
+                 params: {
+                   enterprise_id: this.enterprise
+                 }
+              }).then(function(response){
+                    this.sectors = response.data;
+                }.bind(this));
+            },
             updateData(id){
                 this.$Progress.start();
                 this.form.put('api/position/'+this.form.id)
@@ -194,6 +234,7 @@ import Swal from 'sweetalert2';
             }
         },
         created() {
+            this.getEnterprises()
             this.loadDatas();
             Fire.$on('AfterCreate', () => {
                 this.loadDatas();

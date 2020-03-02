@@ -27,7 +27,7 @@ class SectorController extends Controller
      */
     public function store(SectorRequest $request)
     {
-        return Sector::create(['name' => $request->name])->enterprises()->attach($request->enterprise_id);
+        return Sector::create($request->all());
     }
 
     /**
@@ -50,7 +50,11 @@ class SectorController extends Controller
      */
     public function update(SectorRequest $request, $id)
     {
-            //
+        $sector = Sector::findOrFail($id);
+        $sector->update($request->all());
+        $sector->save();
+        return ['message' => 'Atualizado'];
+
 
     }
 
@@ -63,7 +67,6 @@ class SectorController extends Controller
     public function destroy($id)
     {
         $sector = Sector::findOrFail($id);
-        $sector->enterprises()->detach($sector->id);
         $sector->delete();
         return ['message' => 'Deletado'];
     }

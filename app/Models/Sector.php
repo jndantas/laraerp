@@ -7,17 +7,19 @@ use Illuminate\Database\Eloquent\Model;
 class Sector extends Model
 {
     protected $fillable = [
-        'name'
+        'name',
+        'enterprise_id',
+        'sector_id'
     ];
 
-    public function enterprises()
+    public function enterprise()
     {
-        return $this->belongsToMany(Enterprise::class);
+        return $this->belongsTo(Enterprise::class);
     }
 
     public function positions()
     {
-        return $this->belongsToMany(Position::class);
+        return $this->hasMany(Position::class);
     }
 
     public function employees()

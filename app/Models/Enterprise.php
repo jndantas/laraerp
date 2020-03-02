@@ -14,7 +14,12 @@ class Enterprise extends Model
 
     public function sectors()
     {
-        return $this->belongsToMany(Sector::class);
+        return $this->hasMany(Sector::class);
+    }
+
+    public function positions()
+    {
+        return $this->hasMany(Position::class);
     }
 
     public function employees()
