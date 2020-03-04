@@ -11,6 +11,7 @@
         "php": "^7.2",
         "ext-gd": "*",
         "fideloper/proxy": "^4.0",
+        "forxer/laravel-gravatar": "^1.5",
         "fzaninotto/faker": "^1.4",
         "geekcom/validator-docs": "^3.4",
         "intervention/image": "^2.5",
