@@ -42,7 +42,9 @@ Esqueceu a senha
             <a href="{{ route('login') }}">{{ __('Login') }}</a>
         </p>
         <p class="mb-0">
-            <a href="{{ route('register') }}" class="text-center">{{ __('Registrar um novo membro') }}</a>
+            @if (Route::has('register'))
+                <a href="{{ route('register') }}" class="text-center">{{ __('Registrar um novo membro') }}</a>
+            @endif
         </p>
     </div>
     <!-- /.login-card-body -->
