@@ -78,20 +78,20 @@
 
                         <div class="form-group">
                             <label>Selecione Empresa:</label>
-                            <select class='form-control' v-model='enterprise' name="enterprise_id" id="enterprise_id" @change='getSectors()' :class="{ 'is-invalid': form.errors.has('enterprise_id') }">
-                              <option value='0' >Selecione Empresa</option>
+                            <select class='form-control' v-model='form.enterprise' name="enterprise" id="enterprise" @change='getSectors()' :class="{ 'is-invalid': form.errors.has('enterprise') }">
+                              <option value='' >Selecione Empresa</option>
                               <option v-for='data in enterprises' :value='data.id'>{{ data.name }}</option>
                             </select>
-                            <has-error :form="form" field="enterprise_id"></has-error>
+                            <has-error :form="form" field="enterprise"></has-error>
                         </div>
 
                         <div class="form-group">
                             <label>Selecione o Setor:</label>
-                            <select class='form-control' v-model='sector' name="sector_id" id="sector_id" :class="{ 'is-invalid': form.errors.has('sector_id') }">
-                              <option value='0' >Selecione o Setor</option>
+                            <select class='form-control' v-model='form.sector' name="sector" id="sector" :class="{ 'is-invalid': form.errors.has('sector') }">
+                              <option value='' >Selecione o Setor</option>
                               <option v-for='data in sectors' :value='data.id'>{{ data.name }}</option>
                             </select>
-                            <has-error :form="form" field="sector_id"></has-error>
+                            <has-error :form="form" field="sector"></has-error>
 
                         </div>
 
@@ -121,14 +121,13 @@ import Swal from 'sweetalert2';
                 sectors: [],
                 positions: {
                     employees: []
-
                 },
                 form: new Form({
                     id: '',
                     name : '',
                     description : '',
-                    enterprise_id : '',
-                    sector_id : ''
+                    enterprise : '',
+                    sector : ''
                 })
             }
         },
@@ -149,7 +148,7 @@ import Swal from 'sweetalert2';
             getSectors: function() {
                 axios.get('/api/getSectors',{
                  params: {
-                   enterprise_id: this.enterprise
+                   enterprise_id: this.form.enterprise
                  }
               }).then(function(response){
                     this.sectors = response.data;

@@ -17,6 +17,12 @@ class CreateEmployeesTable extends Migration
             $table->bigIncrements('id');
             $table->string('name');
             $table->string('document_number')->unique();
+            $table->string('cep');
+            $table->string('address');
+            $table->string('city');
+            $table->string('state');
+            $table->string('phone');
+            $table->date('admission');
             $table->bigInteger('enterprise_id')->unsigned();
             $table->foreign('enterprise_id')->references('id')->on('enterprises');
             $table->bigInteger('sector_id')->unsigned();

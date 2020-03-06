@@ -119,7 +119,7 @@
                                     </li>
 
                                     <li class="nav-item">
-                                        <a href="{{route('employees')}}" class="nav-link" active-class="active" exact>
+                                        <a href="{{route('employees.index')}}" class="nav-link" active-class="active" exact>
                                             <i class="fas fa-user-friends nav-icon"></i>
                                             <p>Funcionários</p>
                                         </a>

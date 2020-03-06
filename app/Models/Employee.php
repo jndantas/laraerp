@@ -11,7 +11,13 @@ class Employee extends Model
         'name',
         'document_number',
         'enterprise_id',
-        'position_id'
+        'position_id',
+        'cep',
+        'address',
+        'city',
+        'state',
+        'sector_id',
+        'admission'
     ];
     use SoftDeletes;
 

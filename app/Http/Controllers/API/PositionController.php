@@ -76,9 +76,8 @@ class PositionController extends Controller
         $input = $request->all();
         $position = Position::findOrFail($id);
         $position->name = $input['name'];
-        if ($request->has('description')) {
-            $position->description = $input['description'];
-        }
+        $position->description = $input['description'];
+
         $position->save();
 
         return ['message' => 'Atualizado'];

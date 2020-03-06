@@ -27,7 +27,6 @@ Route::group(['namespace'=>'Admin'], function () {
     Route::get('products', 'SesmtController@product')->name('products');
     Route::get('positions', 'SesmtController@position')->name('positions');
     Route::get('sectors', 'SesmtController@sector')->name('sectors');
-    Route::get('employees', 'SesmtController@employee')->name('employees');
     Route::get('typeaccident', 'SesmtController@typeaccident')->name('typeaccident');
     Route::get('accidents', 'SesmtController@accident')->name('accidents');
     Route::get('exams', 'SesmtController@exam')->name('exams');
@@ -41,5 +40,6 @@ Route::group(['namespace'=>'Admin'], function () {
     Route::get('outputstock/{product}', 'ProductStockController@getViewOutput')->name('outputStock');
     Route::post('inputstock', 'ProductStockController@storeInput')->name('storeInput');
     Route::post('outputstock', 'ProductStockController@storeOutput')->name('storeOutput');
+    Route::resource('employees', 'EmployeeController');
 });
 

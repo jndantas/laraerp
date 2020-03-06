@@ -4911,8 +4911,8 @@ __webpack_require__.r(__webpack_exports__);
         id: '',
         name: '',
         description: '',
-        enterprise_id: '',
-        sector_id: ''
+        enterprise: '',
+        sector: ''
       })
     };
   },
@@ -4933,7 +4933,7 @@ __webpack_require__.r(__webpack_exports__);
     getSectors: function getSectors() {
       axios.get('/api/getSectors', {
         params: {
-          enterprise_id: this.enterprise
+          enterprise_id: this.form.enterprise
         }
       }).then(function (response) {
         this.sectors = response.data;
@@ -94634,18 +94634,15 @@ var render = function() {
                               {
                                 name: "model",
                                 rawName: "v-model",
-                                value: _vm.enterprise,
-                                expression: "enterprise"
+                                value: _vm.form.enterprise,
+                                expression: "form.enterprise"
                               }
                             ],
                             staticClass: "form-control",
                             class: {
-                              "is-invalid": _vm.form.errors.has("enterprise_id")
+                              "is-invalid": _vm.form.errors.has("enterprise")
                             },
-                            attrs: {
-                              name: "enterprise_id",
-                              id: "enterprise_id"
-                            },
+                            attrs: { name: "enterprise", id: "enterprise" },
                             on: {
                               change: [
                                 function($event) {
@@ -94658,9 +94655,13 @@ var render = function() {
                                         "_value" in o ? o._value : o.value
                                       return val
                                     })
-                                  _vm.enterprise = $event.target.multiple
-                                    ? $$selectedVal
-                                    : $$selectedVal[0]
+                                  _vm.$set(
+                                    _vm.form,
+                                    "enterprise",
+                                    $event.target.multiple
+                                      ? $$selectedVal
+                                      : $$selectedVal[0]
+                                  )
                                 },
                                 function($event) {
                                   return _vm.getSectors()
@@ -94669,7 +94670,7 @@ var render = function() {
                             }
                           },
                           [
-                            _c("option", { attrs: { value: "0" } }, [
+                            _c("option", { attrs: { value: "" } }, [
                               _vm._v("Selecione Empresa")
                             ]),
                             _vm._v(" "),
@@ -94685,7 +94686,7 @@ var render = function() {
                         ),
                         _vm._v(" "),
                         _c("has-error", {
-                          attrs: { form: _vm.form, field: "enterprise_id" }
+                          attrs: { form: _vm.form, field: "enterprise" }
                         })
                       ],
                       1
@@ -94704,15 +94705,15 @@ var render = function() {
                               {
                                 name: "model",
                                 rawName: "v-model",
-                                value: _vm.sector,
-                                expression: "sector"
+                                value: _vm.form.sector,
+                                expression: "form.sector"
                               }
                             ],
                             staticClass: "form-control",
                             class: {
-                              "is-invalid": _vm.form.errors.has("sector_id")
+                              "is-invalid": _vm.form.errors.has("sector")
                             },
-                            attrs: { name: "sector_id", id: "sector_id" },
+                            attrs: { name: "sector", id: "sector" },
                             on: {
                               change: function($event) {
                                 var $$selectedVal = Array.prototype.filter
@@ -94723,14 +94724,18 @@ var render = function() {
                                     var val = "_value" in o ? o._value : o.value
                                     return val
                                   })
-                                _vm.sector = $event.target.multiple
-                                  ? $$selectedVal
-                                  : $$selectedVal[0]
+                                _vm.$set(
+                                  _vm.form,
+                                  "sector",
+                                  $event.target.multiple
+                                    ? $$selectedVal
+                                    : $$selectedVal[0]
+                                )
                               }
                             }
                           },
                           [
-                            _c("option", { attrs: { value: "0" } }, [
+                            _c("option", { attrs: { value: "" } }, [
                               _vm._v("Selecione o Setor")
                             ]),
                             _vm._v(" "),
@@ -94746,7 +94751,7 @@ var render = function() {
                         ),
                         _vm._v(" "),
                         _c("has-error", {
-                          attrs: { form: _vm.form, field: "sector_id" }
+                          attrs: { form: _vm.form, field: "sector" }
                         })
                       ],
                       1

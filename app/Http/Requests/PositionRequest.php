@@ -33,15 +33,19 @@ class PositionRequest extends FormRequest
             {
                 return [
                     'name'  => 'required|min:3',
-                    'enterprise_id'=> 'required|exists:enterprises,id',
-                    'sector_id'=> 'required|exists:sectors,id'
+                    'description'  => 'required|min:3',
+                    'enterprise'=> 'required|exists:enterprises,id',
+                    'sector'=> 'required|exists:sectors,id'
                 ];
                 break;
             }
             case 'PUT':
                 return [
                     'name'       => 'required|min:3',
-                    'id'       => 'required|numeric|exists:positions'
+                    'id'       => 'required|numeric|exists:positions',
+                    'description'  => 'required|min:3',
+                    'enterprise'=> 'required|exists:enterprises,id',
+                    'sector'=> 'required|exists:sectors,id'
                 ];
                 break;
             case 'PATCH':
@@ -55,14 +59,15 @@ class PositionRequest extends FormRequest
     public function messages(){
         return [
         'name.required' => 'O nome do Cargo é obrigatorio.',
+        'description.required' => 'Faça uma breve descrição',
         'name.min' => 'O campo name deve conter mais de 3 caracteres.',
         'id.required' => 'O campo id é obrigatorio.',
         'id.numeric' => 'O campo id deve ser numerico',
         'id.exists' => 'O campo id informado não existe',
-        'enterprise_id.required' => 'Selecione uma Empresa',
-        'enterprise_id.exists' => 'A Empresa selecionada não existe',
-        'sector_id.required' => 'Selecione um Setor',
-        'sector_id.exists' => 'O Setor selecionado não existe'
+        'enterprise.required' => 'Selecione uma Empresa',
+        'enterprise.exists' => 'A Empresa selecionada não existe',
+        'sector.required' => 'Selecione um Setor',
+        'sector.exists' => 'O Setor selecionado não existe'
         ];
     }
 }
