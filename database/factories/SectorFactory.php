@@ -18,6 +18,6 @@ $factory->define(Position::class, function (Faker $faker) {
         'name' => $faker->jobTitle,
         'description' => $faker->words(3, true),
         'enterprise_id' => rand(1, 3),
-        'sector_id' => rand(1,30)
+        'sector_id' => rand(1,10)
     ];
 });

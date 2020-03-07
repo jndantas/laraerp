@@ -5,6 +5,7 @@
 use App\Models\Category;
 use App\Models\Enterprise;
 use App\Models\AuthorizationCertificate;
+use App\Models\Employee;
 use App\Models\Product;
 use App\User;
 use Faker\Generator as Faker;
@@ -50,5 +51,23 @@ $factory->define(AuthorizationCertificate::class, function (Faker $faker) {
         'document_number' => $faker->phoneNumber,
         'start_date' => $faker->date($format = 'Y-m-d', $max = 'now'),
         'end_date' => $faker->date($format = 'Y-m-d', $max = 'now')
+    ];
+});
+
+$factory->define(Employee::class, function (Faker $faker) {
+    return [
+        'name' => $faker->name,
+        'document_number' => $faker->cpf,
+        'cep' => $faker->postcode,
+        'email' => $faker->email,
+        'address' => $faker->address,
+        'city' => $faker->city,
+        'state' => $faker->state,
+        'phone' => $faker->phone,
+        'enterprise_id' => rand(1, 3),
+        'sector_id' => rand(1,10),
+        'position_id' => rand(1,30),
+        'admission' => $faker->date($format = 'Y-m-d', $max = 'now'),
+        'resignation' => $faker->date($format = 'Y-m-d', $min = 'admission')
     ];
 });

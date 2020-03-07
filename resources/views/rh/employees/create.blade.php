@@ -74,11 +74,49 @@
                                     </ul>
                                     <div class="tab-content pt-3">
                                         <div class="tab-pane active">
-                                                <div class="row">
+                                            <div class="form-row">
                                                 <div class="form-group col-md-2">
                                                     <label>Data de admissão</label>
                                                     <input class="form-control" type="date" name="admission" placeholder="John Smith" value="{{ isset($employee) ? $employee->admission: '' }}">
                                                 </div>
+                                                <div class="form-group col-md-2">
+                                                    <label class="red">Data de demissão</label>
+                                                    <input class="form-control" type="date" name="admission" placeholder="John Smith" value="{{ isset($employee) ? $employee->admission: '' }}">
+                                                </div>
+                                                <div class="form-group col">
+                                                    <label>Empresa</label>
+                                                    <select class="form-control" id="exampleFormControlSelect1">
+                                                        <option>1</option>
+                                                        <option>2</option>
+                                                        <option>3</option>
+                                                        <option>4</option>
+                                                        <option>5</option>
+                                                    </select>
+                                                </div>
+                                                <div class="form-group col">
+                                                    <label>Setor</label>
+                                                    <select class="form-control" id="exampleFormControlSelect1">
+                                                        <option>1</option>
+                                                        <option>2</option>
+                                                        <option>3</option>
+                                                        <option>4</option>
+                                                        <option>5</option>
+                                                    </select>
+                                                </div>
+                                                <div class="form-group col">
+                                                    <label>Cargo</label>
+                                                    <select class="form-control" id="exampleFormControlSelect1">
+                                                        <option>1</option>
+                                                        <option>2</option>
+                                                        <option>3</option>
+                                                        <option>4</option>
+                                                        <option>5</option>
+                                                    </select>
+                                                    </div>
+                                                </div>
+
+                                                <div class="form-row">
+
                                                 <div class="form-group col-md-4">
                                                     <label>Nome Completo</label>
                                                     <input class="form-control" type="text" name="name" placeholder="John Smith" value="{{ isset($employee) ? $employee->name: '' }}">
@@ -87,11 +125,11 @@
                                                     <label>CPF</label>
                                                     <input class="form-control" type="string" name="document_number" placeholder="798.174.898-30" value="{{ isset($document_number) ? $employee->email: '' }}">
                                                 </div>
-                                                <div class="form-group col-md-2">
+                                                <div class="form-group col-md-3">
                                                     <label>Email</label>
                                                     <input class="form-control" type="email" name="email" placeholder="employee@example.com" value="{{ isset($employee) ? $employee->email: '' }}">
                                                 </div>
-                                                <div class="form-group col-md-2">
+                                                <div class="form-group col-md-3">
                                                     <label>Telefone</label>
                                                     <input class="form-control" type="text" name="phone" placeholder="" value="{{ isset($employee) ? $employee->phone: '' }}">
                                                 </div>
