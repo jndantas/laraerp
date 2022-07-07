@@ -29,7 +29,7 @@
         "admin-lte": "^3.0.1",
         "datatables.net-bs4": "^1.10.20",
         "laravel-vue-pagination": "^2.3.1",
-        "moment": "^2.24.0",
+        "moment": "^2.29.4",
         "select2": "^4.0.13",
         "sweetalert2": "^9.5.3",
         "vform": "^1.0.1",
